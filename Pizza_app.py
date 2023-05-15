@@ -137,6 +137,8 @@ class RecipesPopup(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet("background-color: #5D7064;")
+        font = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
+        bakerie = QFontDatabase.applicationFontFamilies(font)
         slidingStacked = SlidingStackedWidget()
         label_neapol = QLabel("Neapolitanska", alignment=QtCore.Qt.AlignCenter)
         label_ameryka = QLabel("Amerykańska", alignment=QtCore.Qt.AlignCenter)
@@ -145,8 +147,14 @@ class RecipesPopup(QMainWindow):
         slidingStacked.addWidget(label_ameryka)
         slidingStacked.addWidget(label_rzym)
 
-        button_prev = QPushButton("Poprzednia", pressed=slidingStacked.slideInPrev)
-        button_next = QPushButton("Następna", pressed=slidingStacked.slideInNext)
+        button_prev = QPushButton("Poprzednia")
+        button_prev.clicked.connect(slidingStacked.slideInPrev)
+        #button_prev.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        button_prev.setFont(QFont(bakerie[0], 15))
+        button_next = QPushButton("Następna")
+        button_next.clicked.connect(slidingStacked.slideInNext)
+        #button_next.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        button_next.setFont(QFont(bakerie[0], 15))
 
         hlay = QHBoxLayout()
         hlay.addWidget(button_prev)
@@ -157,6 +165,56 @@ class RecipesPopup(QMainWindow):
         lay = QVBoxLayout(central_widget)
         lay.addLayout(hlay)
         lay.addWidget(slidingStacked)
+
+        sec_lay = QHBoxLayout()
+        button_main = QPushButton("Główne")
+        button_main.setFont(QFont(bakerie[0], 15))
+        button_main.clicked.connect(self.close)
+        button_main.clicked.connect(self.main_popup)
+        sec_lay.addWidget(button_main)
+        sec_lay.setAlignment(Qt.AlignCenter)
+        lay.addLayout(sec_lay)
+
+        sizegrip = QSizeGrip(central_widget)
+        sizegrip.setStyleSheet("border: 1px solid black;")
+        lay.addWidget(sizegrip, 0, QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
+        central_widget.setLayout(lay)
+
+    def main_popup(self):
+        self.w = MainPopup()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
+
+class MainPopup(QMainWindow):
+    """
+    Create pop up window with main app funcionality.
+    """
+    def __init__(self):
+        super().__init__()
+        self.setStyleSheet("background-color: #5D7064;")
+        self.setMinimumSize(150, 60)
+
+        font1 = QFontDatabase.addApplicationFont("anta-regular.ttf")
+        anta = QFontDatabase.applicationFontFamilies(font1)
+
+        label = QLabel("Tu bedzie głowna część apki. Inputy dla użytkownika i wypluwanie wyników.")
+        label.setWordWrap(True)  # zawija tekst
+        pagelayout = QVBoxLayout()  # to jeszcze mozna zmienic
+        label.setFont(QFont(anta[0], 40))
+        label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        label.setScaledContents(True)  # no nie dziala gowno, mialo robic ze font zmienia wielkosc przy rozciaganiu okna
+        label.setAlignment(QtCore.Qt.AlignCenter)
+        pagelayout.addWidget(label)
+
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+        central_widget.setLayout(pagelayout)
+
+        sizegrip = QSizeGrip(central_widget)
+        sizegrip.setStyleSheet("border: 1px solid black;")
+        pagelayout.addWidget(sizegrip, 0,
+                      QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
+        central_widget.setLayout(pagelayout)
 
 class InstructionsPopup(QMainWindow):
     """
@@ -183,6 +241,12 @@ class InstructionsPopup(QMainWindow):
         self.setCentralWidget(central_widget)
         central_widget.setLayout(pagelayout)
 
+        sizegrip = QSizeGrip(central_widget)
+        sizegrip.setStyleSheet("border: 1px solid black;")
+        pagelayout.addWidget(sizegrip, 0,
+                      QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
+        central_widget.setLayout(pagelayout)
+
 class MainWindow(QMainWindow):
     """
     Main window of application. (troche  burdel, wszystko w jednym, mozna rozdzielic wyglad i funkcjonalnosc na fnkcje osobne)
@@ -202,6 +266,7 @@ class MainWindow(QMainWindow):
 
         pagelayout = QVBoxLayout()
         label = QLabel("Super Pizzowa Aplikacja") #jak to po polsku ladnie napisac to ja nie mam pojecia xd welcome to pizza app
+        label.setWordWrap(True)
         label.setFont(QFont(bakerie[0], 40))
         label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         label.setScaledContents(True) #no nie dziala gowno
@@ -219,6 +284,7 @@ class MainWindow(QMainWindow):
         btn = QPushButton('Główne')
         btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         btn.setFont(QFont(bakerie[0], 20))
+        btn.clicked.connect(self.main_popup)
         pagelayout.addWidget(btn)
 
         btn = QPushButton('Jak to działa?')
@@ -251,6 +317,11 @@ class MainWindow(QMainWindow):
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
+    def main_popup(self):
+        self.w = MainPopup()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
+
     def instructions_popup(self):
         """
         Display popup window with app instructions.
@@ -269,12 +340,17 @@ class MainWindow(QMainWindow):
         qr.moveCenter(cp)
         self.move(qr.topLeft())
 
+    def closeEvent(self, event):
+        QApplication.closeAllWindows()
+        event.accept()
+
 def main():
     App = QApplication(sys.argv)
     window = MainWindow()
     qtmodern.styles.dark(App)
     mw = qtmodern.windows.ModernWindow(window)
     mw.show()
+    App.aboutToQuit.connect(window.closeEvent)
     sys.exit(App.exec())
 
 
