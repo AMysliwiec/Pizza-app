@@ -299,10 +299,19 @@ class MainNeapol(QMainWindow):
 
         pagelayout = QVBoxLayout()
 
+        hbox_tryb = QHBoxLayout()
+        lbl_tryb = QLabel("Tryb pieczenia")
+        lbl_tryb.setFont(QFont(anta[0], 15))
+        lbl_tryb.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        lbl_tryb.setScaledContents(
+            True)  # no nie dziala gowno, mialo robic ze font zmienia wielkosc przy rozciaganiu okna
+        lbl_tryb.setAlignment(QtCore.Qt.AlignLeft)
+        hbox_tryb.addWidget(lbl_tryb)
         self.toggle_button = QPushButton("Termoobieg", self)
         self.toggle_button.setCheckable(True)
         self.toggle_button.clicked.connect(self.change_toggle)
-        pagelayout.addWidget(self.toggle_button)
+        hbox_tryb.addWidget(self.toggle_button)
+        pagelayout.addLayout(hbox_tryb)
 
         hbox_temp = QHBoxLayout()
         lbl_temp = QLabel("Maksymalna temperatura")
@@ -310,7 +319,7 @@ class MainNeapol(QMainWindow):
         lbl_temp.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         lbl_temp.setScaledContents(
             True)  # no nie dziala gowno, mialo robic ze font zmienia wielkosc przy rozciaganiu okna
-        lbl_temp.setAlignment(QtCore.Qt.AlignCenter)
+        lbl_temp.setAlignment(QtCore.Qt.AlignLeft)
         hbox_temp.addWidget(lbl_temp)
         
         hbox_srednica = QHBoxLayout()
@@ -318,7 +327,7 @@ class MainNeapol(QMainWindow):
         lbl_srednica.setFont(QFont(anta[0], 15))
         lbl_srednica.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         lbl_srednica.setScaledContents(True)  # no nie dziala gowno, mialo robic ze font zmienia wielkosc przy rozciaganiu okna
-        lbl_srednica.setAlignment(QtCore.Qt.AlignCenter)
+        lbl_srednica.setAlignment(QtCore.Qt.AlignLeft)
         hbox_srednica.addWidget(lbl_srednica)
 
         sld_srednica = QSlider(Qt.Orientation.Horizontal, self)
