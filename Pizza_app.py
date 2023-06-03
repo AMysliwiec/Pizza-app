@@ -16,6 +16,7 @@ import sys
 from PyQt5.QtGui import QFont, QFontDatabase
 from PyQt5.QtWidgets import QDesktopWidget
 import PyQt5.QtGui
+from PyQt5.QtCore import QCoreApplication
 
 #https://stackoverflow.com/questions/52596386/slide-qstackedwidget-page slide pages
 class SlidingStackedWidget(QStackedWidget):
@@ -140,7 +141,7 @@ class RecipesPopup(QMainWindow):
         font = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
         bakerie = QFontDatabase.applicationFontFamilies(font)
         slidingStacked = SlidingStackedWidget()
-        label_neapol = QLabel("Neapolitanska", alignment=QtCore.Qt.AlignCenter)
+        label_neapol = QLabel("Neapolitańska", alignment=QtCore.Qt.AlignCenter)
         label_ameryka = QLabel("Amerykańska", alignment=QtCore.Qt.AlignCenter)
         label_rzym = QLabel("Rzymska", alignment=QtCore.Qt.AlignCenter)
         slidingStacked.addWidget(label_neapol)
@@ -195,11 +196,80 @@ class MainPopup(QMainWindow):
         self.setMinimumSize(150, 60)
 
         font1 = QFontDatabase.addApplicationFont("anta-regular.ttf")
+        font2 = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
         anta = QFontDatabase.applicationFontFamilies(font1)
+        bakerie = QFontDatabase.applicationFontFamilies(font2)
 
-        label = QLabel("Tu bedzie głowna część apki. Inputy dla użytkownika i wypluwanie wyników.")
+        label = QLabel("Wybierz rodzaj pizzy.")
         label.setWordWrap(True)  # zawija tekst
         pagelayout = QVBoxLayout()  # to jeszcze mozna zmienic
+        label.setFont(QFont(anta[0], 40))
+        label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        label.setScaledContents(True)  # no nie dziala gowno, mialo robic ze font zmienia wielkosc przy rozciaganiu okna
+        label.setAlignment(QtCore.Qt.AlignCenter)
+        pagelayout.addWidget(label)
+
+        btn_neapol = QPushButton("Neapolitańska")
+        btn_neapol.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)  # rozszerza sie przycisk jak rozszerzamy
+        btn_neapol.setFont(QFont(bakerie[0], 20))
+        btn_neapol.clicked.connect(self.neapol)
+        btn_neapol.clicked.connect(self.close)
+        pagelayout.addWidget(btn_neapol)
+
+        btn_ameryka = QPushButton("Amerykańska")
+        btn_ameryka.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)  # rozszerza sie przycisk jak rozszerzamy
+        btn_ameryka.setFont(QFont(bakerie[0], 20))
+        btn_ameryka.clicked.connect(self.ameryka)
+        btn_ameryka.clicked.connect(self.close)
+        pagelayout.addWidget(btn_ameryka)
+
+        btn_rzym = QPushButton("Rzymska")
+        btn_rzym.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)  # rozszerza sie przycisk jak rozszerzamy
+        btn_rzym.setFont(QFont(bakerie[0], 20))
+        btn_rzym.clicked.connect(self.rzym)
+        btn_rzym.clicked.connect(self.close)
+        pagelayout.addWidget(btn_rzym)
+
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+        central_widget.setLayout(pagelayout)
+
+        sizegrip = QSizeGrip(central_widget)
+        sizegrip.setStyleSheet("border: 1px solid black;")
+        pagelayout.addWidget(sizegrip, 0,
+                      QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
+        central_widget.setLayout(pagelayout)
+
+    def neapol(self):
+        self.w = MainNeapol()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
+
+    def rzym(self):
+        self.w = MainRzym()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
+
+    def ameryka(self):
+        self.w = MainAmeryka()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
+
+class InstructionsPopup(QMainWindow):
+    """
+    Create pop up window with app's instructions.
+    """
+    def __init__(self):
+        super().__init__()
+        self.setStyleSheet("background-color: #5D7064;")
+        self.setMinimumSize(150, 60)
+
+        font1 = QFontDatabase.addApplicationFont("anta-regular.ttf")
+        anta = QFontDatabase.applicationFontFamilies(font1)
+
+        label = QLabel("Tu bedą instrukcje jak używać apki")
+        label.setWordWrap(True) #zawija tekst
+        pagelayout = QVBoxLayout() #to jeszcze mozna zmienic
         label.setFont(QFont(anta[0], 40))
         label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         label.setScaledContents(True)  # no nie dziala gowno, mialo robic ze font zmienia wielkosc przy rozciaganiu okna
@@ -216,10 +286,111 @@ class MainPopup(QMainWindow):
                       QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
         central_widget.setLayout(pagelayout)
 
-class InstructionsPopup(QMainWindow):
-    """
-    Create pop up window with app's instructions.
-    """
+class MainNeapol(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setStyleSheet("background-color: #5D7064;")
+        self.setMinimumSize(150, 60)
+
+        font1 = QFontDatabase.addApplicationFont("anta-regular.ttf")
+        font2 = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
+        anta = QFontDatabase.applicationFontFamilies(font1)
+        bakerie = QFontDatabase.applicationFontFamilies(font2)
+
+        pagelayout = QVBoxLayout()
+
+        self.toggle_button = QPushButton("Termoobieg", self)
+        self.toggle_button.setCheckable(True)
+        self.toggle_button.clicked.connect(self.change_toggle)
+        pagelayout.addWidget(self.toggle_button)
+
+        hbox_temp = QHBoxLayout()
+        lbl_temp = QLabel("Maksymalna temperatura")
+        lbl_temp.setFont(QFont(anta[0], 15))
+        lbl_temp.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        lbl_temp.setScaledContents(
+            True)  # no nie dziala gowno, mialo robic ze font zmienia wielkosc przy rozciaganiu okna
+        lbl_temp.setAlignment(QtCore.Qt.AlignCenter)
+        hbox_temp.addWidget(lbl_temp)
+        
+        hbox_srednica = QHBoxLayout()
+        lbl_srednica = QLabel("Średnica")
+        lbl_srednica.setFont(QFont(anta[0], 15))
+        lbl_srednica.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        lbl_srednica.setScaledContents(True)  # no nie dziala gowno, mialo robic ze font zmienia wielkosc przy rozciaganiu okna
+        lbl_srednica.setAlignment(QtCore.Qt.AlignCenter)
+        hbox_srednica.addWidget(lbl_srednica)
+
+        sld_srednica = QSlider(Qt.Orientation.Horizontal, self)
+        sld_srednica.setRange(20, 40)
+        # nwm jak ustawic zeby to przesuwajace sie niebiezkie bylo innego koloru
+        sld_srednica.setPageStep(1)
+        sld_srednica.valueChanged.connect(self.updateLabel1)
+
+        sld_temp = QSlider(Qt.Orientation.Horizontal, self)
+        sld_temp.setRange(180, 280)
+        # nwm jak ustawic zeby to przesuwajace sie niebiezkie bylo innego koloru
+        sld_temp.setPageStep(5)
+        sld_temp.valueChanged.connect(self.updateLabel2)
+
+        self.lbl_slider_sr = QLabel('0', self)
+        self.lbl_slider_sr.setAlignment(Qt.AlignmentFlag.AlignCenter |
+                                Qt.AlignmentFlag.AlignVCenter)
+        self.lbl_slider_sr.setMinimumWidth(80)
+        self.lbl_slider_sr.setFont(QFont(anta[0], 10))
+
+        self.lbl_slider_temp = QLabel('180', self)
+        self.lbl_slider_temp.setAlignment(Qt.AlignmentFlag.AlignCenter |
+                                        Qt.AlignmentFlag.AlignVCenter)
+        self.lbl_slider_temp.setMinimumWidth(80)
+        self.lbl_slider_temp.setFont(QFont(anta[0], 10))
+        
+        hbox_srednica.addWidget(sld_srednica)
+        hbox_srednica.addSpacing(15)
+        hbox_srednica.addWidget(self.lbl_slider_sr)
+        pagelayout.addLayout(hbox_srednica)
+
+        hbox_temp.addWidget(sld_temp)
+        hbox_temp.addSpacing(15)
+        hbox_temp.addWidget(self.lbl_slider_temp)
+        pagelayout.addLayout(hbox_temp)
+
+        btn = QPushButton("Wróć")
+        btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        btn.setFont(QFont(bakerie[0], 20))
+        btn.clicked.connect(self.close)
+        # btn.cliked.connect(self.go_back) #nwm czemu to nie dziala
+        pagelayout.addWidget(btn)
+
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+        central_widget.setLayout(pagelayout)
+
+        sizegrip = QSizeGrip(central_widget)
+        sizegrip.setStyleSheet("border: 1px solid black;")
+        pagelayout.addWidget(sizegrip, 0,
+                      QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
+        central_widget.setLayout(pagelayout)
+
+    def updateLabel1(self, value):
+        self.lbl_slider_sr.setText(str(value))
+
+    def updateLabel2(self, value):
+        self.lbl_slider_temp.setText(str(value))
+
+    def change_toggle(self):
+        if self.toggle_button.isChecked():
+            self.toggle_button.setText("Góra-dół")
+        else:
+            self.toggle_button.setText("Termoobieg")
+        #mozna jeszcze pomyslec czy chcemy zmieniac jego kolor
+
+    def go_back(self):
+        self.w = MainPopup()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
+
+class MainRzym(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet("background-color: #5D7064;")
@@ -228,7 +399,35 @@ class InstructionsPopup(QMainWindow):
         font1 = QFontDatabase.addApplicationFont("anta-regular.ttf")
         anta = QFontDatabase.applicationFontFamilies(font1)
 
-        label = QLabel("Tu bedą instrukcje jak używać apki")
+        label = QLabel("Tu beda inputy odnosnie rzymskiej")
+        label.setWordWrap(True) #zawija tekst
+        pagelayout = QVBoxLayout() #to jeszcze mozna zmienic
+        label.setFont(QFont(anta[0], 40))
+        label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        label.setScaledContents(True)  # no nie dziala gowno, mialo robic ze font zmienia wielkosc przy rozciaganiu okna
+        label.setAlignment(QtCore.Qt.AlignCenter)
+        pagelayout.addWidget(label)
+
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+        central_widget.setLayout(pagelayout)
+
+        sizegrip = QSizeGrip(central_widget)
+        sizegrip.setStyleSheet("border: 1px solid black;")
+        pagelayout.addWidget(sizegrip, 0,
+                      QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
+        central_widget.setLayout(pagelayout)
+
+class MainAmeryka(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setStyleSheet("background-color: #5D7064;")
+        self.setMinimumSize(150, 60)
+
+        font1 = QFontDatabase.addApplicationFont("anta-regular.ttf")
+        anta = QFontDatabase.applicationFontFamilies(font1)
+
+        label = QLabel("Tu beda inputy odnosnie amerykanskiej")
         label.setWordWrap(True) #zawija tekst
         pagelayout = QVBoxLayout() #to jeszcze mozna zmienic
         label.setFont(QFont(anta[0], 40))
