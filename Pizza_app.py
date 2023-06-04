@@ -136,7 +136,7 @@ class RecipesPopup(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.setStyleSheet("background-color: {};".format(back_color))
+        self.setStyleSheet(f"background-color: {back_color};")
         self.setMinimumSize(200, 700)
         self.center()
 
@@ -228,7 +228,7 @@ class MainPopup(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.setStyleSheet("background-color: {};".format(back_color))
+        self.setStyleSheet(f"background-color: {back_color};")
         self.setMinimumSize(200, 700)
         self.center()
 
@@ -310,7 +310,7 @@ class InstructionsPopup(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.setStyleSheet("background-color: {};".format(back_color))
+        self.setStyleSheet(f"background-color: {back_color};")
         self.setMinimumSize(200, 700)
         self.center()
         font2 = QFontDatabase.addApplicationFont(bakerie_font)
@@ -363,7 +363,7 @@ class InstructionsPopup(QMainWindow):
 class MainNeapol(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setStyleSheet("background-color: {};".format(back_color))
+        self.setStyleSheet(f"background-color: {back_color};")
         self.setMinimumSize(200, 700)
         self.center()
 
@@ -383,22 +383,22 @@ class MainNeapol(QMainWindow):
         lbl_tryb.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         pagelayout.addWidget(lbl_tryb, 1, 0)
 
-        self.toggle_button = QPushButton("Termoobieg", self)
-        self.toggle_button.setCheckable(True)
-        self.toggle_button.setFont(QFont(anta[0], 9))
-        self.toggle_button.clicked.connect(self.change_toggle)
-        pagelayout.addWidget(self.toggle_button, 1, 1, alignment=Qt.AlignCenter)
+        self.cb = QComboBox()
+        self.cb.addItems(tryby)
+        self.cb.setFont(QFont(anta[0], 9))
+        self.cb.setStyleSheet(f"selection-background-color: {select_color};")
+        pagelayout.addWidget(self.cb, 1, 1)
 
         lbl_srednica = QLabel("Średnica")
         lbl_srednica.setFont(QFont(anta[0], 15))
         lbl_srednica.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         pagelayout.addWidget(lbl_srednica, 2, 0)
 
-        sld_srednica = QSlider(Qt.Orientation.Horizontal, self)
-        sld_srednica.setRange(20, 40)
-        sld_srednica.setPageStep(1)
-        sld_srednica.valueChanged.connect(self.updateLabel1)
-        pagelayout.addWidget(sld_srednica, 2, 1)
+        self.sld_srednica = QSlider(Qt.Orientation.Horizontal, self)
+        self.sld_srednica.setRange(20, 40)
+        self.sld_srednica.setPageStep(1)
+        self.sld_srednica.valueChanged.connect(self.updateLabel1)
+        pagelayout.addWidget(self.sld_srednica, 2, 1)
 
         self.lbl_slider_sr = QLabel('20', self)
         self.lbl_slider_sr.setAlignment(Qt.AlignmentFlag.AlignCenter |
@@ -480,13 +480,6 @@ class MainNeapol(QMainWindow):
     def updateLabel2(self, value):
         self.lbl_slider_temp.setText(str(value))
 
-    def change_toggle(self):
-        if self.toggle_button.isChecked():
-            self.toggle_button.setText("Góra-dół")
-        else:
-            self.toggle_button.setText("Termoobieg")
-        # mozna jeszcze pomyslec czy chcemy zmieniac jego kolor
-
     def recipes_popup(self):
         self.w = RecipesPopup()
         self.mw = qtmodern.windows.ModernWindow(self.w)
@@ -504,7 +497,9 @@ class MainNeapol(QMainWindow):
 
     def policz(self):
         temp = self.sld_temp.value()
-        wynik = funkcja(temp)
+        d = self.sld_srednica.value()
+        tryb = self.cb.currentText()
+        wynik = neapolitanska(temp, d, tryb)
         self.label_result.setText(f"Optymalny czas pieczenia to: {wynik}")
 
     def center(self):
@@ -520,7 +515,7 @@ class MainNeapol(QMainWindow):
 class MainRzym(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setStyleSheet("background-color: {};".format(back_color))
+        self.setStyleSheet(f"background-color: {back_color};")
         self.setMinimumSize(200, 700)
         self.center()
 
@@ -540,11 +535,11 @@ class MainRzym(QMainWindow):
         lbl_tryb.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         pagelayout.addWidget(lbl_tryb, 2, 0)
 
-        self.cb = QComboBox()
-        self.cb.addItems(tryby)
-        self.cb.setFont(QFont(anta[0], 9))
-        self.cb.setStyleSheet("selection-background-color: {};".format(select_color))
-        pagelayout.addWidget(self.cb, 2, 1)
+        self.toggle_button = QPushButton("Termoobieg", self)
+        self.toggle_button.setCheckable(True)
+        self.toggle_button.setFont(QFont(anta[0], 9))
+        self.toggle_button.clicked.connect(self.change_toggle)
+        pagelayout.addWidget(self.toggle_button, 2, 1, alignment=Qt.AlignCenter)
 
         lbl_temp = QLabel("Maksymalna temperatura")
         lbl_temp.setWordWrap(True)
@@ -555,7 +550,9 @@ class MainRzym(QMainWindow):
         self.sld_temp = QSlider(Qt.Orientation.Horizontal, self)
         self.sld_temp.setRange(180, 280)
         self.sld_temp.setPageStep(5)
+        self.sld_temp.setStyleSheet(temp_bar)
         self.sld_temp.valueChanged.connect(self.updateLabeltemp)
+        self.sld_temp.resize(self.sld_temp.sizeHint())
         pagelayout.addWidget(self.sld_temp, 3, 1)
 
         self.lbl_slider_temp = QLabel('180', self)
@@ -628,10 +625,17 @@ class MainRzym(QMainWindow):
         self.mw.show()
 
     def policz(self):
-        tryb = self.cb.currentText()
+        tryb = self.toggle_button.text()
         temp = self.sld_temp.value()
-        wynik = funkcja(temp, tryb)
+        wynik = rzymska(temp, 30, tryb)
         self.label_result.setText(f"Optymalny czas pieczenia to: {wynik}")
+
+    def change_toggle(self):
+        if self.toggle_button.isChecked():
+            self.toggle_button.setText("Góra-dół")
+        else:
+            self.toggle_button.setText("Termoobieg")
+        # mozna jeszcze pomyslec czy chcemy zmieniac jego kolor
 
     def updateLabeltemp(self, value):
         self.lbl_slider_temp.setText(str(value))
@@ -649,7 +653,7 @@ class MainRzym(QMainWindow):
 class MainAmeryka(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setStyleSheet("background-color: {};".format(back_color))
+        self.setStyleSheet(f"background-color: {back_color};")
         self.setMinimumSize(200, 700)
         self.center()
 
@@ -669,11 +673,11 @@ class MainAmeryka(QMainWindow):
         lbl_tryb.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         pagelayout.addWidget(lbl_tryb, 2, 0)
 
-        self.cb = QComboBox()
-        self.cb.addItems(tryby)
-        self.cb.setFont(QFont(anta[0], 9))
-        self.cb.setStyleSheet("selection-background-color: {};".format(select_color))
-        pagelayout.addWidget(self.cb, 2, 1)
+        self.toggle_button = QPushButton("Termoobieg", self)
+        self.toggle_button.setCheckable(True)
+        self.toggle_button.setFont(QFont(anta[0], 9))
+        self.toggle_button.clicked.connect(self.change_toggle)
+        pagelayout.addWidget(self.toggle_button, 2, 1, alignment=Qt.AlignCenter)
 
         lbl_temp = QLabel("Maksymalna temperatura")
         lbl_temp.setWordWrap(True)
@@ -747,9 +751,9 @@ class MainAmeryka(QMainWindow):
         self.mw.show()
 
     def policz(self):
-        tryb = self.cb.currentText()
+        tryb = self.toggle_button.text()
         temp = self.sld_temp.value()
-        wynik = funkcja(temp, tryb)
+        wynik = amerykanska(temp, 30, tryb)
         self.label_result.setText(f"Optymalny czas pieczenia to: {wynik}")
 
     def go_back(self):
@@ -761,6 +765,13 @@ class MainAmeryka(QMainWindow):
         self.w = MainWindow()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
+
+    def change_toggle(self):
+        if self.toggle_button.isChecked():
+            self.toggle_button.setText("Góra-dół")
+        else:
+            self.toggle_button.setText("Termoobieg")
+        # mozna jeszcze pomyslec czy chcemy zmieniac jego kolor
 
     def updateLabeltemp(self, value):
         self.lbl_slider_temp.setText(str(value))
@@ -782,7 +793,7 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.setStyleSheet("background-color: {};".format(back_color))  # kolor/zdj tła apki
+        self.setStyleSheet(f"background-color: {back_color};")  # kolor/zdj tła apki
 
         # nie daje tytulu apki tym windowsettitle bo nie da sie chyba zmienic fontu i jest brzydkie
         self.setMinimumSize(200, 700)
