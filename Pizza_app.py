@@ -11,6 +11,7 @@ from PyQt5.QtGui import QFont, QFontDatabase
 from PyQt5.QtWidgets import QDesktopWidget
 import PyQt5.QtGui
 from PyQt5.QtCore import QCoreApplication
+from constant import *
 
 
 # https://stackoverflow.com/questions/52596386/slide-qstackedwidget-page slide pages
@@ -135,11 +136,11 @@ class RecipesPopup(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.setStyleSheet("background-color: #5D7064;")
+        self.setStyleSheet("background-color: {};".format(back_color))
         self.setMinimumSize(200, 700)
         self.center()
 
-        font = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
+        font = QFontDatabase.addApplicationFont(bakerie_font)
         bakerie = QFontDatabase.applicationFontFamilies(font)
         self.slidingStacked = SlidingStackedWidget()
         label_neapol = QLabel("Neapolitańska", alignment=QtCore.Qt.AlignCenter)
@@ -214,12 +215,12 @@ class MainPopup(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.setStyleSheet("background-color: #5D7064;")
+        self.setStyleSheet("background-color: {};".format(back_color))
         self.setMinimumSize(200, 700)
         self.center()
 
-        font1 = QFontDatabase.addApplicationFont("anta-regular.ttf")
-        font2 = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
+        font1 = QFontDatabase.addApplicationFont(anta_font)
+        font2 = QFontDatabase.addApplicationFont(bakerie_font)
         anta = QFontDatabase.applicationFontFamilies(font1)
         bakerie = QFontDatabase.applicationFontFamilies(font2)
 
@@ -296,11 +297,11 @@ class InstructionsPopup(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.setStyleSheet("background-color: #5D7064;")
+        self.setStyleSheet("background-color: {};".format(back_color))
         self.setMinimumSize(200, 700)
         self.center()
 
-        font1 = QFontDatabase.addApplicationFont("anta-regular.ttf")
+        font1 = QFontDatabase.addApplicationFont(anta_font)
         anta = QFontDatabase.applicationFontFamilies(font1)
 
         label = QLabel("Tu bedą instrukcje jak używać apki")
@@ -331,15 +332,16 @@ class InstructionsPopup(QMainWindow):
         qr.moveCenter(cp)
         self.move(qr.topLeft())
 
+
 class MainNeapol(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setStyleSheet("background-color: #5D7064;")
+        self.setStyleSheet("background-color: {};".format(back_color))
         self.setMinimumSize(200, 700)
         self.center()
 
-        font1 = QFontDatabase.addApplicationFont("anta-regular.ttf")
-        font2 = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
+        font1 = QFontDatabase.addApplicationFont(anta_font)
+        font2 = QFontDatabase.addApplicationFont(bakerie_font)
         anta = QFontDatabase.applicationFontFamilies(font1)
         bakerie = QFontDatabase.applicationFontFamilies(font2)
         pagelayout = QGridLayout()
@@ -376,7 +378,7 @@ class MainNeapol(QMainWindow):
                                         Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_sr.setMinimumWidth(80)
         self.lbl_slider_sr.setFont(QFont(anta[0], 10))
-        pagelayout.addWidget(self.lbl_slider_sr, 2,2)
+        pagelayout.addWidget(self.lbl_slider_sr, 2, 2)
 
         lbl_temp = QLabel("Maksymalna temperatura")
         lbl_temp.setWordWrap(True)
@@ -399,6 +401,7 @@ class MainNeapol(QMainWindow):
 
         btn_przepisy = QPushButton("Przepisy")
         btn_przepisy.setMinimumWidth(160)
+        btn_przepisy.setMaximumHeight(60)
         btn_przepisy.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         btn_przepisy.setFont(QFont(bakerie[0], 20))
         btn_przepisy.clicked.connect(self.close)
@@ -416,6 +419,7 @@ class MainNeapol(QMainWindow):
 
         btn_menu = QPushButton("Menu główne")
         btn_menu.setMinimumWidth(160)
+        btn_menu.setMaximumHeight(60)
         btn_menu.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         btn_menu.setFont(QFont(bakerie[0], 20))
         btn_menu.clicked.connect(self.close)
@@ -428,7 +432,8 @@ class MainNeapol(QMainWindow):
 
         sizegrip = QSizeGrip(central_widget)
         sizegrip.setStyleSheet("border: 1px solid black;")
-        pagelayout.addWidget(sizegrip, 5, 3, 1, 1, alignment=Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
+        pagelayout.addWidget(sizegrip, 5, 3, 1, 1,
+                             alignment=Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
         central_widget.setLayout(pagelayout)
 
     def updateLabel1(self, value):
@@ -468,15 +473,16 @@ class MainNeapol(QMainWindow):
         qr.moveCenter(cp)
         self.move(qr.topLeft())
 
+
 class MainRzym(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setStyleSheet("background-color: #5D7064;")
+        self.setStyleSheet("background-color: {};".format(back_color))
         self.setMinimumSize(200, 700)
         self.center()
 
-        font1 = QFontDatabase.addApplicationFont("anta-regular.ttf")
-        font2 = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
+        font1 = QFontDatabase.addApplicationFont(anta_font)
+        font2 = QFontDatabase.addApplicationFont(bakerie_font)
         anta = QFontDatabase.applicationFontFamilies(font1)
         bakerie = QFontDatabase.applicationFontFamilies(font2)
         pagelayout = QGridLayout()
@@ -492,9 +498,9 @@ class MainRzym(QMainWindow):
         pagelayout.addWidget(lbl_tryb, 2, 0)
 
         self.cb = QComboBox()
-        self.cb.addItems(["Termoobieg", "Góra-dół", "Jakieś coś"])
+        self.cb.addItems(tryby)
         self.cb.setFont(QFont(anta[0], 9))
-        self.cb.setStyleSheet('selection-background-color: #798b80')
+        self.cb.setStyleSheet("selection-background-color: {};".format(select_color))
         pagelayout.addWidget(self.cb, 2, 1)
 
         lbl_temp = QLabel("Maksymalna temperatura")
@@ -516,12 +522,32 @@ class MainRzym(QMainWindow):
         self.lbl_slider_temp.setFont(QFont(anta[0], 10))
         pagelayout.addWidget(self.lbl_slider_temp, 3, 2)
 
-        btn = QPushButton("Wróć")
-        btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        btn.setFont(QFont(bakerie[0], 20))
-        btn.clicked.connect(self.close)
-        # btn.cliked.connect(self.go_back) #nwm czemu to nie dziala
-        pagelayout.addWidget(btn, 4, 0, 1, 4, alignment=Qt.AlignCenter)
+        btn_przepisy = QPushButton("Przepisy")
+        btn_przepisy.setMinimumWidth(160)
+        btn_przepisy.setMaximumHeight(60)
+        btn_przepisy.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        btn_przepisy.setFont(QFont(bakerie[0], 20))
+        btn_przepisy.clicked.connect(self.close)
+        btn_przepisy.clicked.connect(self.recipes_popup)
+        pagelayout.addWidget(btn_przepisy, 4, 0)
+
+        btn_wybor = QPushButton("Wybór pizzy")
+        btn_wybor.setMinimumWidth(160)
+        btn_wybor.setMaximumHeight(60)
+        btn_wybor.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        btn_wybor.setFont(QFont(bakerie[0], 20))
+        btn_wybor.clicked.connect(self.go_back)
+        btn_wybor.clicked.connect(self.close)
+        pagelayout.addWidget(btn_wybor, 4, 1)
+
+        btn_menu = QPushButton("Menu główne")
+        btn_menu.setMinimumWidth(160)
+        btn_menu.setMaximumHeight(60)
+        btn_menu.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        btn_menu.setFont(QFont(bakerie[0], 20))
+        btn_menu.clicked.connect(self.close)
+        btn_menu.clicked.connect(self.open_main)
+        pagelayout.addWidget(btn_menu, 4, 2)
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -532,8 +558,18 @@ class MainRzym(QMainWindow):
         pagelayout.addWidget(sizegrip, 5, 5, 1, 1, alignment=Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignRight)
         central_widget.setLayout(pagelayout)
 
+    def recipes_popup(self):
+        self.w = RecipesPopup()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
+
     def go_back(self):
         self.w = MainPopup()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
+
+    def open_main(self):
+        self.w = MainWindow()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
@@ -553,12 +589,12 @@ class MainRzym(QMainWindow):
 class MainAmeryka(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setStyleSheet("background-color: #5D7064;")
+        self.setStyleSheet("background-color: {};".format(back_color))
         self.setMinimumSize(200, 700)
         self.center()
 
-        font1 = QFontDatabase.addApplicationFont("anta-regular.ttf")
-        font2 = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
+        font1 = QFontDatabase.addApplicationFont(anta_font)
+        font2 = QFontDatabase.addApplicationFont(bakerie_font)
         anta = QFontDatabase.applicationFontFamilies(font1)
         bakerie = QFontDatabase.applicationFontFamilies(font2)
         pagelayout = QGridLayout()
@@ -574,9 +610,9 @@ class MainAmeryka(QMainWindow):
         pagelayout.addWidget(lbl_tryb, 2, 0)
 
         self.cb = QComboBox()
-        self.cb.addItems(["Termoobieg", "Góra-dół", "Jakieś coś"])
+        self.cb.addItems(tryby)
         self.cb.setFont(QFont(anta[0], 9))
-        self.cb.setStyleSheet('selection-background-color: #798b80')
+        self.cb.setStyleSheet("selection-background-color: {};".format(select_color))
         pagelayout.addWidget(self.cb, 2, 1)
 
         lbl_temp = QLabel("Maksymalna temperatura")
@@ -593,17 +629,37 @@ class MainAmeryka(QMainWindow):
 
         self.lbl_slider_temp = QLabel('180', self)
         self.lbl_slider_temp.setAlignment(Qt.AlignmentFlag.AlignCenter |
-                                        Qt.AlignmentFlag.AlignVCenter)
+                                          Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_temp.setMinimumWidth(80)
         self.lbl_slider_temp.setFont(QFont(anta[0], 10))
         pagelayout.addWidget(self.lbl_slider_temp, 3, 2)
 
-        btn = QPushButton("Wróć")
-        btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        btn.setFont(QFont(bakerie[0], 20))
-        btn.clicked.connect(self.close)
-        # btn.cliked.connect(self.go_back) #nwm czemu to nie dziala
-        pagelayout.addWidget(btn, 4, 0, 1, 4, alignment=Qt.AlignCenter)
+        btn_przepisy = QPushButton("Przepisy")
+        btn_przepisy.setMinimumWidth(160)
+        btn_przepisy.setMaximumHeight(60)
+        btn_przepisy.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        btn_przepisy.setFont(QFont(bakerie[0], 20))
+        btn_przepisy.clicked.connect(self.close)
+        btn_przepisy.clicked.connect(self.recipes_popup)
+        pagelayout.addWidget(btn_przepisy, 4, 0)
+
+        btn_wybor = QPushButton("Wybór pizzy")
+        btn_wybor.setMinimumWidth(160)
+        btn_wybor.setMaximumHeight(60)
+        btn_wybor.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        btn_wybor.setFont(QFont(bakerie[0], 20))
+        btn_wybor.clicked.connect(self.go_back)
+        btn_wybor.clicked.connect(self.close)
+        pagelayout.addWidget(btn_wybor, 4, 1)
+
+        btn_menu = QPushButton("Menu główne")
+        btn_menu.setMinimumWidth(160)
+        btn_menu.setMaximumHeight(60)
+        btn_menu.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        btn_menu.setFont(QFont(bakerie[0], 20))
+        btn_menu.clicked.connect(self.close)
+        btn_menu.clicked.connect(self.open_main)
+        pagelayout.addWidget(btn_menu, 4, 2)
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -614,8 +670,18 @@ class MainAmeryka(QMainWindow):
         pagelayout.addWidget(sizegrip, 5, 5, 1, 1, alignment=Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignRight)
         central_widget.setLayout(pagelayout)
 
+    def recipes_popup(self):
+        self.w = RecipesPopup()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
+
     def go_back(self):
         self.w = MainPopup()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
+
+    def open_main(self):
+        self.w = MainWindow()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
@@ -634,12 +700,12 @@ class MainAmeryka(QMainWindow):
 
 class MainWindow(QMainWindow):
     """
-    Main window of application. (troche  burdel, wszystko w jednym, mozna rozdzielic wyglad i funkcjonalnosc na fnkcje osobne)
+    Main window of application. (troche  burdello cyk cyk, wszystko w jednym, mozna rozdzielic wyglad i funkcjonalnosc na fnkcje osobne)
     """
 
     def __init__(self):
         super().__init__()
-        self.setStyleSheet("background-color: #5D7064;")  # kolor/zdj tła apki
+        self.setStyleSheet("background-color: {};".format(back_color))  # kolor/zdj tła apki
 
         # nie daje tytulu apki tym windowsettitle bo nie da sie chyba zmienic fontu i jest brzydkie
         self.setMinimumSize(200, 700)
@@ -647,7 +713,7 @@ class MainWindow(QMainWindow):
 
         self.setSizePolicy(QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding))
 
-        font = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
+        font = QFontDatabase.addApplicationFont(bakerie_font)
         bakerie = QFontDatabase.applicationFontFamilies(font)
 
         pagelayout = QVBoxLayout()
@@ -741,17 +807,9 @@ def main():
     qtmodern.styles.dark(App)
     mw = qtmodern.windows.ModernWindow(window)
     mw.show()
-    #App.aboutToQuit.connect(window.closeEvent)
+    # App.aboutToQuit.connect(window.closeEvent)
     sys.exit(App.exec())
 
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
-
