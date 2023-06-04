@@ -1,3 +1,6 @@
+from PyQt5.QtWidgets import *
+from PyQt5 import QtCore
+
 #https://stackoverflow.com/questions/52596386/slide-qstackedwidget-page slide pages
 class SlidingStackedWidget(QStackedWidget):
     """
