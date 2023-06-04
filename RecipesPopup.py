@@ -6,10 +6,10 @@ from PyQt5.QtCore import Qt
 import qtmodern.styles
 import qtmodern.windows
 from PyQt5.QtGui import QFont, QFontDatabase
-from SlidingStackedWidget import SlidingStackedWidget
-from MainNeapol import MainNeapol
-from MainAmeryka import MainAmeryka
-from MainRzym import MainRzym
+from SlidingStackedWidget import *
+from MainNeapol import *
+from MainAmeryka import *
+from MainRzym import *
 
 class RecipesPopup(QMainWindow):
     """

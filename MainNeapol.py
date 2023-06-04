@@ -1,12 +1,15 @@
 from PyQt5.QtWidgets import *
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import QMainWindow, QWidget, QLabel
-from PyQt5.QtWidgets import QPushButton, QVBoxLayout
+from PyQt5.QtWidgets import QMainWindow, QWidget, QGridLayout, QLabel
+from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtCore import Qt
+import qtmodern.styles
+from PyQt5.QtGui import QFont, QFontDatabase
+import qtmodern.windows
+from MainPopup import *
 from PyQt5.QtCore import Qt
 import qtmodern.styles
 import qtmodern.windows
-from PyQt5.QtGui import QFont, QFontDatabase
-from MainPopup import MainPopup
+from MainPopup import *
 
 
 class MainNeapol(QMainWindow):

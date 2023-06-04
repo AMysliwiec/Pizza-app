@@ -1,11 +1,16 @@
+from PyQt5.QtWidgets import QGridLayout
+from PyQt5.QtCore import Qt
+import qtmodern.styles
+import qtmodern.windows
 from PyQt5.QtWidgets import *
 from PyQt5.QtWidgets import QMainWindow, QWidget, QGridLayout, QLabel
 from PyQt5.QtWidgets import QPushButton
 from PyQt5.QtCore import Qt
 import qtmodern.styles
-import qtmodern.windows
 from PyQt5.QtGui import QFont, QFontDatabase
-from MainPopup import MainPopup
+import qtmodern.windows
+from MainPopup import *
+from MainPopup import *
 
 class MainRzym(QMainWindow):
     def __init__(self):

@@ -1,15 +1,8 @@
-from PyQt5.QtWidgets import *
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QLabel
-from PyQt5.QtWidgets import QPushButton, QVBoxLayout
 import qtmodern.styles
 import qtmodern.windows
-import sys
-from PyQt5.QtGui import QFont, QFontDatabase
-from PyQt5.QtWidgets import QDesktopWidget
-from InstructionsPopup import InstructionsPopup
-from RecipesPopup import RecipesPopup
-from MainPopup import MainPopup
+from InstructionsPopup import *
+from RecipesPopup import *
+from MainPopup import *
 
 class MainWindow(QMainWindow):
     """

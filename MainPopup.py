@@ -5,9 +5,9 @@ from PyQt5.QtWidgets import QPushButton, QVBoxLayout
 import qtmodern.styles
 import qtmodern.windows
 from PyQt5.QtGui import QFont, QFontDatabase
-from MainNeapol import MainNeapol
-from MainAmeryka import MainAmeryka
-from MainRzym import MainRzym
+from MainNeapol import *
+from MainAmeryka import *
+from MainRzym import *
 
 class MainPopup(QMainWindow):
     """

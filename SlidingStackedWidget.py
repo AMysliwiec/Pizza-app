@@ -1,5 +1,22 @@
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore
+from PyQt5.QtGui import *
+import sys
+from PyQt5.QtWidgets import QApplication, QCheckBox, QMessageBox, QMainWindow, QWidget, QGridLayout, QLineEdit, QLabel
+from PyQt5.QtWidgets import QPushButton, QVBoxLayout
+from PyQt5.QtCore import Qt
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as canvas
+from functools import partial
+import qtmodern.styles
+import qtmodern.windows
+import numpy as np
+import random
+import sys
+from PyQt5.QtGui import QFont, QFontDatabase
+from PyQt5.QtWidgets import QDesktopWidget
+import PyQt5.QtGui
+from PyQt5.QtCore import QCoreApplication
 
 #https://stackoverflow.com/questions/52596386/slide-qstackedwidget-page slide pages
 class SlidingStackedWidget(QStackedWidget):
