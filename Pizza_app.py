@@ -170,13 +170,21 @@ class RecipesPopup(QMainWindow):
         lay.addWidget(self.slidingStacked)
 
         sec_lay = QHBoxLayout()
-        button_main = QPushButton("Główne")
-        button_main.setFont(QFont(bakerie[0], 15))
-        button_main.clicked.connect(self.close)
-        button_main.clicked.connect(self.open_main)
-        sec_lay.addWidget(button_main)
+        button_main_func = QPushButton("Główne")
+        button_main_func.setMinimumWidth(150)
+        button_main_func.setFont(QFont(bakerie[0], 15))
+        button_main_func.clicked.connect(self.close)
+        button_main_func.clicked.connect(self.open_main)
+        sec_lay.addWidget(button_main_func)
         sec_lay.setAlignment(Qt.AlignCenter)
         lay.addLayout(sec_lay)
+
+        btn_main = QPushButton("Menu Główne")
+        btn_main.setMinimumWidth(150)
+        btn_main.setFont(QFont(bakerie[0], 15))
+        btn_main.clicked.connect(self.close)
+        btn_main.clicked.connect(self.main_window)
+        sec_lay.addWidget(btn_main)
 
         sizegrip = QSizeGrip(central_widget)
         sizegrip.setStyleSheet("border: 1px solid black;")
@@ -206,6 +214,11 @@ class RecipesPopup(QMainWindow):
         cp = QDesktopWidget().availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())
+
+    def main_window(self):
+        self.w = MainWindow()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
 
 
 class MainPopup(QMainWindow):
@@ -314,6 +327,14 @@ class InstructionsPopup(QMainWindow):
         label.setAlignment(QtCore.Qt.AlignCenter)
         pagelayout.addWidget(label)
 
+        btn = QPushButton("Menu główne")
+        btn.setSizePolicy(QSizePolicy.Expanding,
+                          QSizePolicy.Expanding)  # rozszerza sie przycisk jak rozszerzamy
+        btn.setFont(QFont(bakerie[0], 20))
+        btn.clicked.connect(self.close)
+        btn.clicked.connect(self.open_main)
+        pagelayout.addWidget(btn)
+
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         central_widget.setLayout(pagelayout)
@@ -324,13 +345,6 @@ class InstructionsPopup(QMainWindow):
                              QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
         central_widget.setLayout(pagelayout)
 
-        btn = QPushButton("Menu główne")
-        btn.setSizePolicy(QSizePolicy.Expanding,
-                          QSizePolicy.Expanding)  # rozszerza sie przycisk jak rozszerzamy
-        btn.setFont(QFont(bakerie[0], 20))
-        btn.clicked.connect(self.close)
-        btn.clicked.connect(self.open_main)
-        pagelayout.addWidget(btn)
     def center(self):
         """
         Center window while opening.
