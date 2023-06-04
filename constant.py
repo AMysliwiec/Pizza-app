@@ -1,4 +1,5 @@
 from sympy import symbols, solve
+import math
 
 back_color = "#5D7064"
 select_color = "#798b80"
@@ -7,9 +8,6 @@ bakerie_font = "Bakerie Rough Bold.otf"
 anta_font = "anta-regular.ttf"
 
 tryby = ["Termoobieg", "Góra-dół", "Combo"]
-
-x = 200
-y = int(7 / 2 * x)
 
 eh = """
 /* QSlider --------------------------------------  */
@@ -85,11 +83,16 @@ def neapolitanska(T_1, d, tryb):
                 T_b - T_2) - alpha * L * 0.5 * q_w)[0] / 1939 * ((20 + d) / 50)
 
     if tryb == "Termoobieg":
-        return tau
+        tau = tau
     elif tryb == "Combo":
-        return tau * 0.9
+        tau *= 0.9
     else:
-        return tau * 1.4264
+        tau *= 1.4264
+
+    frac, whole = math.modf(tau)
+    sekundy = round(frac * 60)
+    result = f"{int(whole)}min {sekundy}sek"
+    return result
 
 
 def rzymska(T_1, d, tryb):
@@ -117,9 +120,14 @@ def rzymska(T_1, d, tryb):
                 T_b - T_2) - alpha * L * 0.5 * q_w)[0] / 1666 * ((20 + d) / 50)
 
     if tryb == "Termoobieg":
-        return tau
+        tau = tau
     else:
-        return tau * 1.27
+        tau *= 1.27
+
+    frac, whole = math.modf(tau)
+    sekundy = round(frac * 60)
+    result = f"{int(whole)}min {sekundy}sek"
+    return result
 
 
 def amerykanska(T_1, d, tryb):
@@ -147,6 +155,11 @@ def amerykanska(T_1, d, tryb):
                 T_b - T_2) - alpha * L * 0.5 * q_w)[0] / 1333 * ((20 + d) / 50)
 
     if tryb == "Termoobieg":
-        return tau
+        tau = tau
     else:
-        return tau * 1.27
+        tau *= 1.27
+
+    frac, whole = math.modf(tau)
+    sekundy = round(frac * 60)
+    result = f"{int(whole)}min {sekundy}sek"
+    return result
