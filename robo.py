@@ -215,6 +215,11 @@ class RecipesPopup(QMainWindow):
         qr.moveCenter(cp)
         self.move(qr.topLeft())
 
+    def open_main(self):
+        self.w = MainWindow()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
+
 
 class MainPopup(QMainWindow):
     """
@@ -310,7 +315,9 @@ class InstructionsPopup(QMainWindow):
         self.center()
 
         font1 = QFontDatabase.addApplicationFont("anta-regular.ttf")
+        font2 = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
         anta = QFontDatabase.applicationFontFamilies(font1)
+        bakerie = QFontDatabase.applicationFontFamilies(font2)
 
         label = QLabel("Tu bedą instrukcje jak używać apki")
         label.setWordWrap(True)  # zawija tekst
@@ -321,6 +328,14 @@ class InstructionsPopup(QMainWindow):
         label.setAlignment(QtCore.Qt.AlignCenter)
         pagelayout.addWidget(label)
 
+        btn = QPushButton("Menu główne")
+        btn.setSizePolicy(QSizePolicy.Expanding,
+                                  QSizePolicy.Expanding)  # rozszerza sie przycisk jak rozszerzamy
+        btn.setFont(QFont(bakerie[0], 20))
+        btn.clicked.connect(self.close)
+        btn.clicked.connect(self.open_main)
+        pagelayout.addWidget(btn)
+
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         central_widget.setLayout(pagelayout)
@@ -330,6 +345,11 @@ class InstructionsPopup(QMainWindow):
         pagelayout.addWidget(sizegrip, 0,
                              QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
         central_widget.setLayout(pagelayout)
+
+    def open_main(self):
+        self.w = MainWindow()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
 
     def center(self):
         """
