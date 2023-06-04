@@ -18,11 +18,13 @@ from PyQt5.QtWidgets import QDesktopWidget
 import PyQt5.QtGui
 from PyQt5.QtCore import QCoreApplication
 
-#https://stackoverflow.com/questions/52596386/slide-qstackedwidget-page slide pages
+
+# https://stackoverflow.com/questions/52596386/slide-qstackedwidget-page slide pages
 class SlidingStackedWidget(QStackedWidget):
     """
     tu oczywiscie nie wiem co sie dzieje, just kopiuj wklej
     """
+
     def __init__(self, parent=None):
         super(SlidingStackedWidget, self).__init__(parent)
 
@@ -107,7 +109,7 @@ class SlidingStackedWidget(QStackedWidget):
         )
 
         for index, start, end in zip(
-            (_now, _next), (pnow, pnext - offset), (pnow + offset, pnext)
+                (_now, _next), (pnow, pnext - offset), (pnow + offset, pnext)
         ):
             animation = QtCore.QPropertyAnimation(
                 self.widget(index),
@@ -131,10 +133,12 @@ class SlidingStackedWidget(QStackedWidget):
         self.widget(self.m_now).move(self.m_pnow)
         self.m_active = False
 
+
 class RecipesPopup(QMainWindow):
     """
     Create window with pizza recipes.
     """
+
     def __init__(self):
         super().__init__()
         self.setStyleSheet("background-color: #5D7064;")
@@ -150,11 +154,11 @@ class RecipesPopup(QMainWindow):
 
         button_prev = QPushButton("Poprzednia")
         button_prev.clicked.connect(self.slidingStacked.slideInPrev)
-        #button_prev.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        # button_prev.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button_prev.setFont(QFont(bakerie[0], 15))
         button_next = QPushButton("Następna")
         button_next.clicked.connect(self.slidingStacked.slideInNext)
-        #button_next.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        # button_next.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button_next.setFont(QFont(bakerie[0], 15))
 
         hlay = QHBoxLayout()
@@ -178,7 +182,8 @@ class RecipesPopup(QMainWindow):
 
         sizegrip = QSizeGrip(central_widget)
         sizegrip.setStyleSheet("border: 1px solid black;")
-        lay.addWidget(sizegrip, 0, QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
+        lay.addWidget(sizegrip, 0,
+                      QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
         central_widget.setLayout(lay)
 
     def open_main(self):
@@ -196,11 +201,11 @@ class RecipesPopup(QMainWindow):
             self.mw.show()
 
 
-
 class MainPopup(QMainWindow):
     """
     Create pop up window with main app funcionality.
     """
+
     def __init__(self):
         super().__init__()
         self.setStyleSheet("background-color: #5D7064;")
@@ -228,7 +233,8 @@ class MainPopup(QMainWindow):
         pagelayout.addWidget(btn_neapol)
 
         btn_ameryka = QPushButton("Amerykańska")
-        btn_ameryka.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)  # rozszerza sie przycisk jak rozszerzamy
+        btn_ameryka.setSizePolicy(QSizePolicy.Expanding,
+                                  QSizePolicy.Expanding)  # rozszerza sie przycisk jak rozszerzamy
         btn_ameryka.setFont(QFont(bakerie[0], 20))
         btn_ameryka.clicked.connect(self.ameryka)
         btn_ameryka.clicked.connect(self.close)
@@ -248,7 +254,7 @@ class MainPopup(QMainWindow):
         sizegrip = QSizeGrip(central_widget)
         sizegrip.setStyleSheet("border: 1px solid black;")
         pagelayout.addWidget(sizegrip, 0,
-                      QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
+                             QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
         central_widget.setLayout(pagelayout)
 
     def neapol(self):
@@ -266,10 +272,12 @@ class MainPopup(QMainWindow):
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
+
 class InstructionsPopup(QMainWindow):
     """
     Create pop up window with app's instructions.
     """
+
     def __init__(self):
         super().__init__()
         self.setStyleSheet("background-color: #5D7064;")
@@ -279,8 +287,8 @@ class InstructionsPopup(QMainWindow):
         anta = QFontDatabase.applicationFontFamilies(font1)
 
         label = QLabel("Tu bedą instrukcje jak używać apki")
-        label.setWordWrap(True) #zawija tekst
-        pagelayout = QVBoxLayout() #to jeszcze mozna zmienic
+        label.setWordWrap(True)  # zawija tekst
+        pagelayout = QVBoxLayout()  # to jeszcze mozna zmienic
         label.setFont(QFont(anta[0], 40))
         label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         label.setScaledContents(True)  # no nie dziala gowno, mialo robic ze font zmienia wielkosc przy rozciaganiu okna
@@ -294,8 +302,9 @@ class InstructionsPopup(QMainWindow):
         sizegrip = QSizeGrip(central_widget)
         sizegrip.setStyleSheet("border: 1px solid black;")
         pagelayout.addWidget(sizegrip, 0,
-                      QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
+                             QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
         central_widget.setLayout(pagelayout)
+
 
 class MainNeapol(QMainWindow):
     def __init__(self):
@@ -332,12 +341,13 @@ class MainNeapol(QMainWindow):
             True)  # no nie dziala gowno, mialo robic ze font zmienia wielkosc przy rozciaganiu okna
         lbl_temp.setAlignment(QtCore.Qt.AlignLeft)
         hbox_temp.addWidget(lbl_temp)
-        
+
         hbox_srednica = QHBoxLayout()
         lbl_srednica = QLabel("Średnica")
         lbl_srednica.setFont(QFont(anta[0], 15))
         lbl_srednica.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        lbl_srednica.setScaledContents(True)  # no nie dziala gowno, mialo robic ze font zmienia wielkosc przy rozciaganiu okna
+        lbl_srednica.setScaledContents(
+            True)  # no nie dziala gowno, mialo robic ze font zmienia wielkosc przy rozciaganiu okna
         lbl_srednica.setAlignment(QtCore.Qt.AlignLeft)
         hbox_srednica.addWidget(lbl_srednica)
 
@@ -355,16 +365,16 @@ class MainNeapol(QMainWindow):
 
         self.lbl_slider_sr = QLabel('20', self)
         self.lbl_slider_sr.setAlignment(Qt.AlignmentFlag.AlignCenter |
-                                Qt.AlignmentFlag.AlignVCenter)
+                                        Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_sr.setMinimumWidth(80)
         self.lbl_slider_sr.setFont(QFont(anta[0], 10))
 
         self.lbl_slider_temp = QLabel('180', self)
         self.lbl_slider_temp.setAlignment(Qt.AlignmentFlag.AlignCenter |
-                                        Qt.AlignmentFlag.AlignVCenter)
+                                          Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_temp.setMinimumWidth(80)
         self.lbl_slider_temp.setFont(QFont(anta[0], 10))
-        
+
         hbox_srednica.addWidget(sld_srednica)
         hbox_srednica.addSpacing(15)
         hbox_srednica.addWidget(self.lbl_slider_sr)
@@ -389,7 +399,7 @@ class MainNeapol(QMainWindow):
         sizegrip = QSizeGrip(central_widget)
         sizegrip.setStyleSheet("border: 1px solid black;")
         pagelayout.addWidget(sizegrip, 0,
-                      QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
+                             QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
         central_widget.setLayout(pagelayout)
 
     def updateLabel1(self, value):
@@ -403,12 +413,13 @@ class MainNeapol(QMainWindow):
             self.toggle_button.setText("Góra-dół")
         else:
             self.toggle_button.setText("Termoobieg")
-        #mozna jeszcze pomyslec czy chcemy zmieniac jego kolor
+        # mozna jeszcze pomyslec czy chcemy zmieniac jego kolor
 
     def go_back(self):
         self.w = MainPopup()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
+
 
 class MainRzym(QMainWindow):
     def __init__(self):
@@ -459,8 +470,8 @@ class MainRzym(QMainWindow):
         btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         btn.setFont(QFont(bakerie[0], 20))
         btn.clicked.connect(self.close)
-        #btn.cliked.connect(self.go_back) #nwm czemu to nie dziala
-        pagelayout.addWidget(btn, 4, 0,1, 4, alignment=Qt.AlignCenter)
+        # btn.cliked.connect(self.go_back) #nwm czemu to nie dziala
+        pagelayout.addWidget(btn, 4, 0, 1, 4, alignment=Qt.AlignCenter)
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -468,7 +479,7 @@ class MainRzym(QMainWindow):
 
         sizegrip = QSizeGrip(central_widget)
         sizegrip.setStyleSheet("border: 1px solid black;")
-        pagelayout.addWidget(sizegrip, 5,5, 1, 1, alignment=Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignRight)
+        pagelayout.addWidget(sizegrip, 5, 5, 1, 1, alignment=Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignRight)
         central_widget.setLayout(pagelayout)
 
     def go_back(self):
@@ -478,6 +489,7 @@ class MainRzym(QMainWindow):
 
     def updateLabeltemp(self, value):
         self.lbl_slider_temp.setText(str(value))
+
 
 class MainAmeryka(QMainWindow):
     def __init__(self):
@@ -548,38 +560,41 @@ class MainAmeryka(QMainWindow):
     def updateLabeltemp(self, value):
         self.lbl_slider_temp.setText(str(value))
 
+
 class MainWindow(QMainWindow):
     """
     Main window of application. (troche  burdel, wszystko w jednym, mozna rozdzielic wyglad i funkcjonalnosc na fnkcje osobne)
     """
+
     def __init__(self):
         super().__init__()
 
-        self.center() #zeby apka wyskakiwala na srodku ekranu po odpaleniu, no mi tak na srodku ale na dole wyskakuje
-        self.setStyleSheet("background-color: #5D7064;") #kolor/zdj tła apki
+        self.center()  # zeby apka wyskakiwala na srodku ekranu po odpaleniu, no mi tak na srodku ale na dole wyskakuje
+        self.setStyleSheet("background-color: #5D7064;")  # kolor/zdj tła apki
 
-        #nie daje tytulu apki tym windowsettitle bo nie da sie chyba zmienic fontu i jest brzydkie
-        self.setMinimumSize(200,700)
+        # nie daje tytulu apki tym windowsettitle bo nie da sie chyba zmienic fontu i jest brzydkie
+        self.setMinimumSize(200, 700)
         self.setSizePolicy(QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding))
 
         font = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
         bakerie = QFontDatabase.applicationFontFamilies(font)
 
         pagelayout = QVBoxLayout()
-        label = QLabel("Super Pizzowa Aplikacja") #jak to po polsku ladnie napisac to ja nie mam pojecia xd welcome to pizza app
+        label = QLabel(
+            "Super Pizzowa Aplikacja")  # jak to po polsku ladnie napisac to ja nie mam pojecia xd welcome to pizza app
         label.setWordWrap(True)
         label.setFont(QFont(bakerie[0], 40))
         label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        label.setScaledContents(True) #no nie dziala gowno
+        label.setScaledContents(True)  # no nie dziala gowno
         label.setAlignment(QtCore.Qt.AlignCenter)
         pagelayout.addWidget(label)
 
         btn = QPushButton("Przepisy")
-        btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding) #rozszerza sie przycisk jak rozszerzamy
+        btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)  # rozszerza sie przycisk jak rozszerzamy
         btn.setFont(QFont(bakerie[0], 20))
         btn.clicked.connect(self.recipes_popup)
-        #btn.setStyleSheet("background-image : url(pobrane.jpeg);") #nie wiem czemu to nie dziala, mam wrazenie ze to qtmodern psuje ale nie wiem
-        #btn.setStyleSheet("border-image : url(pizza.png);") to powinno od razu dopasowywac wymiary zdjecia ale no narazie nie dziala
+        # btn.setStyleSheet("background-image : url(pobrane.jpeg);") #nie wiem czemu to nie dziala, mam wrazenie ze to qtmodern psuje ale nie wiem
+        # btn.setStyleSheet("border-image : url(pizza.png);") to powinno od razu dopasowywac wymiary zdjecia ale no narazie nie dziala
         pagelayout.addWidget(btn)
 
         btn = QPushButton('Główne')
@@ -594,20 +609,20 @@ class MainWindow(QMainWindow):
         btn.clicked.connect(self.instructions_popup)
         pagelayout.addWidget(btn)
 
-
         """
         Dodac opcje ze jak zwiekszamy okno to zwieksza sie tez font labeli i font na buttonach. tu jakis link ale sredni chyba
         https://www.youtube.com/watch?v=3kGKWkQqipc&list=PL3JVwFmb_BnRpvOeIh_To4YSiebiggyXS&index=22
         """
 
-        #dodac moze jakies zdjecia w tle na tych przyciskach
-        #nie wiem czy robimy juz te podstronki ale chyba by sie przydalo jakas jedna chociaz, moze ta z przepisami
+        # dodac moze jakies zdjecia w tle na tych przyciskach
+        # nie wiem czy robimy juz te podstronki ale chyba by sie przydalo jakas jedna chociaz, moze ta z przepisami
 
         widget = QWidget()
         self.setCentralWidget(widget)
         sizegrip = QSizeGrip(widget)
         sizegrip.setStyleSheet("border: 1px solid black;")
-        pagelayout.addWidget(sizegrip, 0, QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight) #to right mowi w ktora str kursor jest skierowany chyba
+        pagelayout.addWidget(sizegrip, 0,
+                             QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
         widget.setLayout(pagelayout)
 
     def recipes_popup(self):
@@ -645,6 +660,7 @@ class MainWindow(QMainWindow):
         QApplication.closeAllWindows()
         event.accept()
 
+
 def main():
     App = QApplication(sys.argv)
     window = MainWindow()
@@ -657,5 +673,11 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+
+
+
+
 
 
