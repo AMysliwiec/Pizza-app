@@ -136,6 +136,9 @@ class RecipesPopup(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet("background-color: #5D7064;")
+        self.setMinimumSize(200, 700)
+        self.center()
+
         font = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
         bakerie = QFontDatabase.applicationFontFamilies(font)
         self.slidingStacked = SlidingStackedWidget()
@@ -194,6 +197,15 @@ class RecipesPopup(QMainWindow):
             self.mw = qtmodern.windows.ModernWindow(self.w)
             self.mw.show()
 
+    def center(self):
+        """
+        Center window while opening.
+        """
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+
 
 class MainPopup(QMainWindow):
     """
@@ -203,7 +215,8 @@ class MainPopup(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet("background-color: #5D7064;")
-        self.setMinimumSize(150, 60)
+        self.setMinimumSize(200, 700)
+        self.center()
 
         font1 = QFontDatabase.addApplicationFont("anta-regular.ttf")
         font2 = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
@@ -251,6 +264,15 @@ class MainPopup(QMainWindow):
                              QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
         central_widget.setLayout(pagelayout)
 
+    def center(self):
+        """
+        Center window while opening.
+        """
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+
     def neapol(self):
         self.w = MainNeapol()
         self.mw = qtmodern.windows.ModernWindow(self.w)
@@ -275,7 +297,8 @@ class InstructionsPopup(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet("background-color: #5D7064;")
-        self.setMinimumSize(150, 60)
+        self.setMinimumSize(200, 700)
+        self.center()
 
         font1 = QFontDatabase.addApplicationFont("anta-regular.ttf")
         anta = QFontDatabase.applicationFontFamilies(font1)
@@ -299,18 +322,26 @@ class InstructionsPopup(QMainWindow):
                              QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
         central_widget.setLayout(pagelayout)
 
+    def center(self):
+        """
+        Center window while opening.
+        """
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
 
 class MainNeapol(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet("background-color: #5D7064;")
-        self.setMinimumSize(150, 60)
+        self.setMinimumSize(200, 700)
+        self.center()
 
         font1 = QFontDatabase.addApplicationFont("anta-regular.ttf")
         font2 = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
         anta = QFontDatabase.applicationFontFamilies(font1)
         bakerie = QFontDatabase.applicationFontFamilies(font2)
-
         pagelayout = QGridLayout()
 
         lbl_neapol = QLabel("Pizza Neapolitańska")
@@ -366,11 +397,30 @@ class MainNeapol(QMainWindow):
         self.lbl_slider_temp.setFont(QFont(anta[0], 10))
         pagelayout.addWidget(self.lbl_slider_temp, 3, 2)
 
-        btn = QPushButton("Wróć")
-        btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        btn.setFont(QFont(bakerie[0], 20))
-        btn.clicked.connect(self.close)
-        pagelayout.addWidget(btn, 4, 0, 1, 3, alignment=Qt.AlignCenter)
+        btn_przepisy = QPushButton("Przepisy")
+        btn_przepisy.setMinimumWidth(160)
+        btn_przepisy.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        btn_przepisy.setFont(QFont(bakerie[0], 20))
+        btn_przepisy.clicked.connect(self.close)
+        btn_przepisy.clicked.connect(self.recipes_popup)
+        pagelayout.addWidget(btn_przepisy, 4, 0)
+
+        btn_wybor = QPushButton("Wybór pizzy")
+        btn_wybor.setMinimumWidth(160)
+        btn_wybor.setMaximumHeight(60)
+        btn_wybor.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        btn_wybor.setFont(QFont(bakerie[0], 20))
+        btn_wybor.clicked.connect(self.go_back)
+        btn_wybor.clicked.connect(self.close)
+        pagelayout.addWidget(btn_wybor, 4, 1)
+
+        btn_menu = QPushButton("Menu główne")
+        btn_menu.setMinimumWidth(160)
+        btn_menu.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        btn_menu.setFont(QFont(bakerie[0], 20))
+        btn_menu.clicked.connect(self.close)
+        btn_menu.clicked.connect(self.open_main)
+        pagelayout.addWidget(btn_menu, 4, 2)
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -378,9 +428,8 @@ class MainNeapol(QMainWindow):
 
         sizegrip = QSizeGrip(central_widget)
         sizegrip.setStyleSheet("border: 1px solid black;")
-        pagelayout.addWidget(sizegrip, 5, 5, 1, 1, alignment=Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
+        pagelayout.addWidget(sizegrip, 5, 3, 1, 1, alignment=Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
         central_widget.setLayout(pagelayout)
-
 
     def updateLabel1(self, value):
         self.lbl_slider_sr.setText(str(value))
@@ -395,17 +444,36 @@ class MainNeapol(QMainWindow):
             self.toggle_button.setText("Termoobieg")
         # mozna jeszcze pomyslec czy chcemy zmieniac jego kolor
 
+    def recipes_popup(self):
+        self.w = RecipesPopup()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
+
     def go_back(self):
         self.w = MainPopup()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
+    def open_main(self):
+        self.w = MainWindow()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
+
+    def center(self):
+        """
+        Center window while opening.
+        """
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
 
 class MainRzym(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet("background-color: #5D7064;")
-        self.setMinimumSize(150, 60)
+        self.setMinimumSize(200, 700)
+        self.center()
 
         font1 = QFontDatabase.addApplicationFont("anta-regular.ttf")
         font2 = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
@@ -472,12 +540,22 @@ class MainRzym(QMainWindow):
     def updateLabeltemp(self, value):
         self.lbl_slider_temp.setText(str(value))
 
+    def center(self):
+        """
+        Center window while opening.
+        """
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+
 
 class MainAmeryka(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet("background-color: #5D7064;")
-        self.setMinimumSize(150, 60)
+        self.setMinimumSize(200, 700)
+        self.center()
 
         font1 = QFontDatabase.addApplicationFont("anta-regular.ttf")
         font2 = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
@@ -544,6 +622,15 @@ class MainAmeryka(QMainWindow):
     def updateLabeltemp(self, value):
         self.lbl_slider_temp.setText(str(value))
 
+    def center(self):
+        """
+        Center window while opening.
+        """
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+
 
 class MainWindow(QMainWindow):
     """
@@ -552,12 +639,12 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
-
-        self.center()  # zeby apka wyskakiwala na srodku ekranu po odpaleniu, no mi tak na srodku ale na dole wyskakuje
         self.setStyleSheet("background-color: #5D7064;")  # kolor/zdj tła apki
 
         # nie daje tytulu apki tym windowsettitle bo nie da sie chyba zmienic fontu i jest brzydkie
         self.setMinimumSize(200, 700)
+        self.center()
+
         self.setSizePolicy(QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding))
 
         font = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
@@ -577,6 +664,7 @@ class MainWindow(QMainWindow):
         btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)  # rozszerza sie przycisk jak rozszerzamy
         btn.setFont(QFont(bakerie[0], 20))
         btn.clicked.connect(self.recipes_popup)
+        btn.clicked.connect(self.close)
         # btn.setStyleSheet("background-image : url(pobrane.jpeg);") #nie wiem czemu to nie dziala, mam wrazenie ze to qtmodern psuje ale nie wiem
         # btn.setStyleSheet("border-image : url(pizza.png);") to powinno od razu dopasowywac wymiary zdjecia ale no narazie nie dziala
         pagelayout.addWidget(btn)
@@ -585,12 +673,14 @@ class MainWindow(QMainWindow):
         btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         btn.setFont(QFont(bakerie[0], 20))
         btn.clicked.connect(self.main_popup)
+        btn.clicked.connect(self.close)
         pagelayout.addWidget(btn)
 
         btn = QPushButton('Jak to działa?')
         btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         btn.setFont(QFont(bakerie[0], 20))
         btn.clicked.connect(self.instructions_popup)
+        btn.clicked.connect(self.close)
         pagelayout.addWidget(btn)
 
         """
@@ -640,9 +730,9 @@ class MainWindow(QMainWindow):
         qr.moveCenter(cp)
         self.move(qr.topLeft())
 
-    def closeEvent(self, event):
+    """def closeEvent(self, event):
         QApplication.closeAllWindows()
-        event.accept()
+        event.accept()"""
 
 
 def main():
@@ -651,7 +741,7 @@ def main():
     qtmodern.styles.dark(App)
     mw = qtmodern.windows.ModernWindow(window)
     mw.show()
-    App.aboutToQuit.connect(window.closeEvent)
+    #App.aboutToQuit.connect(window.closeEvent)
     sys.exit(App.exec())
 
 
