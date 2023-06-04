@@ -140,20 +140,20 @@ class RecipesPopup(QMainWindow):
         self.setStyleSheet("background-color: #5D7064;")
         font = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
         bakerie = QFontDatabase.applicationFontFamilies(font)
-        slidingStacked = SlidingStackedWidget()
+        self.slidingStacked = SlidingStackedWidget()
         label_neapol = QLabel("Neapolitańska", alignment=QtCore.Qt.AlignCenter)
         label_ameryka = QLabel("Amerykańska", alignment=QtCore.Qt.AlignCenter)
         label_rzym = QLabel("Rzymska", alignment=QtCore.Qt.AlignCenter)
-        slidingStacked.addWidget(label_neapol)
-        slidingStacked.addWidget(label_ameryka)
-        slidingStacked.addWidget(label_rzym)
+        self.slidingStacked.addWidget(label_neapol)
+        self.slidingStacked.addWidget(label_ameryka)
+        self.slidingStacked.addWidget(label_rzym)
 
         button_prev = QPushButton("Poprzednia")
-        button_prev.clicked.connect(slidingStacked.slideInPrev)
+        button_prev.clicked.connect(self.slidingStacked.slideInPrev)
         #button_prev.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button_prev.setFont(QFont(bakerie[0], 15))
         button_next = QPushButton("Następna")
-        button_next.clicked.connect(slidingStacked.slideInNext)
+        button_next.clicked.connect(self.slidingStacked.slideInNext)
         #button_next.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button_next.setFont(QFont(bakerie[0], 15))
 
@@ -165,13 +165,13 @@ class RecipesPopup(QMainWindow):
         self.setCentralWidget(central_widget)
         lay = QVBoxLayout(central_widget)
         lay.addLayout(hlay)
-        lay.addWidget(slidingStacked)
+        lay.addWidget(self.slidingStacked)
 
         sec_lay = QHBoxLayout()
         button_main = QPushButton("Główne")
         button_main.setFont(QFont(bakerie[0], 15))
         button_main.clicked.connect(self.close)
-        button_main.clicked.connect(self.main_popup)
+        button_main.clicked.connect(self.open_main)
         sec_lay.addWidget(button_main)
         sec_lay.setAlignment(Qt.AlignCenter)
         lay.addLayout(sec_lay)
@@ -181,10 +181,21 @@ class RecipesPopup(QMainWindow):
         lay.addWidget(sizegrip, 0, QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
         central_widget.setLayout(lay)
 
-    def main_popup(self):
-        self.w = MainPopup()
-        self.mw = qtmodern.windows.ModernWindow(self.w)
-        self.mw.show()
+    def open_main(self):
+        if self.slidingStacked.currentIndex() == 0:
+            self.w = MainNeapol()
+            self.mw = qtmodern.windows.ModernWindow(self.w)
+            self.mw.show()
+        elif self.slidingStacked.currentIndex() == 1:
+            self.w = MainAmeryka()
+            self.mw = qtmodern.windows.ModernWindow(self.w)
+            self.mw.show()
+        else:
+            self.w = MainRzym()
+            self.mw = qtmodern.windows.ModernWindow(self.w)
+            self.mw.show()
+
+
 
 class MainPopup(QMainWindow):
     """
@@ -342,7 +353,7 @@ class MainNeapol(QMainWindow):
         sld_temp.setPageStep(5)
         sld_temp.valueChanged.connect(self.updateLabel2)
 
-        self.lbl_slider_sr = QLabel('0', self)
+        self.lbl_slider_sr = QLabel('20', self)
         self.lbl_slider_sr.setAlignment(Qt.AlignmentFlag.AlignCenter |
                                 Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_sr.setMinimumWidth(80)
@@ -406,16 +417,50 @@ class MainRzym(QMainWindow):
         self.setMinimumSize(150, 60)
 
         font1 = QFontDatabase.addApplicationFont("anta-regular.ttf")
+        font2 = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
         anta = QFontDatabase.applicationFontFamilies(font1)
+        bakerie = QFontDatabase.applicationFontFamilies(font2)
+        pagelayout = QGridLayout()
 
-        label = QLabel("Tu beda inputy odnosnie rzymskiej")
-        label.setWordWrap(True) #zawija tekst
-        pagelayout = QVBoxLayout() #to jeszcze mozna zmienic
-        label.setFont(QFont(anta[0], 40))
-        label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        label.setScaledContents(True)  # no nie dziala gowno, mialo robic ze font zmienia wielkosc przy rozciaganiu okna
-        label.setAlignment(QtCore.Qt.AlignCenter)
-        pagelayout.addWidget(label)
+        lbl_rzymska = QLabel("Pizza Rzymska")
+        lbl_rzymska.setFont(QFont(bakerie[0], 30))
+        lbl_rzymska.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        pagelayout.addWidget(lbl_rzymska, 1, 0, 1, 4, alignment=Qt.AlignCenter)
+
+        lbl_tryb = QLabel("Tryb pieczenia")
+        lbl_tryb.setFont(QFont(anta[0], 15))
+        lbl_tryb.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        pagelayout.addWidget(lbl_tryb, 2, 0)
+
+        self.cb = QComboBox()
+        self.cb.addItems(["Termoobieg", "Góra-dół", "Jakieś coś"])
+        self.cb.setFont(QFont(anta[0], 9))
+        self.cb.setStyleSheet('selection-background-color: #798b80')
+        pagelayout.addWidget(self.cb, 2, 1)
+
+        lbl_temp = QLabel("Maksymalna temperatura")
+        lbl_temp.setWordWrap(True)
+        lbl_temp.setFont(QFont(anta[0], 15))
+        lbl_temp.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        pagelayout.addWidget(lbl_temp, 3, 0)
+
+        sld_temp = QSlider(Qt.Orientation.Horizontal, self)
+        sld_temp.setRange(180, 280)
+        sld_temp.setPageStep(5)
+        sld_temp.valueChanged.connect(self.updateLabeltemp)
+        pagelayout.addWidget(sld_temp, 3, 1)
+
+        self.lbl_slider_temp = QLabel('180', self)
+        self.lbl_slider_temp.setMinimumWidth(80)
+        self.lbl_slider_temp.setFont(QFont(anta[0], 10))
+        pagelayout.addWidget(self.lbl_slider_temp, 3, 2, alignment=Qt.AlignmentFlag.AlignRight)
+
+        btn = QPushButton("Wróć")
+        btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        btn.setFont(QFont(bakerie[0], 20))
+        btn.clicked.connect(self.close)
+        #btn.cliked.connect(self.go_back) #nwm czemu to nie dziala
+        pagelayout.addWidget(btn, 4, 0,1, 4, alignment=Qt.AlignCenter)
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -423,9 +468,16 @@ class MainRzym(QMainWindow):
 
         sizegrip = QSizeGrip(central_widget)
         sizegrip.setStyleSheet("border: 1px solid black;")
-        pagelayout.addWidget(sizegrip, 0,
-                      QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
+        pagelayout.addWidget(sizegrip, 5,5, 1, 1, alignment=Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignRight)
         central_widget.setLayout(pagelayout)
+
+    def go_back(self):
+        self.w = MainPopup()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
+
+    def updateLabeltemp(self, value):
+        self.lbl_slider_temp.setText(str(value))
 
 class MainAmeryka(QMainWindow):
     def __init__(self):
@@ -434,16 +486,50 @@ class MainAmeryka(QMainWindow):
         self.setMinimumSize(150, 60)
 
         font1 = QFontDatabase.addApplicationFont("anta-regular.ttf")
+        font2 = QFontDatabase.addApplicationFont("Bakerie Rough Bold.otf")
         anta = QFontDatabase.applicationFontFamilies(font1)
+        bakerie = QFontDatabase.applicationFontFamilies(font2)
+        pagelayout = QGridLayout()
 
-        label = QLabel("Tu beda inputy odnosnie amerykanskiej")
-        label.setWordWrap(True) #zawija tekst
-        pagelayout = QVBoxLayout() #to jeszcze mozna zmienic
-        label.setFont(QFont(anta[0], 40))
-        label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        label.setScaledContents(True)  # no nie dziala gowno, mialo robic ze font zmienia wielkosc przy rozciaganiu okna
-        label.setAlignment(QtCore.Qt.AlignCenter)
-        pagelayout.addWidget(label)
+        lbl_rzymska = QLabel("Pizza Amerykańska")
+        lbl_rzymska.setFont(QFont(bakerie[0], 30))
+        lbl_rzymska.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        pagelayout.addWidget(lbl_rzymska, 1, 0, 1, 4, alignment=Qt.AlignCenter)
+
+        lbl_tryb = QLabel("Tryb pieczenia")
+        lbl_tryb.setFont(QFont(anta[0], 15))
+        lbl_tryb.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        pagelayout.addWidget(lbl_tryb, 2, 0)
+
+        self.cb = QComboBox()
+        self.cb.addItems(["Termoobieg", "Góra-dół", "Jakieś coś"])
+        self.cb.setFont(QFont(anta[0], 9))
+        self.cb.setStyleSheet('selection-background-color: #798b80')
+        pagelayout.addWidget(self.cb, 2, 1)
+
+        lbl_temp = QLabel("Maksymalna temperatura")
+        lbl_temp.setWordWrap(True)
+        lbl_temp.setFont(QFont(anta[0], 15))
+        lbl_temp.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        pagelayout.addWidget(lbl_temp, 3, 0)
+
+        sld_temp = QSlider(Qt.Orientation.Horizontal, self)
+        sld_temp.setRange(180, 280)
+        sld_temp.setPageStep(5)
+        sld_temp.valueChanged.connect(self.updateLabeltemp)
+        pagelayout.addWidget(sld_temp, 3, 1)
+
+        self.lbl_slider_temp = QLabel('180', self)
+        self.lbl_slider_temp.setMinimumWidth(80)
+        self.lbl_slider_temp.setFont(QFont(anta[0], 10))
+        pagelayout.addWidget(self.lbl_slider_temp, 3, 2, alignment=Qt.AlignmentFlag.AlignRight)
+
+        btn = QPushButton("Wróć")
+        btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        btn.setFont(QFont(bakerie[0], 20))
+        btn.clicked.connect(self.close)
+        # btn.cliked.connect(self.go_back) #nwm czemu to nie dziala
+        pagelayout.addWidget(btn, 4, 0, 1, 4, alignment=Qt.AlignCenter)
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -451,9 +537,16 @@ class MainAmeryka(QMainWindow):
 
         sizegrip = QSizeGrip(central_widget)
         sizegrip.setStyleSheet("border: 1px solid black;")
-        pagelayout.addWidget(sizegrip, 0,
-                      QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
+        pagelayout.addWidget(sizegrip, 5, 5, 1, 1, alignment=Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignRight)
         central_widget.setLayout(pagelayout)
+
+    def go_back(self):
+        self.w = MainPopup()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
+
+    def updateLabeltemp(self, value):
+        self.lbl_slider_temp.setText(str(value))
 
 class MainWindow(QMainWindow):
     """
