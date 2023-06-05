@@ -139,10 +139,8 @@ class RecipesPopup(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet(f"background-color: {back_color};")
-        self.setMinimumSize(min_width, min_height)
+        self.setFixedSize(window_width, widow_height)
         self.center()
-        self.resize(min_width, min_height)
-        self.setSizePolicy(QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding))
 
         bakerie = get_font()[1]
         anta = get_font()[0]
@@ -205,10 +203,6 @@ class RecipesPopup(QMainWindow):
         btn_main.clicked.connect(self.main_window)
         sec_lay.addWidget(btn_main)
 
-        sizegrip = QSizeGrip(central_widget)
-        sizegrip.setStyleSheet("border: 1px solid black;")
-        lay.addWidget(sizegrip, 0,
-                      QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
         central_widget.setLayout(lay)
 
     def open_main(self):
@@ -248,10 +242,8 @@ class MainPopup(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet(f"background-color: {back_color};")
-        self.setMinimumSize(min_width, min_height)
+        self.setFixedSize(window_width, widow_height)
         self.center()
-        self.resize(min_width, min_height)
-        self.setSizePolicy(QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding))
 
         anta, bakerie = get_font()
 
@@ -281,12 +273,6 @@ class MainPopup(QMainWindow):
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
-        central_widget.setLayout(pagelayout)
-
-        sizegrip = QSizeGrip(central_widget)
-        sizegrip.setStyleSheet("border: 1px solid black;")
-        pagelayout.addWidget(sizegrip, 0,
-                             QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
         central_widget.setLayout(pagelayout)
 
     def center(self):
@@ -322,10 +308,8 @@ class InstructionsPopup(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet(f"background-color: {back_color};")
-        self.setMinimumSize(min_width, min_height)
+        self.setFixedSize(window_width, widow_height)
         self.center()
-        self.resize(min_width, min_height)
-        self.setSizePolicy(QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding))
 
         anta, bakerie = get_font()
 
@@ -349,12 +333,6 @@ class InstructionsPopup(QMainWindow):
         self.setCentralWidget(central_widget)
         central_widget.setLayout(pagelayout)
 
-        sizegrip = QSizeGrip(central_widget)
-        sizegrip.setStyleSheet("border: 1px solid black;")
-        pagelayout.addWidget(sizegrip, 0,
-                             QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
-        central_widget.setLayout(pagelayout)
-
     def center(self):
         """
         Center window while opening.
@@ -374,10 +352,8 @@ class MainNeapol(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet(f"background-color: {back_color};")
-        self.setMinimumSize(min_width, min_height)
+        self.setFixedSize(window_width, widow_height)
         self.center()
-        self.resize(min_width, min_height)
-        self.setSizePolicy(QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding))
 
         anta, bakerie = get_font()
 
@@ -386,91 +362,91 @@ class MainNeapol(QMainWindow):
         lbl_neapol = QLabel("Pizza Neapolitańska")
         lbl_neapol.setFont(QFont(bakerie[0], 30))
         lbl_neapol.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        pagelayout.addWidget(lbl_neapol, 0, 0, 1, 4, alignment=Qt.AlignCenter)
+        pagelayout.addWidget(lbl_neapol, 0, 0, 1, 3, alignment=Qt.AlignCenter)
+
+        self.empty_label0 = QLabel("")
+        pagelayout.addWidget(self.empty_label0, 2, 0)
 
         lbl_tryb = QLabel("Tryb pieczenia")
         lbl_tryb.setFont(QFont(anta[0], 15))
-        lbl_tryb.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        pagelayout.addWidget(lbl_tryb, 1, 0)
+        pagelayout.addWidget(lbl_tryb, 3, 0)
 
         self.cb = QComboBox()
         self.cb.addItems(tryby)
         self.cb.setFont(QFont(anta[0], 12))
         self.cb.setStyleSheet(f"selection-background-color: {select_color};")
-        pagelayout.addWidget(self.cb, 1, 1, alignment=Qt.AlignCenter)
+        pagelayout.addWidget(self.cb, 3, 1, alignment=Qt.AlignCenter)
+
+        lbl_empty = QLabel("")
+        pagelayout.addWidget(lbl_empty, 4, 0, 1, 1)
 
         lbl_srednica = QLabel("Średnica")
         lbl_srednica.setFont(QFont(anta[0], 15))
-        lbl_srednica.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        pagelayout.addWidget(lbl_srednica, 2, 0)
+        pagelayout.addWidget(lbl_srednica, 5, 0)
 
         self.sld_srednica = QSlider(Qt.Orientation.Horizontal, self)
         self.sld_srednica.setRange(20, 40)
         self.sld_srednica.setPageStep(1)
         self.sld_srednica.setStyleSheet(size_bar)
         self.sld_srednica.valueChanged.connect(self.updateLabel1)
-        pagelayout.addWidget(self.sld_srednica, 2, 1)
+        pagelayout.addWidget(self.sld_srednica, 5, 1)
 
         self.lbl_slider_sr = QLabel('20cm', self)
         self.lbl_slider_sr.setAlignment(Qt.AlignmentFlag.AlignCenter |
                                         Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_sr.setMinimumWidth(80)
         self.lbl_slider_sr.setFont(QFont(anta[0], 10))
-        pagelayout.addWidget(self.lbl_slider_sr, 2, 2, alignment=Qt.AlignLeft)
+        pagelayout.addWidget(self.lbl_slider_sr, 5, 2, alignment=Qt.AlignLeft)
+
+        lbl_empty2 = QLabel("")
+        pagelayout.addWidget(lbl_empty2, 6, 0, 1, 1)
 
         lbl_temp = QLabel("Maksymalna temperatura")
         lbl_temp.setWordWrap(True)
         lbl_temp.setFont(QFont(anta[0], 15))
-        lbl_temp.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        pagelayout.addWidget(lbl_temp, 3, 0)
+        pagelayout.addWidget(lbl_temp, 7, 0)
 
         self.sld_temp = QSlider(Qt.Orientation.Horizontal, self)
         self.sld_temp.setRange(180, 280)
         self.sld_temp.setPageStep(5)
         self.sld_temp.setStyleSheet(temp_bar)
         self.sld_temp.valueChanged.connect(self.updateLabel2)
-        pagelayout.addWidget(self.sld_temp, 3, 1)
+        pagelayout.addWidget(self.sld_temp, 7, 1)
 
         self.lbl_slider_temp = QLabel('180°C', self)
         self.lbl_slider_temp.setAlignment(Qt.AlignmentFlag.AlignCenter |
                                           Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_temp.setMinimumWidth(80)
         self.lbl_slider_temp.setFont(QFont(anta[0], 10))
-        pagelayout.addWidget(self.lbl_slider_temp, 3, 2, alignment=Qt.AlignLeft)
+        pagelayout.addWidget(self.lbl_slider_temp, 7, 2, alignment=Qt.AlignLeft)
 
         empty_label1 = QLabel("")
-        pagelayout.addWidget(empty_label1, 4, 0, 1, 4)
+        pagelayout.addWidget(empty_label1, 8, 0, 1, 3)
 
         btn_licz = make_button("Sprawdź", bakerie, font_size=20)
         btn_licz.clicked.connect(self.policz)
-        pagelayout.addWidget(btn_licz, 5, 0, 1, 4, alignment=Qt.AlignCenter)
+        pagelayout.addWidget(btn_licz, 9, 0, 1,3, alignment=Qt.AlignCenter)
 
         empty_label3 = QLabel("")
-        pagelayout.addWidget(empty_label3, 9, 0, 1, 4)
+        pagelayout.addWidget(empty_label3, 10, 0, 1, 3)
 
         btn_przepisy = make_button("Przepisy", bakerie)
         btn_przepisy.clicked.connect(self.close)
         btn_przepisy.clicked.connect(self.recipes_popup)
-        pagelayout.addWidget(btn_przepisy, 10, 0, 1, 1, alignment=Qt.AlignCenter)
+        pagelayout.addWidget(btn_przepisy, 11, 0, alignment=Qt.AlignCenter)
 
         btn_wybor = make_button("Wybór Pizzy", bakerie)
         btn_wybor.clicked.connect(self.go_back)
         btn_wybor.clicked.connect(self.close)
-        pagelayout.addWidget(btn_wybor, 10, 1, 1, 1 , alignment=Qt.AlignCenter)
+        pagelayout.addWidget(btn_wybor, 11, 1, alignment=Qt.AlignCenter)
 
         btn_menu = make_button("Menu Główne", bakerie)
         btn_menu.clicked.connect(self.close)
         btn_menu.clicked.connect(self.open_main)
-        pagelayout.addWidget(btn_menu, 10, 2, 1, 1, alignment=Qt.AlignCenter)
+        pagelayout.addWidget(btn_menu, 11, 2, alignment=Qt.AlignCenter)
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
-        central_widget.setLayout(pagelayout)
-
-        sizegrip = QSizeGrip(central_widget)
-        sizegrip.setStyleSheet("border: 1px solid black;")
-        pagelayout.addWidget(sizegrip, 11, 3, 1, 1,
-                             alignment=Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
         central_widget.setLayout(pagelayout)
 
     def updateLabel1(self, value):
@@ -494,12 +470,6 @@ class MainNeapol(QMainWindow):
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
-    """def policz(self):
-        temp = self.sld_temp.value()
-        d = self.sld_srednica.value()
-        tryb = self.cb.currentText()
-        wynik = pizza(temp, d, tryb, "n")
-        self.label_result.setText(f"Optymalny czas pieczenia to: {wynik}")"""
     def policz(self):
         anta = get_font()[0]
         temp = self.sld_temp.value()
@@ -531,11 +501,8 @@ class MainRzym(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet(f"background-color: {back_color};")
-        self.setMinimumSize(min_width, min_height)
+        self.setFixedSize(window_width, widow_height)
         self.center()
-        self.resize(min_width, min_height)
-        self.setSizePolicy(QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding))
-
         anta, bakerie = get_font()
 
         pagelayout = QGridLayout()
@@ -543,24 +510,28 @@ class MainRzym(QMainWindow):
         lbl_rzymska = QLabel("Pizza Rzymska")
         lbl_rzymska.setFont(QFont(bakerie[0], 30))
         lbl_rzymska.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        pagelayout.addWidget(lbl_rzymska, 1, 0, 1, 4, alignment=Qt.AlignCenter)
+        pagelayout.addWidget(lbl_rzymska, 1, 0, 1, 3, alignment=Qt.AlignCenter)
+
+        self.empty_label0 = QLabel("")
+        pagelayout.addWidget(self.empty_label0, 2, 0)
 
         lbl_tryb = QLabel("Tryb pieczenia")
         lbl_tryb.setFont(QFont(anta[0], 15))
-        lbl_tryb.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        pagelayout.addWidget(lbl_tryb, 2, 0)
+        pagelayout.addWidget(lbl_tryb, 3, 0)
 
         self.toggle_button = QPushButton("Termoobieg", self)
         self.toggle_button.setCheckable(True)
-        self.toggle_button.setFont(QFont(anta[0], 10))
+        self.toggle_button.setFont(QFont(anta[0], 12))
         self.toggle_button.clicked.connect(self.change_toggle)
-        pagelayout.addWidget(self.toggle_button, 2, 1, alignment=Qt.AlignCenter)
+        pagelayout.addWidget(self.toggle_button, 3, 1, alignment=Qt.AlignCenter)
+
+        lbl_empty = QLabel("")
+        pagelayout.addWidget(lbl_empty, 4, 0, 1, 1)
 
         lbl_temp = QLabel("Maksymalna temperatura")
         lbl_temp.setWordWrap(True)
         lbl_temp.setFont(QFont(anta[0], 15))
-        lbl_temp.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        pagelayout.addWidget(lbl_temp, 3, 0)
+        pagelayout.addWidget(lbl_temp, 5, 0)
 
         self.sld_temp = QSlider(Qt.Orientation.Horizontal, self)
         self.sld_temp.setRange(180, 280)
@@ -568,44 +539,42 @@ class MainRzym(QMainWindow):
         self.sld_temp.setStyleSheet(temp_bar)
         self.sld_temp.valueChanged.connect(self.updateLabeltemp)
         self.sld_temp.resize(self.sld_temp.sizeHint())
-        pagelayout.addWidget(self.sld_temp, 3, 1)
+        pagelayout.addWidget(self.sld_temp, 5, 1)
 
         self.lbl_slider_temp = QLabel('180°C', self)
         self.lbl_slider_temp.setAlignment(Qt.AlignmentFlag.AlignCenter |
                                           Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_temp.setMinimumWidth(80)
         self.lbl_slider_temp.setFont(QFont(anta[0], 10))
-        pagelayout.addWidget(self.lbl_slider_temp, 3, 2)
+        pagelayout.addWidget(self.lbl_slider_temp, 5, 2, alignment=Qt.AlignLeft)
 
-        self.label_result = QLabel("")
-        pagelayout.addWidget(self.label_result, 4, 2)
+        self.empty_label1 = QLabel("")
+        pagelayout.addWidget(self.empty_label1, 6, 0, 1, 3)
 
-        btn_licz = make_button("Sprawdź", bakerie)
+        btn_licz = make_button("Sprawdź", bakerie, font_size=20)
         btn_licz.clicked.connect(self.policz)
-        pagelayout.addWidget(btn_licz, 4, 1)
+        pagelayout.addWidget(btn_licz, 7, 1, alignment=Qt.AlignCenter)
+
+        empty_label1 = QLabel("")
+        pagelayout.addWidget(empty_label1, 8, 2, 1, 3)
 
         btn_przepisy = make_button("Przepisy", bakerie)
         btn_przepisy.clicked.connect(self.close)
         btn_przepisy.clicked.connect(self.recipes_popup)
-        pagelayout.addWidget(btn_przepisy, 5, 0)
+        pagelayout.addWidget(btn_przepisy, 9, 0, alignment=Qt.AlignCenter)
 
         btn_wybor = make_button("Wybór pizzy", bakerie)
         btn_wybor.clicked.connect(self.go_back)
         btn_wybor.clicked.connect(self.close)
-        pagelayout.addWidget(btn_wybor, 5, 1)
+        pagelayout.addWidget(btn_wybor, 9, 1, alignment=Qt.AlignCenter)
 
         btn_menu = make_button("Menu Główne", bakerie)
         btn_menu.clicked.connect(self.close)
         btn_menu.clicked.connect(self.open_main)
-        pagelayout.addWidget(btn_menu, 5, 2)
+        pagelayout.addWidget(btn_menu, 9, 2, alignment=Qt.AlignCenter)
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
-        central_widget.setLayout(pagelayout)
-
-        sizegrip = QSizeGrip(central_widget)
-        sizegrip.setStyleSheet("border: 1px solid black;")
-        pagelayout.addWidget(sizegrip, 5, 5, 1, 1, alignment=Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignRight)
         central_widget.setLayout(pagelayout)
 
     def recipes_popup(self):
@@ -662,10 +631,8 @@ class MainAmeryka(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet(f"background-color: {back_color};")
-        self.setMinimumSize(min_width, min_height)
+        self.setFixedSize(window_width, widow_height)
         self.center()
-        self.resize(min_width, min_height)
-        self.setSizePolicy(QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding))
 
         anta, bakerie = get_font()
 
@@ -676,68 +643,69 @@ class MainAmeryka(QMainWindow):
         lbl_rzymska.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         pagelayout.addWidget(lbl_rzymska, 1, 0, 1, 4, alignment=Qt.AlignCenter)
 
+        self.empty_label0 = QLabel("")
+        pagelayout.addWidget(self.empty_label0, 2, 0)
+
         lbl_tryb = QLabel("Tryb pieczenia")
         lbl_tryb.setFont(QFont(anta[0], 15))
-        lbl_tryb.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        pagelayout.addWidget(lbl_tryb, 2, 0)
+        pagelayout.addWidget(lbl_tryb, 3, 0)
 
         self.toggle_button = QPushButton("Termoobieg", self)
         self.toggle_button.setCheckable(True)
-        self.toggle_button.setFont(QFont(anta[0], 9))
+        self.toggle_button.setFont(QFont(anta[0], 12))
         self.toggle_button.clicked.connect(self.change_toggle)
-        pagelayout.addWidget(self.toggle_button, 2, 1, alignment=Qt.AlignCenter)
+        pagelayout.addWidget(self.toggle_button, 3, 1, alignment=Qt.AlignCenter)
+
+        lbl_empty = QLabel("")
+        pagelayout.addWidget(lbl_empty, 4, 0, 1, 1)
 
         lbl_temp = QLabel("Maksymalna temperatura")
         lbl_temp.setWordWrap(True)
         lbl_temp.setFont(QFont(anta[0], 15))
-        lbl_temp.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        pagelayout.addWidget(lbl_temp, 3, 0)
+        pagelayout.addWidget(lbl_temp, 5, 0)
 
         self.sld_temp = QSlider(Qt.Orientation.Horizontal, self)
         self.sld_temp.setRange(180, 280)
         self.sld_temp.setPageStep(5)
         self.sld_temp.setStyleSheet(temp_bar)
         self.sld_temp.valueChanged.connect(self.updateLabeltemp)
-        pagelayout.addWidget(self.sld_temp, 3, 1)
+        pagelayout.addWidget(self.sld_temp, 5, 1)
 
         self.lbl_slider_temp = QLabel('180°C', self)
         self.lbl_slider_temp.setAlignment(Qt.AlignmentFlag.AlignCenter |
                                           Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_temp.setMinimumWidth(80)
         self.lbl_slider_temp.setFont(QFont(anta[0], 10))
-        pagelayout.addWidget(self.lbl_slider_temp, 3, 2)
+        pagelayout.addWidget(self.lbl_slider_temp, 5, 2)
 
-        self.label_result = QLabel("")
-        pagelayout.addWidget(self.label_result, 4, 2)
+        self.empty_label1 = QLabel("")
+        pagelayout.addWidget(self.empty_label1, 6, 2, 1, 3)
 
-        btn_licz = make_button("Sprawdź", bakerie)
+        btn_licz = make_button("Sprawdź", bakerie, font_size=20)
         btn_licz.clicked.connect(self.policz)
-        pagelayout.addWidget(btn_licz, 4, 1)
+        pagelayout.addWidget(btn_licz, 7, 1, alignment=Qt.AlignCenter)
+
+        self.empty_label2 = QLabel("")
+        pagelayout.addWidget(self.empty_label2, 8, 2, 1, 3)
 
         btn_przepisy = make_button("Przepisy", bakerie)
         btn_przepisy.clicked.connect(self.close)
         btn_przepisy.clicked.connect(self.recipes_popup)
-        pagelayout.addWidget(btn_przepisy, 5, 0)
+        pagelayout.addWidget(btn_przepisy, 9, 0, alignment=Qt.AlignCenter)
 
         btn_wybor = make_button("Wybór Pizzy", bakerie)
         btn_wybor.clicked.connect(self.go_back)
         btn_wybor.clicked.connect(self.close)
-        pagelayout.addWidget(btn_wybor, 5, 1)
+        pagelayout.addWidget(btn_wybor, 9, 1, alignment=Qt.AlignCenter)
 
         btn_menu = make_button("Menu Główne", bakerie)
         btn_menu.clicked.connect(self.close)
         btn_menu.clicked.connect(self.open_main)
-        pagelayout.addWidget(btn_menu, 5, 2)
+        pagelayout.addWidget(btn_menu, 9, 2, alignment=Qt.AlignCenter)
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         central_widget.setLayout(pagelayout)
-
-        sizegrip = QSizeGrip(central_widget)
-        sizegrip.setStyleSheet("border: 1px solid black;")
-        pagelayout.addWidget(sizegrip, 5, 5, 1, 1, alignment=Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignRight)
-        central_widget.setLayout(pagelayout)
-
     def recipes_popup(self):
         self.w = RecipesPopup()
         self.mw = qtmodern.windows.ModernWindow(self.w)
@@ -796,10 +764,8 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet(f"background-color: {back_color};")
-        self.setMinimumSize(min_width, min_height)
+        self.setFixedSize(window_width, widow_height)
         self.center()
-        self.resize(min_width, min_height)
-        self.setSizePolicy(QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding))
 
         bakerie = get_font()[1]
 
@@ -846,10 +812,6 @@ class MainWindow(QMainWindow):
 
         widget = QWidget()
         self.setCentralWidget(widget)
-        sizegrip = QSizeGrip(widget)
-        sizegrip.setStyleSheet("border: 1px solid black;")
-        pagelayout.addWidget(sizegrip, 0,
-                             QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
         widget.setLayout(pagelayout)
 
     def recipes_popup(self):
@@ -894,7 +856,7 @@ def main():
     qtmodern.styles.dark(App)
     mw = qtmodern.windows.ModernWindow(window)
     mw.show()
-    # App.aboutToQuit.connect(window.closeEvent)
+    #App.aboutToQuit.connect(window.closeEvent)
     sys.exit(App.exec())
 
 
