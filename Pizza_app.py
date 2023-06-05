@@ -148,26 +148,34 @@ class RecipesPopup(QMainWindow):
         anta = get_font()[0]
 
         self.slidingStacked = SlidingStackedWidget()
-        label_neapol = QLabel("Pizza Neapolitańska", alignment=QtCore.Qt.AlignCenter)
-        label_neapol.setFont(QFont(bakerie[0], 20))
-        label_ameryka = QLabel("Pizza Amerykańska", alignment=QtCore.Qt.AlignCenter)
-        label_ameryka.setFont(QFont(bakerie[0], 20))
-        label_rzym = QLabel("Pizza Rzymska", alignment=QtCore.Qt.AlignCenter)
-        label_rzym.setFont(QFont(bakerie[0], 20))
-        neapol_przepis = QLabel(constant.przepis_neapol)
+
+        neapol_przepis = QLabel(f"""<div 
+                                style ="font-size:45px; text-align:center;"><span style ="font-family:{bakerie[0]};">Pizza Neapolitańska</span> <br></
+                                div><div
+                                style="font-size:18px; text-align:left;"><span style="font-family: {anta[0]};"{przepis_neapol}</span
+                                </div>""")
+        ameryka_przepis = QLabel(f"""<div 
+                                style ="font-size:45px; text-align:center;"><span style ="font-family:{bakerie[0]};">Pizza Amerykańska</span> <br></
+                                div><div
+                                style="font-size:18px; text-align:left;"><span style="font-family: {anta[0]};"{przepis_ameryka}</span
+                                </div>""")
+        rzym_przepis = QLabel(f"""<div 
+                                style ="font-size:45px; text-align:center;"><span style ="font-family:{bakerie[0]};">Pizza Rzymska</span> </
+                                div><div
+                                style="font-size:18px; text-align:left;"><span style="font-family: {anta[0]};"{przepis_rzym}</span
+                                </div>""")
         neapol_przepis.setWordWrap(True)
-        neapol_przepis.setFont(QFont(anta[0], 10))
+        ameryka_przepis.setWordWrap(True)
+        rzym_przepis.setWordWrap(True)
         self.slidingStacked.addWidget(neapol_przepis)
-        self.slidingStacked.addWidget(label_ameryka)
-        self.slidingStacked.addWidget(label_rzym)
+        self.slidingStacked.addWidget(ameryka_przepis)
+        self.slidingStacked.addWidget(rzym_przepis)
 
         button_prev = QPushButton("Poprzednia")
         button_prev.clicked.connect(self.slidingStacked.slideInPrev)
-        # button_prev.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button_prev.setFont(QFont(bakerie[0], 15))
         button_next = QPushButton("Następna")
         button_next.clicked.connect(self.slidingStacked.slideInNext)
-        # button_next.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button_next.setFont(QFont(bakerie[0], 15))
 
         hlay = QHBoxLayout()
@@ -509,9 +517,6 @@ class MainNeapol(QMainWindow):
         self.msg.setStyleSheet(f"background-color: {back_color};")
         self.msg.setText(f"Optymalny czas pieczenia pizzy to: {wynik}")
         self.msg.setFont(QFont(anta[0], 15))
-        #self.qtmsg = qtmodern.windows.ModernWindow(self.msg)
-        #self.qtmsg.setFixedSize(500, 140)
-        #self.qtmsg.show()
         self.msg.exec_()
 
 

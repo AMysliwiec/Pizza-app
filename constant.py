@@ -8,16 +8,52 @@ select_color = "#798b80"
 min_width = 600
 min_height = 700
 
-przepis_neapol = "Pizza Neapolitańska \n".center(110) + """
-Składniki: \n
-● 500g mąki pszennej typu 00 \n
-● 325g letniej wody \n
-● 10g świeżych drożdży\n
-● 5g soli \n \n
+przepis_neapol = """ <br>
+Składniki <br>
+● 500g mąki pszennej typu 00 <br>
+● 325g letniej wody <br>
+● 10g świeżych drożdży <br>
+● 5g soli <br> <br>
 Rozpuść drożdże w wodzie i pozostaw je na 10 minut. W dużej misce wymieszaj mąkę z solą a następnie wlej przygotowaną wcześniej wodę 
-z drożdżami. Połącz składniki drewnianą łyżką i rozpocznij wyrabianie ciasta. Jeśli masz taką możliwość możesz użyć robota planetarnego. Wyrabiaj ciasto tak długo aż będzie ono elastyczne i gładkie. Tak 
-przygotowane ciasto pozostaw pod przykryciem do wyrośnięcia na co najmniej pół godziny. Po tym czasie podziel je na 3 części i uformuj z nich kulki. Pozostaw je do wyrośnięcia pod czystą, zwilżoną ścierką 
-materiałową na następne pół godziny. Z gotowych kulek ciasta uformuj pizzę o bardzo cienkim spodzie. Brzegi pizzy mogą pozostać większe. Dodaj ulubione dodatki i włóż pizzę do piekarnika."""
+z drożdżami. Połącz składniki drewnianą łyżką i rozpocznij wyrabianie ciasta. Jeśli masz taką możliwość możesz użyć robota planetarnego. 
+Wyrabiaj ciasto tak długo aż będzie ono elastyczne i gładkie. Tak  przygotowane ciasto pozostaw pod przykryciem do wyrośnięcia na 
+co najmniej pół godziny. Po tym czasie podziel je na 3 części i uformuj z nich kulki. Pozostaw je do wyrośnięcia pod czystą, zwilżoną ścierką 
+materiałową na następne pół godziny. Z gotowych kulek ciasta uformuj pizzę o bardzo cienkim spodzie. Brzegi pizzy mogą pozostać większe. 
+Dodaj ulubione dodatki i włóż pizzę do piekarnika."""
+
+przepis_ameryka =""" <br>
+Składniki: <br>
+● 450 g mąki pszennej typu 00 <br>
+● 325 ml ciepłej wody <br>
+● 2 łyżki oleju roślinnego <br>
+● 2 łyżeczki soli <br>
+● 2 łyżeczki cukru <br>
+● 7 g suchych drożdży instant <br> <br>
+W dużej misce wymieszaj mąkę, sól, cukier i drożdże. Do miski dodaj ciepłą wodę i olej
+roślinny. Mieszaj wszystkie składniki, aż powstanie elastyczne ciasto. Wyłóż je na lekko oprószoną
+mąką powierzchnię i zagniataj przez około 5-7 minut, aż będzie miękkie i elastyczne. Tak
+przygotowane ciasto umieść w dużej misce posmarowanej oliwą z oliwek, przykryj je ściereczką i
+pozostaw w ciepłym miejscu na około 1-2 godziny, aż podwoi swoją objętość. Przygotuj dużą okrągłą
+blachę do pizzy i posmaruj ją olejem roślinnym.
+"""
+
+przepis_rzym = """<br>
+Składniki: <br>
+● 500g mąki pszennej typu 00 <br>
+● 325g letniej wody <br>
+● 10g świeżych drożdży <br>
+● 10g cukru <br>
+● 5g soli <br>
+● 2 łyżki oliwy z oliwek <br> <br>
+W dużej misce wymieszaj mąkę, sól i cukier. W drugiej misce rozpuść drożdże w letniej
+wodzie i pozostaw na kilka minut, aż zaczną się pienić. Dodaj rozpuszczone drożdże do miski z mąką i
+stopniowo mieszaj, aż składniki się połączą. Następnie dodaj oliwę z oliwek i kontynuuj mieszanie, aż
+powstanie elastyczne ciasto. Wyłóż ciasto na oprószoną mąką powierzchnię i zagniataj je przez około
+10 minut, aż będzie gładkie i elastyczne. Umieść ciasto w dużej misce posmarowanej oliwą z oliwek,
+przykryj je ściereczką i pozostaw w ciepłym miejscu na około 1-2 godziny, aż podwoi swoją objętość.
+Następnie na dużą, posmarowaną oliwą blachę wyłóż ciasto i rozciągnij je na równomierną grubość,
+tworząc klasyczną pizzę rzymską.
+"""
 
 def get_font():
     bakerie_font = "Bakerie Rough Bold.otf"
