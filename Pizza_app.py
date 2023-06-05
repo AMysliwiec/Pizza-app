@@ -468,7 +468,7 @@ class MainNeapol(QMainWindow):
         temp = self.sld_temp.value()
         d = self.sld_srednica.value()
         tryb = self.cb.currentText()
-        wynik = neapolitanska(temp, d, tryb)
+        wynik = pizza(temp, d, tryb, "n")
         self.label_result.setText(f"Optymalny czas pieczenia to: {wynik}")
 
     def center(self):
@@ -578,7 +578,7 @@ class MainRzym(QMainWindow):
     def policz(self):
         tryb = self.toggle_button.text()
         temp = self.sld_temp.value()
-        wynik = rzymska(temp, 30, tryb)
+        wynik = pizza(temp, 30, tryb, "r")
         self.label_result.setText(f"Optymalny czas pieczenia to: {wynik}")
 
     def change_toggle(self):
@@ -686,7 +686,7 @@ class MainAmeryka(QMainWindow):
     def policz(self):
         tryb = self.toggle_button.text()
         temp = self.sld_temp.value()
-        wynik = amerykanska(temp, 30, tryb)
+        wynik = pizza(temp, 30, tryb, "a")
         self.label_result.setText(f"Optymalny czas pieczenia to: {wynik}")
 
     def go_back(self):
