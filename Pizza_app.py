@@ -11,6 +11,8 @@ from PyQt5.QtGui import QFont, QFontDatabase
 from PyQt5.QtWidgets import QDesktopWidget
 import PyQt5.QtGui
 from PyQt5.QtCore import QCoreApplication
+
+import constant
 from constant import *
 
 
@@ -143,12 +145,19 @@ class RecipesPopup(QMainWindow):
         self.setSizePolicy(QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding))
 
         bakerie = get_font()[1]
+        anta = get_font()[0]
 
         self.slidingStacked = SlidingStackedWidget()
-        label_neapol = QLabel("Neapolitańska", alignment=QtCore.Qt.AlignCenter)
-        label_ameryka = QLabel("Amerykańska", alignment=QtCore.Qt.AlignCenter)
-        label_rzym = QLabel("Rzymska", alignment=QtCore.Qt.AlignCenter)
-        self.slidingStacked.addWidget(label_neapol)
+        label_neapol = QLabel("Pizza Neapolitańska", alignment=QtCore.Qt.AlignCenter)
+        label_neapol.setFont(QFont(bakerie[0], 20))
+        label_ameryka = QLabel("Pizza Amerykańska", alignment=QtCore.Qt.AlignCenter)
+        label_ameryka.setFont(QFont(bakerie[0], 20))
+        label_rzym = QLabel("Pizza Rzymska", alignment=QtCore.Qt.AlignCenter)
+        label_rzym.setFont(QFont(bakerie[0], 20))
+        neapol_przepis = QLabel(constant.przepis_neapol)
+        neapol_przepis.setWordWrap(True)
+        neapol_przepis.setFont(QFont(anta[0], 10))
+        self.slidingStacked.addWidget(neapol_przepis)
         self.slidingStacked.addWidget(label_ameryka)
         self.slidingStacked.addWidget(label_rzym)
 

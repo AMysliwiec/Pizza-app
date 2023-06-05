@@ -8,6 +8,16 @@ select_color = "#798b80"
 min_width = 600
 min_height = 700
 
+przepis_neapol = "Pizza Neapolitańska \n".center(110) + """
+Składniki: \n
+● 500g mąki pszennej typu 00 \n
+● 325g letniej wody \n
+● 10g świeżych drożdży\n
+● 5g soli \n \n
+Rozpuść drożdże w wodzie i pozostaw je na 10 minut. W dużej misce wymieszaj mąkę z solą a następnie wlej przygotowaną wcześniej wodę 
+z drożdżami. Połącz składniki drewnianą łyżką i rozpocznij wyrabianie ciasta. Jeśli masz taką możliwość możesz użyć robota planetarnego. Wyrabiaj ciasto tak długo aż będzie ono elastyczne i gładkie. Tak 
+przygotowane ciasto pozostaw pod przykryciem do wyrośnięcia na co najmniej pół godziny. Po tym czasie podziel je na 3 części i uformuj z nich kulki. Pozostaw je do wyrośnięcia pod czystą, zwilżoną ścierką 
+materiałową na następne pół godziny. Z gotowych kulek ciasta uformuj pizzę o bardzo cienkim spodzie. Brzegi pizzy mogą pozostać większe. Dodaj ulubione dodatki i włóż pizzę do piekarnika."""
 
 def get_font():
     bakerie_font = "Bakerie Rough Bold.otf"
