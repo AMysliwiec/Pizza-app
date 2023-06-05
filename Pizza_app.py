@@ -490,10 +490,21 @@ class MainNeapol(QMainWindow):
         wynik = pizza(temp, d, tryb, "n")
         self.label_result.setText(f"Optymalny czas pieczenia to: {wynik}")"""
     def policz(self):
+        anta = get_font()[0]
         temp = self.sld_temp.value()
         d = self.sld_srednica.value()
         tryb = self.cb.currentText()
         wynik = pizza(temp, d, tryb, "n")
+        self.msg = QMessageBox()
+        self.msg.setWindowTitle("")
+        self.msg.setStyleSheet(f"background-color: {back_color};")
+        self.msg.setText(f"Optymalny czas pieczenia pizzy to: {wynik}")
+        self.msg.setFont(QFont(anta[0], 15))
+        #self.qtmsg = qtmodern.windows.ModernWindow(self.msg)
+        #self.qtmsg.setFixedSize(500, 140)
+        #self.qtmsg.show()
+        self.msg.exec_()
+
 
     def center(self):
         """
