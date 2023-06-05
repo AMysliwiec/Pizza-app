@@ -677,7 +677,7 @@ class MainAmeryka(QMainWindow):
 
         self.toggle_button = QPushButton("Termoobieg", self)
         self.toggle_button.setCheckable(True)
-        self.toggle_button.setFont(QFont(anta[0], 9))
+        self.toggle_button.setFont((QFont(anta[0], 12)))
         self.toggle_button.clicked.connect(self.change_toggle)
         pagelayout.addWidget(self.toggle_button, 2, 1, alignment=Qt.AlignCenter)
 
@@ -698,37 +698,31 @@ class MainAmeryka(QMainWindow):
                                           Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_temp.setMinimumWidth(80)
         self.lbl_slider_temp.setFont(QFont(anta[0], 10))
-        pagelayout.addWidget(self.lbl_slider_temp, 3, 2)
+        pagelayout.addWidget(self.lbl_slider_temp, 3, 2, alignment=Qt.AlignLeft)
 
-        self.label_result = QLabel("")
-        pagelayout.addWidget(self.label_result, 4, 2)
-
-        btn_licz = make_button("Sprawdź", bakerie)
+        btn_licz = make_button("Sprawdź", bakerie, font_size=20)
         btn_licz.clicked.connect(self.policz)
-        pagelayout.addWidget(btn_licz, 4, 1)
+        pagelayout.addWidget(btn_licz, 4, 0, 1, 3, alignment=Qt.AlignCenter)
 
         btn_przepisy = make_button("Przepisy", bakerie)
         btn_przepisy.clicked.connect(self.close)
         btn_przepisy.clicked.connect(self.recipes_popup)
-        pagelayout.addWidget(btn_przepisy, 5, 0)
+        pagelayout.addWidget(btn_przepisy, 5, 0, alignment= Qt.AlignCenter)
 
         btn_wybor = make_button("Wybór Pizzy", bakerie)
         btn_wybor.clicked.connect(self.go_back)
         btn_wybor.clicked.connect(self.close)
-        pagelayout.addWidget(btn_wybor, 5, 1)
+        pagelayout.addWidget(btn_wybor, 5, 1, alignment= Qt.AlignCenter)
 
         btn_menu = make_button("Menu Główne", bakerie)
         btn_menu.clicked.connect(self.close)
         btn_menu.clicked.connect(self.open_main)
-        pagelayout.addWidget(btn_menu, 5, 2)
+        pagelayout.addWidget(btn_menu, 5, 2, alignment= Qt.AlignCenter)
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         central_widget.setLayout(pagelayout)
 
-        sizegrip = QSizeGrip(central_widget)
-        sizegrip.setStyleSheet("border: 1px solid black;")
-        pagelayout.addWidget(sizegrip, 5, 5, 1, 1, alignment=Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignRight)
         central_widget.setLayout(pagelayout)
 
     def recipes_popup(self):
@@ -884,3 +878,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
