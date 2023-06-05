@@ -140,8 +140,8 @@ class RecipesPopup(QMainWindow):
         self.setMinimumSize(200, 700)
         self.center()
 
-        font = QFontDatabase.addApplicationFont(bakerie_font)
-        bakerie = QFontDatabase.applicationFontFamilies(font)
+        bakerie = get_font()[1]
+
         self.slidingStacked = SlidingStackedWidget()
         label_neapol = QLabel("Neapolitańska", alignment=QtCore.Qt.AlignCenter)
         label_ameryka = QLabel("Amerykańska", alignment=QtCore.Qt.AlignCenter)
@@ -232,10 +232,7 @@ class MainPopup(QMainWindow):
         self.setMinimumSize(200, 700)
         self.center()
 
-        font1 = QFontDatabase.addApplicationFont(anta_font)
-        font2 = QFontDatabase.addApplicationFont(bakerie_font)
-        anta = QFontDatabase.applicationFontFamilies(font1)
-        bakerie = QFontDatabase.applicationFontFamilies(font2)
+        anta, bakerie = get_font()
 
         label = QLabel("Wybierz rodzaj pizzy.")
         label.setWordWrap(True)  # zawija tekst
@@ -246,24 +243,17 @@ class MainPopup(QMainWindow):
         label.setAlignment(QtCore.Qt.AlignCenter)
         pagelayout.addWidget(label)
 
-        btn_neapol = QPushButton("Neapolitańska")
-        btn_neapol.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)  # rozszerza sie przycisk jak rozszerzamy
-        btn_neapol.setFont(QFont(bakerie[0], 20))
+        btn_neapol = make_button("Neapolitańska", bakerie, 0, 0)
         btn_neapol.clicked.connect(self.neapol)
         btn_neapol.clicked.connect(self.close)
         pagelayout.addWidget(btn_neapol)
 
-        btn_ameryka = QPushButton("Amerykańska")
-        btn_ameryka.setSizePolicy(QSizePolicy.Expanding,
-                                  QSizePolicy.Expanding)  # rozszerza sie przycisk jak rozszerzamy
-        btn_ameryka.setFont(QFont(bakerie[0], 20))
+        btn_ameryka = make_button("Amerykańska", bakerie, 0, 0)
         btn_ameryka.clicked.connect(self.ameryka)
         btn_ameryka.clicked.connect(self.close)
         pagelayout.addWidget(btn_ameryka)
 
-        btn_rzym = QPushButton("Rzymska")
-        btn_rzym.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)  # rozszerza sie przycisk jak rozszerzamy
-        btn_rzym.setFont(QFont(bakerie[0], 20))
+        btn_rzym = make_button("Rzymska", bakerie, 0, 0)
         btn_rzym.clicked.connect(self.rzym)
         btn_rzym.clicked.connect(self.close)
         pagelayout.addWidget(btn_rzym)
@@ -313,10 +303,8 @@ class InstructionsPopup(QMainWindow):
         self.setStyleSheet(f"background-color: {back_color};")
         self.setMinimumSize(200, 700)
         self.center()
-        font2 = QFontDatabase.addApplicationFont(bakerie_font)
-        bakerie = QFontDatabase.applicationFontFamilies(font2)
-        font1 = QFontDatabase.addApplicationFont(anta_font)
-        anta = QFontDatabase.applicationFontFamilies(font1)
+
+        anta, bakerie = get_font()
 
         label = QLabel("Tu bedą instrukcje jak używać apki")
         label.setWordWrap(True)  # zawija tekst
@@ -328,8 +316,7 @@ class InstructionsPopup(QMainWindow):
         pagelayout.addWidget(label)
 
         btn = QPushButton("Menu główne")
-        btn.setSizePolicy(QSizePolicy.Expanding,
-                          QSizePolicy.Expanding)  # rozszerza sie przycisk jak rozszerzamy
+        btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)  # rozszerza sie przycisk jak rozszerzamy
         btn.setFont(QFont(bakerie[0], 20))
         btn.clicked.connect(self.close)
         btn.clicked.connect(self.open_main)
@@ -367,10 +354,8 @@ class MainNeapol(QMainWindow):
         self.setMinimumSize(200, 700)
         self.center()
 
-        font1 = QFontDatabase.addApplicationFont(anta_font)
-        font2 = QFontDatabase.addApplicationFont(bakerie_font)
-        anta = QFontDatabase.applicationFontFamilies(font1)
-        bakerie = QFontDatabase.applicationFontFamilies(font2)
+        anta, bakerie = get_font()
+
         pagelayout = QGridLayout()
 
         lbl_neapol = QLabel("Pizza Neapolitańska")
@@ -429,37 +414,21 @@ class MainNeapol(QMainWindow):
         self.label_result = QLabel("")
         pagelayout.addWidget(self.label_result, 4, 2)
 
-        btn_licz = QPushButton("Sprawdź")
-        btn_licz.setMinimumWidth(160)
-        btn_licz.setMaximumHeight(60)
-        btn_licz.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        btn_licz.setFont(QFont(bakerie[0], 20))
+        btn_licz = make_button("Sprawdź", bakerie)
         btn_licz.clicked.connect(self.policz)
         pagelayout.addWidget(btn_licz, 4, 1)
 
-        btn_przepisy = QPushButton("Przepisy")
-        btn_przepisy.setMinimumWidth(160)
-        btn_przepisy.setMaximumHeight(60)
-        btn_przepisy.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        btn_przepisy.setFont(QFont(bakerie[0], 20))
+        btn_przepisy = make_button("Przepisy", bakerie)
         btn_przepisy.clicked.connect(self.close)
         btn_przepisy.clicked.connect(self.recipes_popup)
         pagelayout.addWidget(btn_przepisy, 5, 0)
 
-        btn_wybor = QPushButton("Wybór pizzy")
-        btn_wybor.setMinimumWidth(160)
-        btn_wybor.setMaximumHeight(60)
-        btn_wybor.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        btn_wybor.setFont(QFont(bakerie[0], 20))
+        btn_wybor = make_button("Wybór Pizzy", bakerie)
         btn_wybor.clicked.connect(self.go_back)
         btn_wybor.clicked.connect(self.close)
         pagelayout.addWidget(btn_wybor, 5, 1)
 
-        btn_menu = QPushButton("Menu główne")
-        btn_menu.setMinimumWidth(160)
-        btn_menu.setMaximumHeight(60)
-        btn_menu.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        btn_menu.setFont(QFont(bakerie[0], 20))
+        btn_menu = make_button("Menu Główne", bakerie)
         btn_menu.clicked.connect(self.close)
         btn_menu.clicked.connect(self.open_main)
         pagelayout.addWidget(btn_menu, 5, 2)
@@ -519,10 +488,8 @@ class MainRzym(QMainWindow):
         self.setMinimumSize(200, 700)
         self.center()
 
-        font1 = QFontDatabase.addApplicationFont(anta_font)
-        font2 = QFontDatabase.addApplicationFont(bakerie_font)
-        anta = QFontDatabase.applicationFontFamilies(font1)
-        bakerie = QFontDatabase.applicationFontFamilies(font2)
+        anta, bakerie = get_font()
+
         pagelayout = QGridLayout()
 
         lbl_rzymska = QLabel("Pizza Rzymska")
@@ -565,37 +532,21 @@ class MainRzym(QMainWindow):
         self.label_result = QLabel("")
         pagelayout.addWidget(self.label_result, 4, 2)
 
-        btn_licz = QPushButton("Sprawdź")
-        btn_licz.setMinimumWidth(160)
-        btn_licz.setMaximumHeight(60)
-        btn_licz.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        btn_licz.setFont(QFont(bakerie[0], 20))
+        btn_licz = make_button("Sprawdź", bakerie)
         btn_licz.clicked.connect(self.policz)
         pagelayout.addWidget(btn_licz, 4, 1)
 
-        btn_przepisy = QPushButton("Przepisy")
-        btn_przepisy.setMinimumWidth(160)
-        btn_przepisy.setMaximumHeight(60)
-        btn_przepisy.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        btn_przepisy.setFont(QFont(bakerie[0], 20))
+        btn_przepisy = make_button("Przepisy", bakerie)
         btn_przepisy.clicked.connect(self.close)
         btn_przepisy.clicked.connect(self.recipes_popup)
         pagelayout.addWidget(btn_przepisy, 5, 0)
 
-        btn_wybor = QPushButton("Wybór pizzy")
-        btn_wybor.setMinimumWidth(160)
-        btn_wybor.setMaximumHeight(60)
-        btn_wybor.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        btn_wybor.setFont(QFont(bakerie[0], 20))
+        btn_wybor = make_button("Wybór pizzy", bakerie)
         btn_wybor.clicked.connect(self.go_back)
         btn_wybor.clicked.connect(self.close)
         pagelayout.addWidget(btn_wybor, 5, 1)
 
-        btn_menu = QPushButton("Menu główne")
-        btn_menu.setMinimumWidth(160)
-        btn_menu.setMaximumHeight(60)
-        btn_menu.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        btn_menu.setFont(QFont(bakerie[0], 20))
+        btn_menu = make_button("Menu Główne", bakerie)
         btn_menu.clicked.connect(self.close)
         btn_menu.clicked.connect(self.open_main)
         pagelayout.addWidget(btn_menu, 5, 2)
@@ -657,10 +608,8 @@ class MainAmeryka(QMainWindow):
         self.setMinimumSize(200, 700)
         self.center()
 
-        font1 = QFontDatabase.addApplicationFont(anta_font)
-        font2 = QFontDatabase.addApplicationFont(bakerie_font)
-        anta = QFontDatabase.applicationFontFamilies(font1)
-        bakerie = QFontDatabase.applicationFontFamilies(font2)
+        anta, bakerie = get_font()
+
         pagelayout = QGridLayout()
 
         lbl_rzymska = QLabel("Pizza Amerykańska")
@@ -701,37 +650,21 @@ class MainAmeryka(QMainWindow):
         self.label_result = QLabel("")
         pagelayout.addWidget(self.label_result, 4, 2)
 
-        btn_licz = QPushButton("Sprawdź")
-        btn_licz.setMinimumWidth(160)
-        btn_licz.setMaximumHeight(60)
-        btn_licz.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        btn_licz.setFont(QFont(bakerie[0], 20))
+        btn_licz = make_button("Sprawdź", bakerie)
         btn_licz.clicked.connect(self.policz)
         pagelayout.addWidget(btn_licz, 4, 1)
 
-        btn_przepisy = QPushButton("Przepisy")
-        btn_przepisy.setMinimumWidth(160)
-        btn_przepisy.setMaximumHeight(60)
-        btn_przepisy.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        btn_przepisy.setFont(QFont(bakerie[0], 20))
+        btn_przepisy = make_button("Przepisy", bakerie)
         btn_przepisy.clicked.connect(self.close)
         btn_przepisy.clicked.connect(self.recipes_popup)
         pagelayout.addWidget(btn_przepisy, 5, 0)
 
-        btn_wybor = QPushButton("Wybór pizzy")
-        btn_wybor.setMinimumWidth(160)
-        btn_wybor.setMaximumHeight(60)
-        btn_wybor.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        btn_wybor.setFont(QFont(bakerie[0], 20))
+        btn_wybor = make_button("Wybór Pizzy", bakerie)
         btn_wybor.clicked.connect(self.go_back)
         btn_wybor.clicked.connect(self.close)
         pagelayout.addWidget(btn_wybor, 5, 1)
 
-        btn_menu = QPushButton("Menu główne")
-        btn_menu.setMinimumWidth(160)
-        btn_menu.setMaximumHeight(60)
-        btn_menu.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        btn_menu.setFont(QFont(bakerie[0], 20))
+        btn_menu = make_button("Menu Główne", bakerie)
         btn_menu.clicked.connect(self.close)
         btn_menu.clicked.connect(self.open_main)
         pagelayout.addWidget(btn_menu, 5, 2)
@@ -801,8 +734,7 @@ class MainWindow(QMainWindow):
 
         self.setSizePolicy(QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding))
 
-        font = QFontDatabase.addApplicationFont(bakerie_font)
-        bakerie = QFontDatabase.applicationFontFamilies(font)
+        bakerie = get_font()[1]
 
         pagelayout = QVBoxLayout()
         label = QLabel(

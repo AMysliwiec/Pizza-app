@@ -1,11 +1,34 @@
+from PyQt5.QtGui import QFontDatabase, QFont
+from PyQt5.QtWidgets import QPushButton, QSizePolicy
 from sympy import symbols, solve
 import math
 
 back_color = "#5D7064"
 select_color = "#798b80"
 
-bakerie_font = "Bakerie Rough Bold.otf"
-anta_font = "anta-regular.ttf"
+
+def get_font():
+    bakerie_font = "Bakerie Rough Bold.otf"
+    anta_font = "anta-regular.ttf"
+    font1 = QFontDatabase.addApplicationFont(anta_font)
+    font2 = QFontDatabase.addApplicationFont(bakerie_font)
+    anta = QFontDatabase.applicationFontFamilies(font1)
+    bakerie = QFontDatabase.applicationFontFamilies(font2)
+
+    return anta, bakerie
+
+
+def make_button(nazwa, bakerie, min_width=160, max_height=60, font_size=20):
+    btn = QPushButton(nazwa)
+    if min_width != 0:
+        btn.setMinimumWidth(min_width)
+    if max_height != 0:
+        btn.setMaximumHeight(max_height)
+    btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+    btn.setFont(QFont(bakerie[0], font_size))
+
+    return btn
+
 
 tryby = ["Termoobieg", "Góra-dół", "Combo"]
 
@@ -56,6 +79,7 @@ height: 10px;
 border-radius: 4px;
 }"""
 
+
 # FUNKCJA
 
 def neapolitanska(T_1, d, tryb):
@@ -80,7 +104,7 @@ def neapolitanska(T_1, d, tryb):
     q_w = 10 ** 3
 
     tau = solve(sigma * (T_1 ** 4 - T_b ** 4) * t + 2 * kappa * (T_1 - T_0) * (t / (chi)) ** (1 / 2) - c * rho * 0.5 * (
-                T_b - T_2) - alpha * L * 0.5 * q_w)[0] / 1939 * ((20 + d) / 50)
+            T_b - T_2) - alpha * L * 0.5 * q_w)[0] / 1939 * ((20 + d) / 50)
 
     if tryb == "Termoobieg":
         tau = tau
@@ -117,7 +141,7 @@ def rzymska(T_1, d, tryb):
     q_w = 10 ** 3
 
     tau = solve(sigma * (T_1 ** 4 - T_b ** 4) * t + 2 * kappa * (T_1 - T_0) * (t / (chi)) ** (1 / 2) - c * rho * 0.5 * (
-                T_b - T_2) - alpha * L * 0.5 * q_w)[0] / 1666 * ((20 + d) / 50)
+            T_b - T_2) - alpha * L * 0.5 * q_w)[0] / 1666 * ((20 + d) / 50)
 
     if tryb == "Termoobieg":
         tau = tau
@@ -152,7 +176,7 @@ def amerykanska(T_1, d, tryb):
     q_w = 10 ** 3
 
     tau = solve(sigma * (T_1 ** 4 - T_b ** 4) * t + 2 * kappa * (T_1 - T_0) * (t / (chi)) ** (1 / 2) - c * rho * 0.5 * (
-                T_b - T_2) - alpha * L * 0.5 * q_w)[0] / 1333 * ((20 + d) / 50)
+            T_b - T_2) - alpha * L * 0.5 * q_w)[0] / 1333 * ((20 + d) / 50)
 
     if tryb == "Termoobieg":
         tau = tau
