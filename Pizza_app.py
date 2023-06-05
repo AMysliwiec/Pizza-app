@@ -407,11 +407,11 @@ class MainNeapol(QMainWindow):
         self.sld_srednica = QSlider(Qt.Orientation.Horizontal, self)
         self.sld_srednica.setRange(20, 40)
         self.sld_srednica.setPageStep(1)
-        #self.sld_srednica.setStyleSheet(size_bar)
+        self.sld_srednica.setStyleSheet(size_bar)
         self.sld_srednica.valueChanged.connect(self.updateLabel1)
         pagelayout.addWidget(self.sld_srednica, 2, 1)
 
-        self.lbl_slider_sr = QLabel('20', self)
+        self.lbl_slider_sr = QLabel('20cm', self)
         self.lbl_slider_sr.setAlignment(Qt.AlignmentFlag.AlignCenter |
                                         Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_sr.setMinimumWidth(80)
@@ -427,11 +427,11 @@ class MainNeapol(QMainWindow):
         self.sld_temp = QSlider(Qt.Orientation.Horizontal, self)
         self.sld_temp.setRange(180, 280)
         self.sld_temp.setPageStep(5)
-        #self.sld_temp.setStyleSheet(temp_bar)
+        self.sld_temp.setStyleSheet(temp_bar)
         self.sld_temp.valueChanged.connect(self.updateLabel2)
         pagelayout.addWidget(self.sld_temp, 3, 1)
 
-        self.lbl_slider_temp = QLabel('180', self)
+        self.lbl_slider_temp = QLabel('180°C', self)
         self.lbl_slider_temp.setAlignment(Qt.AlignmentFlag.AlignCenter |
                                           Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_temp.setMinimumWidth(80)
@@ -474,10 +474,10 @@ class MainNeapol(QMainWindow):
         central_widget.setLayout(pagelayout)
 
     def updateLabel1(self, value):
-        self.lbl_slider_sr.setText(str(value))
+        self.lbl_slider_sr.setText(str(value)+"cm")
 
     def updateLabel2(self, value):
-        self.lbl_slider_temp.setText(str(value))
+        self.lbl_slider_temp.setText(str(value)+"°C")
 
     def recipes_popup(self):
         self.w = RecipesPopup()
@@ -570,7 +570,7 @@ class MainRzym(QMainWindow):
         self.sld_temp.resize(self.sld_temp.sizeHint())
         pagelayout.addWidget(self.sld_temp, 3, 1)
 
-        self.lbl_slider_temp = QLabel('180', self)
+        self.lbl_slider_temp = QLabel('180°C', self)
         self.lbl_slider_temp.setAlignment(Qt.AlignmentFlag.AlignCenter |
                                           Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_temp.setMinimumWidth(80)
@@ -646,7 +646,7 @@ class MainRzym(QMainWindow):
         # mozna jeszcze pomyslec czy chcemy zmieniac jego kolor
 
     def updateLabeltemp(self, value):
-        self.lbl_slider_temp.setText(str(value))
+        self.lbl_slider_temp.setText(str(value)+"°C")
 
     def center(self):
         """
@@ -700,7 +700,7 @@ class MainAmeryka(QMainWindow):
         self.sld_temp.valueChanged.connect(self.updateLabeltemp)
         pagelayout.addWidget(self.sld_temp, 3, 1)
 
-        self.lbl_slider_temp = QLabel('180', self)
+        self.lbl_slider_temp = QLabel('180°C', self)
         self.lbl_slider_temp.setAlignment(Qt.AlignmentFlag.AlignCenter |
                                           Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_temp.setMinimumWidth(80)
@@ -776,7 +776,7 @@ class MainAmeryka(QMainWindow):
         # mozna jeszcze pomyslec czy chcemy zmieniac jego kolor
 
     def updateLabeltemp(self, value):
-        self.lbl_slider_temp.setText(str(value))
+        self.lbl_slider_temp.setText(str(value)+"°C")
 
     def center(self):
         """
