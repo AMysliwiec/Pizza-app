@@ -369,7 +369,7 @@ class MainNeapol(QMainWindow):
         lbl_neapol = QLabel("Pizza Neapolitańska")
         lbl_neapol.setFont(QFont(bakerie[0], 30))
         lbl_neapol.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        pagelayout.addWidget(lbl_neapol, 0, 0, 1, 3, alignment=Qt.AlignCenter)
+        pagelayout.addWidget(lbl_neapol, 0, 0, 1, 4, alignment=Qt.AlignCenter)
 
         lbl_tryb = QLabel("Tryb pieczenia")
         lbl_tryb.setFont(QFont(anta[0], 15))
@@ -378,9 +378,9 @@ class MainNeapol(QMainWindow):
 
         self.cb = QComboBox()
         self.cb.addItems(tryby)
-        self.cb.setFont(QFont(anta[0], 10))
+        self.cb.setFont(QFont(anta[0], 12))
         self.cb.setStyleSheet(f"selection-background-color: {select_color};")
-        pagelayout.addWidget(self.cb, 1, 1)
+        pagelayout.addWidget(self.cb, 1, 1, alignment=Qt.AlignCenter)
 
         lbl_srednica = QLabel("Średnica")
         lbl_srednica.setFont(QFont(anta[0], 15))
@@ -398,7 +398,7 @@ class MainNeapol(QMainWindow):
                                         Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_sr.setMinimumWidth(80)
         self.lbl_slider_sr.setFont(QFont(anta[0], 10))
-        pagelayout.addWidget(self.lbl_slider_sr, 2, 2)
+        pagelayout.addWidget(self.lbl_slider_sr, 2, 2, alignment=Qt.AlignLeft)
 
         lbl_temp = QLabel("Maksymalna temperatura")
         lbl_temp.setWordWrap(True)
@@ -417,29 +417,40 @@ class MainNeapol(QMainWindow):
                                           Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_temp.setMinimumWidth(80)
         self.lbl_slider_temp.setFont(QFont(anta[0], 10))
-        pagelayout.addWidget(self.lbl_slider_temp, 3, 2)
+        pagelayout.addWidget(self.lbl_slider_temp, 3, 2, alignment=Qt.AlignLeft)
+
+        empty_label1 = QLabel("")
+        pagelayout.addWidget(empty_label1, 4, 0, 1, 4)
+
+        btn_licz = make_button("Sprawdź", bakerie, font_size=20)
+        btn_licz.clicked.connect(self.policz)
+        pagelayout.addWidget(btn_licz, 5, 0, 1, 4, alignment=Qt.AlignCenter)
+
+        """empty_label2 = QLabel("")
+        pagelayout.addWidget(empty_label2, 6, 0, 1, 4)
 
         self.label_result = QLabel("")
-        pagelayout.addWidget(self.label_result, 4, 2)
+        self.label_result.setFont(QFont(anta[0], 15))
+        #self.label_result.setWordWrap(True)
+        pagelayout.addWidget(self.label_result, 7, 0, 2, 4, alignment=Qt.AlignmentFlag.AlignHCenter)"""
 
-        btn_licz = make_button("Sprawdź", bakerie)
-        btn_licz.clicked.connect(self.policz)
-        pagelayout.addWidget(btn_licz, 4, 1)
+        empty_label3 = QLabel("")
+        pagelayout.addWidget(empty_label3, 9, 0, 1, 4)
 
         btn_przepisy = make_button("Przepisy", bakerie)
         btn_przepisy.clicked.connect(self.close)
         btn_przepisy.clicked.connect(self.recipes_popup)
-        pagelayout.addWidget(btn_przepisy, 5, 0)
+        pagelayout.addWidget(btn_przepisy, 10, 0, 1, 1, alignment=Qt.AlignCenter)
 
         btn_wybor = make_button("Wybór Pizzy", bakerie)
         btn_wybor.clicked.connect(self.go_back)
         btn_wybor.clicked.connect(self.close)
-        pagelayout.addWidget(btn_wybor, 5, 1)
+        pagelayout.addWidget(btn_wybor, 10, 1, 1, 1 , alignment=Qt.AlignCenter)
 
         btn_menu = make_button("Menu Główne", bakerie)
         btn_menu.clicked.connect(self.close)
         btn_menu.clicked.connect(self.open_main)
-        pagelayout.addWidget(btn_menu, 5, 2)
+        pagelayout.addWidget(btn_menu, 10, 2, 1, 1, alignment=Qt.AlignCenter)
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -447,7 +458,7 @@ class MainNeapol(QMainWindow):
 
         sizegrip = QSizeGrip(central_widget)
         sizegrip.setStyleSheet("border: 1px solid black;")
-        pagelayout.addWidget(sizegrip, 5, 3, 1, 1,
+        pagelayout.addWidget(sizegrip, 11, 3, 1, 1,
                              alignment=Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignRight)  # to right mowi w ktora str kursor jest skierowany chyba
         central_widget.setLayout(pagelayout)
 
@@ -472,12 +483,17 @@ class MainNeapol(QMainWindow):
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
+    """def policz(self):
+        temp = self.sld_temp.value()
+        d = self.sld_srednica.value()
+        tryb = self.cb.currentText()
+        wynik = pizza(temp, d, tryb, "n")
+        self.label_result.setText(f"Optymalny czas pieczenia to: {wynik}")"""
     def policz(self):
         temp = self.sld_temp.value()
         d = self.sld_srednica.value()
         tryb = self.cb.currentText()
         wynik = pizza(temp, d, tryb, "n")
-        self.label_result.setText(f"Optymalny czas pieczenia to: {wynik}")
 
     def center(self):
         """
