@@ -20,7 +20,7 @@ def get_font():
     return anta, bakerie
 
 
-def make_button(nazwa, bakerie, min_width=160, max_height=60, font_size=20):
+def make_button(nazwa, bakerie, min_width=160, max_height=60, font_size=15):
     btn = QPushButton(nazwa)
     if min_width != 0:
         btn.setMinimumWidth(min_width)

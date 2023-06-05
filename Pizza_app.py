@@ -241,23 +241,23 @@ class MainPopup(QMainWindow):
         label = QLabel("Wybierz rodzaj pizzy.")
         label.setWordWrap(True)  # zawija tekst
         pagelayout = QVBoxLayout()  # to jeszcze mozna zmienic
-        label.setFont(QFont(anta[0], 40))
+        label.setFont(QFont(bakerie[0], 40))
         label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         label.setScaledContents(True)  # no nie dziala gowno, mialo robic ze font zmienia wielkosc przy rozciaganiu okna
         label.setAlignment(QtCore.Qt.AlignCenter)
         pagelayout.addWidget(label)
 
-        btn_neapol = make_button("Neapolitańska", bakerie, 0, 0)
+        btn_neapol = make_button("Neapolitańska", bakerie, 0, 0, font_size=20)
         btn_neapol.clicked.connect(self.neapol)
         btn_neapol.clicked.connect(self.close)
         pagelayout.addWidget(btn_neapol)
 
-        btn_ameryka = make_button("Amerykańska", bakerie, 0, 0)
+        btn_ameryka = make_button("Amerykańska", bakerie, 0, 0,  font_size=20)
         btn_ameryka.clicked.connect(self.ameryka)
         btn_ameryka.clicked.connect(self.close)
         pagelayout.addWidget(btn_ameryka)
 
-        btn_rzym = make_button("Rzymska", bakerie, 0, 0)
+        btn_rzym = make_button("Rzymska", bakerie, 0, 0,  font_size=20)
         btn_rzym.clicked.connect(self.rzym)
         btn_rzym.clicked.connect(self.close)
         pagelayout.addWidget(btn_rzym)
@@ -378,7 +378,7 @@ class MainNeapol(QMainWindow):
 
         self.cb = QComboBox()
         self.cb.addItems(tryby)
-        self.cb.setFont(QFont(anta[0], 9))
+        self.cb.setFont(QFont(anta[0], 10))
         self.cb.setStyleSheet(f"selection-background-color: {select_color};")
         pagelayout.addWidget(self.cb, 1, 1)
 
@@ -514,7 +514,7 @@ class MainRzym(QMainWindow):
 
         self.toggle_button = QPushButton("Termoobieg", self)
         self.toggle_button.setCheckable(True)
-        self.toggle_button.setFont(QFont(anta[0], 9))
+        self.toggle_button.setFont(QFont(anta[0], 10))
         self.toggle_button.clicked.connect(self.change_toggle)
         pagelayout.addWidget(self.toggle_button, 2, 1, alignment=Qt.AlignCenter)
 
