@@ -21,7 +21,7 @@ co najmniej pół godziny. Po tym czasie podziel je na 3 części i uformuj z ni
 materiałową na następne pół godziny. Z gotowych kulek ciasta uformuj pizzę o bardzo cienkim spodzie. Brzegi pizzy mogą pozostać większe. 
 Dodaj ulubione dodatki i włóż pizzę do piekarnika."""
 
-przepis_ameryka =""" <br>
+przepis_ameryka = """ <br>
 Składniki: <br>
 ● 450 g mąki pszennej typu 00 <br>
 ● 325 ml ciepłej wody <br>
@@ -54,6 +54,16 @@ przykryj je ściereczką i pozostaw w ciepłym miejscu na około 1-2 godziny, a�
 Następnie na dużą, posmarowaną oliwą blachę wyłóż ciasto i rozciągnij je na równomierną grubość,
 tworząc klasyczną pizzę rzymską.
 """
+
+neapol_format = """<div style ="font-size:45px; text-align:center;"><span style ="font-family:{};">Pizza Neapolitańska
+                </span><br></div><div style="font-size:18px; text-align:left;"><span style="font-family: {};"{}</span
+                </div>"""
+ameryka_format = """<div style ="font-size:45px; text-align:center;"><span style ="font-family:{};">Pizza Amerykańska
+                </span><br></div><div style="font-size:18px; text-align:left;"><span style="font-family: {};"{}</span
+                </div>"""
+rzym_format = """<div style ="font-size:45px; text-align:center;"><span style ="font-family:{};">Pizza Rzymska </span> 
+                </div><div style="font-size:18px; text-align:left;"><span style="font-family: {};"{}</span</div>"""
+
 
 def get_font():
     bakerie_font = "Bakerie Rough Bold.otf"
@@ -144,7 +154,6 @@ height: 10px;
 border-radius: 4px;
 }"""
 
-
 msg_style = """
         QMessageBox {
         background-color: #333333;
@@ -157,7 +166,9 @@ msg_style = """
         color: white;
     }
         """
-# FUNKCJA
+
+
+# ------------------------------------------- FUNKCJA -----------------------------------------------
 
 def pizza(T_1, d, tryb, pizza):
     """
@@ -175,8 +186,8 @@ def pizza(T_1, d, tryb, pizza):
     q_w = 10 ** 3
 
     tauu = \
-    solve(sigma * (T_1 ** 4 - T_b ** 4) * t + 2 * kappa * (T_1 - T_0) * (t / (chi)) ** (1 / 2) - c * rho * 0.5 * (
-            T_b - T_2) - alpha * L * 0.5 * q_w)[0] * ((20 + d) / 50)
+        solve(sigma * (T_1 ** 4 - T_b ** 4) * t + 2 * kappa * (T_1 - T_0) * (t / chi) ** (1 / 2) - c * rho * 0.5 * (
+                T_b - T_2) - alpha * L * 0.5 * q_w)[0] * ((20 + d) / 50)
 
     if pizza == "n":
         tau = tauu / 1939
@@ -202,5 +213,3 @@ def pizza(T_1, d, tryb, pizza):
     sekundy = round(frac * 60)
     result = f"{int(whole)}min {sekundy}sek"
     return result
-
-
