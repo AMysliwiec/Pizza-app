@@ -1,25 +1,20 @@
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QApplication, QCheckBox, QMessageBox, QMainWindow, QWidget, QGridLayout, QLineEdit, QLabel
-from PyQt5.QtWidgets import QPushButton, QVBoxLayout
+from PyQt5.QtWidgets import QApplication, QMessageBox, QMainWindow, QWidget, QGridLayout, QLabel
+from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtCore import Qt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as canvas
 import qtmodern.styles
 import qtmodern.windows
 import sys
-from PyQt5.QtGui import QFont, QFontDatabase
 from PyQt5.QtWidgets import QDesktopWidget
-import PyQt5.QtGui
-from PyQt5.QtCore import QCoreApplication
-
-import constant
 from constant import *
 
 
 # https://stackoverflow.com/questions/52596386/slide-qstackedwidget-page slide pages
 class SlidingStackedWidget(QStackedWidget):
     """
-    tu oczywiscie nie wiem co sie dzieje, just kopiuj wklej
+    Create sliding stacked widget (sliding pages).
     """
 
     def __init__(self, parent=None):
@@ -206,6 +201,7 @@ class RecipesPopup(QMainWindow):
         central_widget.setLayout(lay)
 
     def open_main(self):
+        """Open main window for certain pizza."""
         if self.slidingStacked.currentIndex() == 0:
             self.w = MainNeapol()
             self.mw = qtmodern.windows.ModernWindow(self.w)
@@ -229,6 +225,7 @@ class RecipesPopup(QMainWindow):
         self.move(qr.topLeft())
 
     def main_window(self):
+        """Open main app window. """
         self.w = MainWindow()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
@@ -236,7 +233,7 @@ class RecipesPopup(QMainWindow):
 
 class MainPopup(QMainWindow):
     """
-    Create pop up window with main app funcionality.
+    Create pop up window with main app funcionality where user can first choose certain pizza.
     """
 
     def __init__(self):
@@ -249,10 +246,9 @@ class MainPopup(QMainWindow):
 
         label = QLabel("Wybierz rodzaj pizzy.")
         label.setWordWrap(True)  # zawija tekst
-        pagelayout = QVBoxLayout()  # to jeszcze mozna zmienic
+        pagelayout = QVBoxLayout()
         label.setFont(QFont(bakerie[0], 40))
         label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        label.setScaledContents(True)  # no nie dziala gowno, mialo robic ze font zmienia wielkosc przy rozciaganiu okna
         label.setAlignment(QtCore.Qt.AlignCenter)
         pagelayout.addWidget(label)
 
@@ -285,16 +281,19 @@ class MainPopup(QMainWindow):
         self.move(qr.topLeft())
 
     def neapol(self):
+        """Open window for neapolitan pizza with main functionality."""
         self.w = MainNeapol()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
     def rzym(self):
+        """Open window for rome pizza with main functionality."""
         self.w = MainRzym()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
     def ameryka(self):
+        """Open window for american pizza with main functionality."""
         self.w = MainAmeryka()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
@@ -302,7 +301,7 @@ class MainPopup(QMainWindow):
 
 class InstructionsPopup(QMainWindow):
     """
-    Create pop up window with app's instructions.
+    Create window with app's instructions.
     """
 
     def __init__(self):
@@ -314,16 +313,15 @@ class InstructionsPopup(QMainWindow):
         anta, bakerie = get_font()
 
         label = QLabel("Tu bedą instrukcje jak używać apki")
-        label.setWordWrap(True)  # zawija tekst
-        pagelayout = QVBoxLayout()  # to jeszcze mozna zmienic
+        label.setWordWrap(True)
+        pagelayout = QVBoxLayout()
         label.setFont(QFont(anta[0], 40))
         label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        label.setScaledContents(True)  # no nie dziala gowno, mialo robic ze font zmienia wielkosc przy rozciaganiu okna
         label.setAlignment(QtCore.Qt.AlignCenter)
         pagelayout.addWidget(label)
 
         btn = QPushButton("Menu główne")
-        btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)  # rozszerza sie przycisk jak rozszerzamy
+        btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         btn.setFont(QFont(bakerie[0], 20))
         btn.clicked.connect(self.close)
         btn.clicked.connect(self.open_main)
@@ -343,12 +341,14 @@ class InstructionsPopup(QMainWindow):
         self.move(qr.topLeft())
 
     def open_main(self):
+        """Open main app window."""
         self.w = MainWindow()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
 
 class MainNeapol(QMainWindow):
+    """Create window for neapolitan pizza with main functionality."""
     def __init__(self):
         super().__init__()
         self.setStyleSheet(f"background-color: {back_color};")
@@ -450,27 +450,33 @@ class MainNeapol(QMainWindow):
         central_widget.setLayout(pagelayout)
 
     def updateLabel1(self, value):
+        """Upate label with pizza diameter when user change the slider"""
         self.lbl_slider_sr.setText(str(value)+"cm")
 
     def updateLabel2(self, value):
+        """Update label with oven temperature when user change the slider"""
         self.lbl_slider_temp.setText(str(value)+"°C")
 
     def recipes_popup(self):
+        """Show window with recipes."""
         self.w = RecipesPopup()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
     def go_back(self):
+        """?"""
         self.w = MainPopup()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
     def open_main(self):
+        """Open main app window. """
         self.w = MainWindow()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
     def policz(self):
+        """?"""
         anta = get_font()[0]
         temp = self.sld_temp.value()
         d = self.sld_srednica.value()
@@ -486,7 +492,6 @@ class MainNeapol(QMainWindow):
         self.msg.setStyleSheet(msg_style)
         self.msg.exec_()
 
-
     def center(self):
         """
         Center window while opening.
@@ -498,6 +503,7 @@ class MainNeapol(QMainWindow):
 
 
 class MainRzym(QMainWindow):
+    """Create window for rome pizza with main functionality."""
     def __init__(self):
         super().__init__()
         self.setStyleSheet(f"background-color: {back_color};")
@@ -612,7 +618,6 @@ class MainRzym(QMainWindow):
             self.toggle_button.setText("Góra-dół")
         else:
             self.toggle_button.setText("Termoobieg")
-        # mozna jeszcze pomyslec czy chcemy zmieniac jego kolor
 
     def updateLabeltemp(self, value):
         self.lbl_slider_temp.setText(str(value)+"°C")
@@ -628,6 +633,7 @@ class MainRzym(QMainWindow):
 
 
 class MainAmeryka(QMainWindow):
+    """Create window for american pizza with main functionality."""
     def __init__(self):
         super().__init__()
         self.setStyleSheet(f"background-color: {back_color};")
@@ -706,6 +712,7 @@ class MainAmeryka(QMainWindow):
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         central_widget.setLayout(pagelayout)
+
     def recipes_popup(self):
         self.w = RecipesPopup()
         self.mw = qtmodern.windows.ModernWindow(self.w)
@@ -741,7 +748,6 @@ class MainAmeryka(QMainWindow):
             self.toggle_button.setText("Góra-dół")
         else:
             self.toggle_button.setText("Termoobieg")
-        # mozna jeszcze pomyslec czy chcemy zmieniac jego kolor
 
     def updateLabeltemp(self, value):
         self.lbl_slider_temp.setText(str(value)+"°C")
@@ -758,7 +764,7 @@ class MainAmeryka(QMainWindow):
 
 class MainWindow(QMainWindow):
     """
-    Main window of application. (troche  burdello cyk cyk, wszystko w jednym, mozna rozdzielic wyglad i funkcjonalnosc na fnkcje osobne)
+    Main window of application.
     """
 
     def __init__(self):
@@ -771,21 +777,18 @@ class MainWindow(QMainWindow):
 
         pagelayout = QVBoxLayout()
         label = QLabel(
-            "Super Pizzowa Aplikacja")  # jak to po polsku ladnie napisac to ja nie mam pojecia xd welcome to pizza app
+            "Super Pizzowa Aplikacja")
         label.setWordWrap(True)
         label.setFont(QFont(bakerie[0], 40))
         label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        label.setScaledContents(True)  # no nie dziala gowno
         label.setAlignment(QtCore.Qt.AlignCenter)
         pagelayout.addWidget(label)
 
         btn = QPushButton("Przepisy")
-        btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)  # rozszerza sie przycisk jak rozszerzamy
+        btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         btn.setFont(QFont(bakerie[0], 20))
         btn.clicked.connect(self.recipes_popup)
         btn.clicked.connect(self.close)
-        # btn.setStyleSheet("background-image : url(pobrane.jpeg);") #nie wiem czemu to nie dziala, mam wrazenie ze to qtmodern psuje ale nie wiem
-        # btn.setStyleSheet("border-image : url(pizza.png);") to powinno od razu dopasowywac wymiary zdjecia ale no narazie nie dziala
         pagelayout.addWidget(btn)
 
         btn = QPushButton('Wybór pizzy')
@@ -801,14 +804,6 @@ class MainWindow(QMainWindow):
         btn.clicked.connect(self.instructions_popup)
         btn.clicked.connect(self.close)
         pagelayout.addWidget(btn)
-
-        """
-        Dodac opcje ze jak zwiekszamy okno to zwieksza sie tez font labeli i font na buttonach. tu jakis link ale sredni chyba
-        https://www.youtube.com/watch?v=3kGKWkQqipc&list=PL3JVwFmb_BnRpvOeIh_To4YSiebiggyXS&index=22
-        """
-
-        # dodac moze jakies zdjecia w tle na tych przyciskach
-        # nie wiem czy robimy juz te podstronki ale chyba by sie przydalo jakas jedna chociaz, moze ta z przepisami
 
         widget = QWidget()
         self.setCentralWidget(widget)
@@ -830,7 +825,6 @@ class MainWindow(QMainWindow):
     def instructions_popup(self):
         """
         Display popup window with app instructions.
-        :return:
         """
         self.w = InstructionsPopup()
         self.mw = qtmodern.windows.ModernWindow(self.w)
@@ -845,18 +839,12 @@ class MainWindow(QMainWindow):
         qr.moveCenter(cp)
         self.move(qr.topLeft())
 
-    """def closeEvent(self, event):
-        QApplication.closeAllWindows()
-        event.accept()"""
-
-
 def main():
     App = QApplication(sys.argv)
     window = MainWindow()
     qtmodern.styles.dark(App)
     mw = qtmodern.windows.ModernWindow(window)
     mw.show()
-    #App.aboutToQuit.connect(window.closeEvent)
     sys.exit(App.exec())
 
 
