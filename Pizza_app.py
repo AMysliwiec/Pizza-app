@@ -189,7 +189,7 @@ class RecipesPopup(QMainWindow):
         lay.addWidget(self.slidingStacked)
 
         sec_lay = QHBoxLayout()
-        button_main_func = QPushButton("Główne")
+        button_main_func = QPushButton("Wybierz")
         button_main_func.setMinimumWidth(150)
         button_main_func.setFont(QFont(bakerie[0], 15))
         button_main_func.clicked.connect(self.close)
@@ -407,6 +407,7 @@ class MainNeapol(QMainWindow):
         self.sld_srednica = QSlider(Qt.Orientation.Horizontal, self)
         self.sld_srednica.setRange(20, 40)
         self.sld_srednica.setPageStep(1)
+        #self.sld_srednica.setStyleSheet(size_bar)
         self.sld_srednica.valueChanged.connect(self.updateLabel1)
         pagelayout.addWidget(self.sld_srednica, 2, 1)
 
@@ -426,6 +427,7 @@ class MainNeapol(QMainWindow):
         self.sld_temp = QSlider(Qt.Orientation.Horizontal, self)
         self.sld_temp.setRange(180, 280)
         self.sld_temp.setPageStep(5)
+        #self.sld_temp.setStyleSheet(temp_bar)
         self.sld_temp.valueChanged.connect(self.updateLabel2)
         pagelayout.addWidget(self.sld_temp, 3, 1)
 
@@ -442,14 +444,6 @@ class MainNeapol(QMainWindow):
         btn_licz = make_button("Sprawdź", bakerie, font_size=20)
         btn_licz.clicked.connect(self.policz)
         pagelayout.addWidget(btn_licz, 5, 0, 1, 4, alignment=Qt.AlignCenter)
-
-        """empty_label2 = QLabel("")
-        pagelayout.addWidget(empty_label2, 6, 0, 1, 4)
-
-        self.label_result = QLabel("")
-        self.label_result.setFont(QFont(anta[0], 15))
-        #self.label_result.setWordWrap(True)
-        pagelayout.addWidget(self.label_result, 7, 0, 2, 4, alignment=Qt.AlignmentFlag.AlignHCenter)"""
 
         empty_label3 = QLabel("")
         pagelayout.addWidget(empty_label3, 9, 0, 1, 4)
@@ -515,8 +509,11 @@ class MainNeapol(QMainWindow):
         self.msg = QMessageBox()
         self.msg.setWindowTitle("")
         self.msg.setStyleSheet(f"background-color: {back_color};")
-        self.msg.setText(f"Optymalny czas pieczenia pizzy to: {wynik}")
+        self.msg.setText(f"Optymalny czas pieczenia pizzy to: \n                  {wynik}")
         self.msg.setFont(QFont(anta[0], 15))
+        back_button = QPushButton("Wróć")
+        self.msg.addButton(back_button, QMessageBox.YesRole)
+        self.msg.setStyleSheet(msg_style)
         self.msg.exec_()
 
 
@@ -627,10 +624,19 @@ class MainRzym(QMainWindow):
         self.mw.show()
 
     def policz(self):
+        anta = get_font()[0]
         tryb = self.toggle_button.text()
         temp = self.sld_temp.value()
         wynik = pizza(temp, 30, tryb, "r")
-        self.label_result.setText(f"Optymalny czas pieczenia to: {wynik}")
+        self.msg = QMessageBox()
+        self.msg.setWindowTitle("")
+        self.msg.setStyleSheet(f"background-color: {back_color};")
+        self.msg.setText(f"Optymalny czas pieczenia pizzy to: \n                  {wynik}")
+        self.msg.setFont(QFont(anta[0], 15))
+        back_button = QPushButton("Wróć")
+        self.msg.addButton(back_button, QMessageBox.YesRole)
+        self.msg.setStyleSheet(msg_style)
+        self.msg.exec_()
 
     def change_toggle(self):
         if self.toggle_button.isChecked():
@@ -690,6 +696,7 @@ class MainAmeryka(QMainWindow):
         self.sld_temp = QSlider(Qt.Orientation.Horizontal, self)
         self.sld_temp.setRange(180, 280)
         self.sld_temp.setPageStep(5)
+        self.sld_temp.setStyleSheet(temp_bar)
         self.sld_temp.valueChanged.connect(self.updateLabeltemp)
         pagelayout.addWidget(self.sld_temp, 3, 1)
 
@@ -737,10 +744,19 @@ class MainAmeryka(QMainWindow):
         self.mw.show()
 
     def policz(self):
+        anta = get_font()[0]
         tryb = self.toggle_button.text()
         temp = self.sld_temp.value()
         wynik = pizza(temp, 30, tryb, "a")
-        self.label_result.setText(f"Optymalny czas pieczenia to: {wynik}")
+        self.msg = QMessageBox()
+        self.msg.setWindowTitle("")
+        self.msg.setStyleSheet(f"background-color: {back_color};")
+        self.msg.setText(f"Optymalny czas pieczenia pizzy to: \n                  {wynik}")
+        self.msg.setFont(QFont(anta[0], 15))
+        back_button = QPushButton("Wróć")
+        self.msg.addButton(back_button, QMessageBox.YesRole)
+        self.msg.setStyleSheet(msg_style)
+        self.msg.exec_()
 
     def go_back(self):
         self.w = MainPopup()
@@ -806,7 +822,7 @@ class MainWindow(QMainWindow):
         # btn.setStyleSheet("border-image : url(pizza.png);") to powinno od razu dopasowywac wymiary zdjecia ale no narazie nie dziala
         pagelayout.addWidget(btn)
 
-        btn = QPushButton('Główne')
+        btn = QPushButton('Wybór pizzy')
         btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         btn.setFont(QFont(bakerie[0], 20))
         btn.clicked.connect(self.main_popup)

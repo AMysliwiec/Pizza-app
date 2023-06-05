@@ -112,8 +112,25 @@ QSlider::handle:horizontal {image: url('oven.png');margin: -24px -12px;
     height: -30px;}
 }
 QSlider::groove:vertical {
-    border: 1px solid #111;
-    background-color: #333;
+    width: 6px;
+    margin: 24px 12px;
+}
+QSlider::sub-page:horizontal {
+background: qlineargradient(x1: 0, y1: 0,    x2: 0, y2: 1,
+    stop: 0 #FD0, stop: 1 #FD0);
+background: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 1,
+    stop: 0 #FD0, stop: 1 #C00);
+border: 1px solid #777;
+height: 10px;
+border-radius: 4px;
+}"""
+
+size_bar = """
+QSlider::handle:horizontal {image: url('pzza.png');margin: -24px -12px;
+background: transparent;
+    height: -30px;}
+}
+QSlider::groove:vertical {
     width: 6px;
     margin: 24px 12px;
 }
@@ -128,6 +145,18 @@ border-radius: 4px;
 }"""
 
 
+msg_style = """
+        QMessageBox {
+        background-color: #333333;
+        color: white;
+        border: 2px solid;
+        border-radius: 10px;
+    }
+    QMessageBox QPushButton {
+        background-color: #555555;
+        color: white;
+    }
+        """
 # FUNKCJA
 
 def pizza(T_1, d, tryb, pizza):
