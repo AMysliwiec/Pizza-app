@@ -137,8 +137,10 @@ class RecipesPopup(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet(f"background-color: {back_color};")
-        self.setMinimumSize(200, 700)
+        self.setMinimumSize(min_width, min_height)
         self.center()
+        self.resize(min_width, min_height)
+        self.setSizePolicy(QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding))
 
         bakerie = get_font()[1]
 
@@ -229,8 +231,10 @@ class MainPopup(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet(f"background-color: {back_color};")
-        self.setMinimumSize(200, 700)
+        self.setMinimumSize(min_width, min_height)
         self.center()
+        self.resize(min_width, min_height)
+        self.setSizePolicy(QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding))
 
         anta, bakerie = get_font()
 
@@ -301,8 +305,10 @@ class InstructionsPopup(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet(f"background-color: {back_color};")
-        self.setMinimumSize(200, 700)
+        self.setMinimumSize(min_width, min_height)
         self.center()
+        self.resize(min_width, min_height)
+        self.setSizePolicy(QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding))
 
         anta, bakerie = get_font()
 
@@ -351,8 +357,10 @@ class MainNeapol(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet(f"background-color: {back_color};")
-        self.setMinimumSize(200, 700)
+        self.setMinimumSize(min_width, min_height)
         self.center()
+        self.resize(min_width, min_height)
+        self.setSizePolicy(QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding))
 
         anta, bakerie = get_font()
 
@@ -485,8 +493,10 @@ class MainRzym(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet(f"background-color: {back_color};")
-        self.setMinimumSize(200, 700)
+        self.setMinimumSize(min_width, min_height)
         self.center()
+        self.resize(min_width, min_height)
+        self.setSizePolicy(QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding))
 
         anta, bakerie = get_font()
 
@@ -605,8 +615,10 @@ class MainAmeryka(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet(f"background-color: {back_color};")
-        self.setMinimumSize(200, 700)
+        self.setMinimumSize(min_width, min_height)
         self.center()
+        self.resize(min_width, min_height)
+        self.setSizePolicy(QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding))
 
         anta, bakerie = get_font()
 
@@ -726,12 +738,10 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.setStyleSheet(f"background-color: {back_color};")  # kolor/zdj tła apki
-
-        # nie daje tytulu apki tym windowsettitle bo nie da sie chyba zmienic fontu i jest brzydkie
-        self.setMinimumSize(200, 700)
+        self.setStyleSheet(f"background-color: {back_color};")
+        self.setMinimumSize(min_width, min_height)
         self.center()
-
+        self.resize(min_width, min_height)
         self.setSizePolicy(QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding))
 
         bakerie = get_font()[1]

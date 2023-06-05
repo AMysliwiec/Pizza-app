@@ -5,6 +5,8 @@ import math
 
 back_color = "#5D7064"
 select_color = "#798b80"
+min_width = 600
+min_height = 700
 
 
 def get_font():
