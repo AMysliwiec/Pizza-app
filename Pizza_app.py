@@ -127,6 +127,9 @@ class SlidingStackedWidget(QStackedWidget):
 
 
 class HelpWindow(QMainWindow):
+    """
+    A class inheriting QMainWindow with added universal methods used in the application
+    """
     def __init__(self):
         super().__init__()
         self.setStyleSheet(f"background-color: {back_color};")
@@ -134,15 +137,15 @@ class HelpWindow(QMainWindow):
         self.center()
 
         self.anta = get_font()[0][0]
-        self.bakerie = get_font()[1]
+        self.bakerie = get_font()[1][0]
 
     def recipes_popup(self):
-        self.w = RecipesPopup()
+        self.w = Recipes()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
     def main_popup(self):
-        self.w = MainPopup()
+        self.w = PizzaChoice()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
@@ -159,7 +162,7 @@ class HelpWindow(QMainWindow):
 
     def updateLabeltemp(self, value):
         """Update label with oven temperature when user change the slider"""
-        self.lbl_slider_temp.setText(str(value*5) + "°C")
+        self.lbl_slider_temp.setText(str(value * 5) + "°C")
 
     def updateLabelsr(self, value):
         """Upate label with pizza diameter when user change the slider"""
@@ -178,11 +181,11 @@ class HelpWindow(QMainWindow):
         """
         Display popup window with app instructions.
         """
-        self.w = InstructionsPopup()
+        self.w = Instructions()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
-    def policz(self, pizza_type):
+    def estimate(self, pizza_type):
         temp = int(self.sld_temp.value() * 5)
         if pizza_type in ["r", "a"]:
             tryb = self.toggle_button.text()
@@ -202,26 +205,59 @@ class HelpWindow(QMainWindow):
         self.msg.setStyleSheet(msg_style)
         self.msg.exec_()
 
+    def open_choice(self):
+        """Open main window for certain pizza."""
+        if self.slidingStacked.currentIndex() == 0:
+            self.w = Neapolitan()
+            self.mw = qtmodern.windows.ModernWindow(self.w)
+            self.mw.show()
+        elif self.slidingStacked.currentIndex() == 1:
+            self.w = American()
+            self.mw = qtmodern.windows.ModernWindow(self.w)
+            self.mw.show()
+        else:
+            self.w = Roman()
+            self.mw = qtmodern.windows.ModernWindow(self.w)
+            self.mw.show()
 
-class RecipesPopup(QMainWindow):
+    def main_window(self):
+        """Open main app window. """
+        self.w = MainWindow()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
+
+    def neapol(self):
+        """Open window for neapolitan pizza with main functionality."""
+        self.w = Neapolitan()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
+
+    def rzym(self):
+        """Open window for rome pizza with main functionality."""
+        self.w = Roman()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
+
+    def ameryka(self):
+        """Open window for american pizza with main functionality."""
+        self.w = American()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
+
+
+class Recipes(HelpWindow):
     """
     Create window with pizza recipes.
     """
 
     def __init__(self):
         super().__init__()
-        self.setStyleSheet(f"background-color: {back_color};")
-        self.setFixedSize(window_width, widow_height)
-        self.center()
-
-        bakerie = get_font()[1][0]
-        anta = get_font()[0][0]
 
         self.slidingStacked = SlidingStackedWidget()
 
-        neapol_przepis = QLabel(neapol_format.format(bakerie, anta, przepis_neapol))
-        ameryka_przepis = QLabel(ameryka_format.format(bakerie, anta, przepis_ameryka))
-        rzym_przepis = QLabel(rzym_format.format(bakerie, anta, przepis_rzym))
+        neapol_przepis = QLabel(neapol_format.format(self.bakerie, self.anta, przepis_neapol))
+        ameryka_przepis = QLabel(ameryka_format.format(self.bakerie, self.anta, przepis_ameryka))
+        rzym_przepis = QLabel(rzym_format.format(self.bakerie, self.anta, przepis_rzym))
 
         neapol_przepis.setWordWrap(True)
         ameryka_przepis.setWordWrap(True)
@@ -232,10 +268,10 @@ class RecipesPopup(QMainWindow):
 
         button_prev = QPushButton("Poprzednia")
         button_prev.clicked.connect(self.slidingStacked.slideInPrev)
-        button_prev.setFont(QFont(bakerie, 15))
+        button_prev.setFont(QFont(self.bakerie, 15))
         button_next = QPushButton("Następna")
         button_next.clicked.connect(self.slidingStacked.slideInNext)
-        button_next.setFont(QFont(bakerie, 15))
+        button_next.setFont(QFont(self.bakerie, 15))
 
         hlay = QHBoxLayout()
         hlay.addWidget(button_prev)
@@ -250,85 +286,50 @@ class RecipesPopup(QMainWindow):
         sec_lay = QHBoxLayout()
         button_main_func = QPushButton("Wybierz")
         button_main_func.setMinimumWidth(150)
-        button_main_func.setFont(QFont(bakerie, 15))
+        button_main_func.setFont(QFont(self.bakerie, 15))
         button_main_func.clicked.connect(self.close)
-        button_main_func.clicked.connect(self.open_main)
+        button_main_func.clicked.connect(self.open_choice)
         sec_lay.addWidget(button_main_func)
         sec_lay.setAlignment(Qt.AlignCenter)
         lay.addLayout(sec_lay)
 
         btn_main = QPushButton("Menu Główne")
         btn_main.setMinimumWidth(150)
-        btn_main.setFont(QFont(bakerie, 15))
+        btn_main.setFont(QFont(self.bakerie, 15))
         btn_main.clicked.connect(self.close)
         btn_main.clicked.connect(self.main_window)
         sec_lay.addWidget(btn_main)
 
         central_widget.setLayout(lay)
 
-    def open_main(self):
-        """Open main window for certain pizza."""
-        if self.slidingStacked.currentIndex() == 0:
-            self.w = MainNeapol()
-            self.mw = qtmodern.windows.ModernWindow(self.w)
-            self.mw.show()
-        elif self.slidingStacked.currentIndex() == 1:
-            self.w = MainAmeryka()
-            self.mw = qtmodern.windows.ModernWindow(self.w)
-            self.mw.show()
-        else:
-            self.w = MainRzym()
-            self.mw = qtmodern.windows.ModernWindow(self.w)
-            self.mw.show()
 
-    def center(self):
-        """
-        Center window while opening.
-        """
-        qr = self.frameGeometry()
-        cp = QDesktopWidget().availableGeometry().center()
-        qr.moveCenter(cp)
-        self.move(qr.topLeft())
-
-    def main_window(self):
-        """Open main app window. """
-        self.w = MainWindow()
-        self.mw = qtmodern.windows.ModernWindow(self.w)
-        self.mw.show()
-
-
-class MainPopup(QMainWindow):
+class PizzaChoice(HelpWindow):
     """
     Create pop up window with main app funcionality where user can first choose certain pizza.
     """
 
     def __init__(self):
         super().__init__()
-        self.setStyleSheet(f"background-color: {back_color};")
-        self.setFixedSize(window_width, widow_height)
-        self.center()
-
-        anta, bakerie = get_font()
 
         label = QLabel("Wybierz rodzaj pizzy.")
         label.setWordWrap(True)  # zawija tekst
         pagelayout = QVBoxLayout()
-        label.setFont(QFont(bakerie[0], 40))
+        label.setFont(QFont(self.bakerie, 40))
         label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         label.setAlignment(QtCore.Qt.AlignCenter)
         pagelayout.addWidget(label)
 
-        btn_neapol = make_button("Neapolitańska", bakerie, 0, 0, font_size=20)
+        btn_neapol = make_button("Neapolitańska", self.bakerie, 0, 0, font_size=20)
         btn_neapol.clicked.connect(self.neapol)
         btn_neapol.clicked.connect(self.close)
         pagelayout.addWidget(btn_neapol)
 
-        btn_ameryka = make_button("Amerykańska", bakerie, 0, 0, font_size=20)
+        btn_ameryka = make_button("Amerykańska", self.bakerie, 0, 0, font_size=20)
         btn_ameryka.clicked.connect(self.ameryka)
         btn_ameryka.clicked.connect(self.close)
         pagelayout.addWidget(btn_ameryka)
 
-        btn_rzym = make_button("Rzymska", bakerie, 0, 0, font_size=20)
+        btn_rzym = make_button("Rzymska", self.bakerie, 0, 0, font_size=20)
         btn_rzym.clicked.connect(self.rzym)
         btn_rzym.clicked.connect(self.close)
         pagelayout.addWidget(btn_rzym)
@@ -337,35 +338,8 @@ class MainPopup(QMainWindow):
         self.setCentralWidget(central_widget)
         central_widget.setLayout(pagelayout)
 
-    def center(self):
-        """
-        Center window while opening.
-        """
-        qr = self.frameGeometry()
-        cp = QDesktopWidget().availableGeometry().center()
-        qr.moveCenter(cp)
-        self.move(qr.topLeft())
 
-    def neapol(self):
-        """Open window for neapolitan pizza with main functionality."""
-        self.w = MainNeapol()
-        self.mw = qtmodern.windows.ModernWindow(self.w)
-        self.mw.show()
-
-    def rzym(self):
-        """Open window for rome pizza with main functionality."""
-        self.w = MainRzym()
-        self.mw = qtmodern.windows.ModernWindow(self.w)
-        self.mw.show()
-
-    def ameryka(self):
-        """Open window for american pizza with main functionality."""
-        self.w = MainAmeryka()
-        self.mw = qtmodern.windows.ModernWindow(self.w)
-        self.mw.show()
-
-
-class InstructionsPopup(HelpWindow):
+class Instructions(HelpWindow):
     """
     Create window with app's instructions.
     """
@@ -374,7 +348,7 @@ class InstructionsPopup(HelpWindow):
         super().__init__()
         pagelayout = QVBoxLayout()
         label_naglowek = QLabel("Instrukcje")
-        label_naglowek.setFont(QFont(self.bakerie[0], 40))
+        label_naglowek.setFont(QFont(self.bakerie, 40))
         pagelayout.addWidget(label_naglowek, alignment=Qt.AlignCenter)
 
         label = QLabel(instructions)
@@ -383,11 +357,11 @@ class InstructionsPopup(HelpWindow):
         pagelayout.addWidget(label)
 
         empty_label = QLabel("")
-        empty_label.setFont(QFont(self.bakerie[0], 10))
+        empty_label.setFont(QFont(self.bakerie, 10))
         pagelayout.addWidget(empty_label)
 
         btn = QPushButton("Menu główne")
-        btn.setFont(QFont(self.bakerie[0], 20))
+        btn.setFont(QFont(self.bakerie, 20))
         btn.clicked.connect(self.close)
         btn.clicked.connect(self.open_main)
         pagelayout.addWidget(btn)
@@ -397,7 +371,7 @@ class InstructionsPopup(HelpWindow):
         central_widget.setLayout(pagelayout)
 
 
-class MainNeapol(HelpWindow):
+class Neapolitan(HelpWindow):
     """Create window for neapolitan pizza with main functionality."""
 
     def __init__(self):
@@ -406,7 +380,7 @@ class MainNeapol(HelpWindow):
         pagelayout = QGridLayout()
 
         lbl_neapol = QLabel("Pizza Neapolitańska")
-        lbl_neapol.setFont(QFont(self.bakerie[0], 30))
+        lbl_neapol.setFont(QFont(self.bakerie, 30))
         lbl_neapol.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         pagelayout.addWidget(lbl_neapol, 0, 0, 1, 3, alignment=Qt.AlignCenter)
 
@@ -418,7 +392,7 @@ class MainNeapol(HelpWindow):
         pagelayout.addWidget(lbl_tryb, 3, 0)
 
         self.cb = QComboBox()
-        self.cb.addItems(tryby)
+        self.cb.addItems(oven_mode)
         self.cb.setFont(QFont(self.anta, 12))
         self.cb.setStyleSheet(f"selection-background-color: {select_color};")
         pagelayout.addWidget(self.cb, 3, 1, alignment=Qt.AlignCenter)
@@ -472,7 +446,7 @@ class MainNeapol(HelpWindow):
         pagelayout.addWidget(empty_label1, 8, 0, 1, 3)
 
         btn_licz = make_button("Sprawdź", self.bakerie, font_size=20)
-        btn_licz.clicked.connect(lambda: self.policz("n"))
+        btn_licz.clicked.connect(lambda: self.estimate("n"))
         pagelayout.addWidget(btn_licz, 9, 1, alignment=Qt.AlignCenter)
 
         empty_label3 = QLabel("")
@@ -498,7 +472,7 @@ class MainNeapol(HelpWindow):
         central_widget.setLayout(pagelayout)
 
 
-class MainRzym(HelpWindow):
+class Roman(HelpWindow):
     """Create window for rome pizza with main functionality."""
 
     def __init__(self):
@@ -507,7 +481,7 @@ class MainRzym(HelpWindow):
         pagelayout = QGridLayout()
 
         lbl_rzymska = QLabel("Pizza Rzymska")
-        lbl_rzymska.setFont(QFont(self.bakerie[0], 30))
+        lbl_rzymska.setFont(QFont(self.bakerie, 30))
         lbl_rzymska.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         pagelayout.addWidget(lbl_rzymska, 1, 0, 1, 3, alignment=Qt.AlignCenter)
 
@@ -552,7 +526,7 @@ class MainRzym(HelpWindow):
         pagelayout.addWidget(self.empty_label1, 6, 0, 1, 3)
 
         btn_licz = make_button("Sprawdź", self.bakerie, font_size=20)
-        btn_licz.clicked.connect(lambda: self.policz("r"))
+        btn_licz.clicked.connect(lambda: self.estimate("r"))
         pagelayout.addWidget(btn_licz, 7, 1, alignment=Qt.AlignCenter)
 
         empty_label1 = QLabel("")
@@ -578,7 +552,7 @@ class MainRzym(HelpWindow):
         central_widget.setLayout(pagelayout)
 
 
-class MainAmeryka(HelpWindow):
+class American(HelpWindow):
     """Create window for american pizza with main functionality."""
 
     def __init__(self):
@@ -587,7 +561,7 @@ class MainAmeryka(HelpWindow):
         pagelayout = QGridLayout()
 
         lbl_rzymska = QLabel("Pizza Amerykańska")
-        lbl_rzymska.setFont(QFont(self.bakerie[0], 30))
+        lbl_rzymska.setFont(QFont(self.bakerie, 30))
         lbl_rzymska.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         pagelayout.addWidget(lbl_rzymska, 1, 0, 1, 4, alignment=Qt.AlignCenter)
 
@@ -631,7 +605,7 @@ class MainAmeryka(HelpWindow):
         pagelayout.addWidget(self.empty_label1, 6, 2, 1, 3)
 
         btn_licz = make_button("Sprawdź", self.bakerie, font_size=20)
-        btn_licz.clicked.connect(lambda: self.policz("a"))
+        btn_licz.clicked.connect(lambda: self.estimate("a"))
         pagelayout.addWidget(btn_licz, 7, 1, alignment=Qt.AlignCenter)
 
         self.empty_label2 = QLabel("")
@@ -669,28 +643,28 @@ class MainWindow(HelpWindow):
         label = QLabel(
             "Super Pizzowa Aplikacja")
         label.setWordWrap(True)
-        label.setFont(QFont(self.bakerie[0], 40))
+        label.setFont(QFont(self.bakerie, 40))
         label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         label.setAlignment(QtCore.Qt.AlignCenter)
         pagelayout.addWidget(label)
 
         btn = QPushButton("Przepisy")
         btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        btn.setFont(QFont(self.bakerie[0], 20))
+        btn.setFont(QFont(self.bakerie, 20))
         btn.clicked.connect(self.recipes_popup)
         btn.clicked.connect(self.close)
         pagelayout.addWidget(btn)
 
         btn = QPushButton('Wybór pizzy')
         btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        btn.setFont(QFont(self.bakerie[0], 20))
+        btn.setFont(QFont(self.bakerie, 20))
         btn.clicked.connect(self.main_popup)
         btn.clicked.connect(self.close)
         pagelayout.addWidget(btn)
 
         btn = QPushButton('Jak to działa?')
         btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        btn.setFont(QFont(self.bakerie[0], 20))
+        btn.setFont(QFont(self.bakerie, 20))
         btn.clicked.connect(self.instructions_popup)
         btn.clicked.connect(self.close)
         pagelayout.addWidget(btn)

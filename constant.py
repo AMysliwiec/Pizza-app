@@ -86,19 +86,19 @@ def get_font():
     return anta, bakerie
 
 
-def make_button(nazwa, bakerie, min_width=160, max_height=60, font_size=15):
+def make_button(nazwa, font, min_width=160, max_height=60, font_size=15):
     btn = QPushButton(nazwa)
     if min_width != 0:
         btn.setMinimumWidth(min_width)
     if max_height != 0:
         btn.setMaximumHeight(max_height)
     btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-    btn.setFont(QFont(bakerie[0], font_size))
+    btn.setFont(QFont(font, font_size))
 
     return btn
 
 
-tryby = ["Termoobieg", "Góra-dół", "Combo"]
+oven_mode = ["Termoobieg", "Góra-dół", "Combo"]
 
 eh = """
 /* QSlider --------------------------------------  */
