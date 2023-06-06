@@ -9,7 +9,7 @@ select_color = "#798b80"
 window_width = 600
 window_height = 700
 
-neapolitan_recipe = """ <br>
+neapolitan_recipe_pl = """ <br>
 Składniki <br>
 ● 500g mąki pszennej typu 00 <br>
 ● 325g letniej wody <br>
@@ -22,7 +22,7 @@ co najmniej pół godziny. Po tym czasie podziel je na 3 części i\u00A0uformuj
 materiałową na następne pół godziny. Z\u00A0gotowych kulek ciasta uformuj pizzę o\u00A0bardzo cienkim spodzie. Brzegi pizzy mogą pozostać większe. 
 Dodaj ulubione dodatki i\u00A0włóż pizzę do piekarnika."""
 
-american_recipe = """ <br>
+american_recipe_pl = """ <br>
 Składniki: <br>
 ● 450 g mąki pszennej typu 00 <br>
 ● 325 ml ciepłej wody <br>
@@ -38,7 +38,7 @@ pozostaw w\u00A0ciepłym miejscu na około 1-2 godziny, aż podwoi swoją objęt
 blachę do pizzy i\u00A0posmaruj ją olejem roślinnym.
 """
 
-roman_recipe = """<br>
+roman_recipe_pl = """<br>
 Składniki: <br>
 ● 500g mąki pszennej typu 00 <br>
 ● 325g letniej wody <br>
@@ -56,6 +56,50 @@ Następnie na dużą, posmarowaną oliwą blachę wyłóż ciasto i\u00A0rozcią
 tworząc klasyczną pizzę rzymską.
 """
 
+neapolitan_recipe_eng = """ <br>
+Ingredients <br>
+● 500g of "00" type wheat flour <br>
+● 325g of lukewarm water  <br>
+● 10g of fresh yeast  <br>
+● 5g of salt <br> <br>
+Dissolve yeast in the water and let it sit for 10 minutes. In a large bowl, mix flour with salt, and then pour the 
+previously prepared yeast mixture. Combine the ingredients with a wooden spoon and start kneading the dough. If you have
+ the opportunity, you can use a planetary robot. Knead the dough until it’s elastic and smooth. Leave the dough to rise 
+ for at least half an hour. After this time, divide it into 3 parts and form into balls. Leave them to rise under a 
+ clean, damp cloth for another half hour. From the dough balls, form a pizza with a very thin bottom. The edges of the 
+ pizza can be left larger. Add your favourite toppings and put the pizza in the oven."""
+
+american_recipe_eng = """ <br>
+Ingredients: <br>
+● 450g of "00" type wheat flour <br>
+● 325ml of warm water  <br>
+● 2 tablespoons of vegetable oil  <br>
+● 2 teaspoons of salt  <br>
+● 2 teaspoons of sugar  <br>
+● 7g instant dry yeast <br> <br>
+In a large bowl, combine the flour, salt, sugar and yeast. Add warm water and vegetable oil to the bowl. Mix all 
+ingredients until an elastic dough forms. Put them on a lightly floured surface and knead for about 5-7 minutes until 
+soft and elastic. Put the dough in a large bowl greased with olive oil, cover it with a cloth and leave it in a warm 
+place for about 1-2 hours, until it doubles in size. Prepare a large round pizza sheet and grease it with vegetable oil.
+ Put the dough on the baking sheet and spread it with your hands or a rolling pin so that the dough is approx 1 cm thick. 
+"""
+
+roman_recipe_eng = """<br>
+Ingredients: <br>
+● 500g of "00" type wheat flour <br>
+● 325g of lukewarm water  <br>
+● 10g of fresh yeast  <br>
+● 10g of sugar <br>
+● 5g of salt <br>
+● 2 tablespoons of olive oil <br> <br>
+In a large bowl, mix flour, salt and sugar. In another bowl, dissolve yeast in lukewarm water and let it sit for a few 
+minutes until it starts to foam. Add the dissolved yeast to the bowl of flour and gradually mix until the ingredients 
+are combined. Then add the olive oil and continue mixing until an elastic dough forms. Put the dough on a floured 
+surface and knead it for about 10 minutes until it is smooth and elastic. Place the dough in a large bowl greased with 
+olive oil, cover with a cloth and leave in a warm place for about 1-2 hours until it doubles in size. Then, put the 
+dough on a large, oiled baking sheet and spread it to an even thickness, creating a classic Roman pizza.
+"""
+
 instructions_pl = """   Aplikacja ma na celu podanie użytkownikowi najbardziej optymalnego czasu pieczenia pizzy w\u00A0zależności od wprowadzonych parametrów.  \n
     Do wyboru dostępne są pizza amerykańska, rzymska oraz neapolitańska. W\u00A0sekcji 'Przepisy' na każdą z\u00A0tych pizz podany jest sposób jej przyrządzania. \n
     Do głównej funkcjonalności można przejść poprzez przycisk 'Wybór pizzy' z\u00A0menu głównego, a\u00A0także wybierając pożądany przepis. \n
@@ -69,16 +113,23 @@ After selecting the desired type of pizza, the mode of the used oven and its tem
 diameter of the pizza. Then, after clicking the 'Check' button, a window with recommended baking time will appear.
 """
 
-neapol_format = """<div style ="font-size:45px; text-align:center;"><span style ="font-family:{};">Pizza Neapolitańska
+neapol_format_pl = """<div style ="font-size:45px; text-align:center;"><span style ="font-family:{};">Pizza Neapolitańska
                 </span><br></div><div style="font-size:18px; text-align:left;"><span style="font-family: {};"{}</span
                 </div>"""
-ameryka_format = """<div style ="font-size:45px; text-align:center;"><span style ="font-family:{};">Pizza Amerykańska
+american_format_pl = """<div style ="font-size:45px; text-align:center;"><span style ="font-family:{};">Pizza Amerykańska
                 </span><br></div><div style="font-size:18px; text-align:left;"><span style="font-family: {};"{}</span
                 </div>"""
-rzym_format = """<div style ="font-size:45px; text-align:center;"><span style ="font-family:{};">Pizza Rzymska </span> 
+roman_format_pl = """<div style ="font-size:45px; text-align:center;"><span style ="font-family:{};">Pizza Rzymska </span> 
                 </div><div style="font-size:18px; text-align:left;"><span style="font-family: {};"{}</span</div>"""
 
-
+neapol_format_eng = """<div style ="font-size:45px; text-align:center;"><span style ="font-family:{};">Neapolitan Pizza
+                </span><br></div><div style="font-size:18px; text-align:left;"><span style="font-family: {};"{}</span
+                </div>"""
+american_format_eng = """<div style ="font-size:45px; text-align:center;"><span style ="font-family:{};">American Pizza
+                </span><br></div><div style="font-size:18px; text-align:left;"><span style="font-family: {};"{}</span
+                </div>"""
+roman_format_eng = """<div style ="font-size:45px; text-align:center;"><span style ="font-family:{};">Roman Pizza </span> 
+                </div><div style="font-size:18px; text-align:left;"><span style="font-family: {};"{}</span</div>"""
 def get_font():
     bakerie_font = "Bakerie Rough Bold.otf"
     anta_font = "anta-regular.ttf"
@@ -202,7 +253,7 @@ pol_lang = {
             "neapolitan": "Neapolitańska",
             "american": "Amerykańska",
             "roman": "Rzymska",
-            "instructions": "Instrukcje",
+            "instructions": "Insrukcje",
             "baking_mode": "Tryb pieczenia",
             "diameter": "Średnica",
             "temp": "Temperatura",
@@ -215,6 +266,12 @@ pol_lang = {
             "american_pizza":  "Pizza Amerykańska",
             "how_it_works": "Jak to działa?",
             "oven_mode": ["Termoobieg", "Góra-dół", "Combo"],
+            "neapolitan_recipe": neapolitan_recipe_pl,
+            "american_recipe": american_recipe_pl,
+            "roman_recipe": roman_recipe_pl,
+            "neapol_format": neapol_format_pl,
+            "american_format": american_format_pl,
+            "roman_format": roman_format_pl,
             "choose_language": "Język",
             "instructions_content": instructions_pl,
             "enjoy_your_meal": "Smacznego!"
@@ -239,13 +296,19 @@ eng_lang = {
             "temp": "Temeprature",
             "check": "Check",
             "recipes": "Recipes",
-            "pizza_choice": "Choice pizza type",
+            "pizza_choice": "Choose pizza type",
             "roman_pizza": "Roman Pizza",
             "neapolitan_pizza": "Neapolitan Pizza",
             "title":  "Super Pizza App",
             "american_pizza": "American Pizza",
             "how_it_works": "How it works?",
             "oven_mode": ["Convection", "Up-down", "Combo"],
+            "neapolitan_recipe": neapolitan_recipe_eng,
+            "american_recipe": american_recipe_eng,
+            "roman_recipe": roman_recipe_eng,
+            "neapol_format": neapol_format_eng,
+            "american_format": american_format_eng,
+            "roman_format": roman_format_eng,
             "choose_language": "Language",
             "instructions_content": instructions_en,
             "enjoy_your_meal": "Enjoy your meal!"

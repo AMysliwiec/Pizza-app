@@ -204,7 +204,7 @@ class HelpWindow(QMainWindow):
 
     def updatelabelstr(self, value):
         """Upate label with pizza diameter when user change the slider"""
-        self.lbl_slider_sr.setText(str(value) + "cm")
+        self.lbl_slider_diam.setText(str(value) + "cm")
 
     def estimate(self, pizza_type):
         temp = int(self.sld_temp.value() * 5)
@@ -255,9 +255,9 @@ class Recipes(HelpWindow):
 
         self.slidingStacked = SlidingStackedWidget()
 
-        neapolitan_recipe_input = QLabel(neapol_format.format(self.bakerie, self.anta, neapolitan_recipe))
-        american_recipe_input = QLabel(ameryka_format.format(self.bakerie, self.anta, american_recipe))
-        roman_recipe_input = QLabel(rzym_format.format(self.bakerie, self.anta, roman_recipe))
+        neapolitan_recipe_input = QLabel(dict_lang["neapol_format"].format(self.bakerie, self.anta, dict_lang["neapolitan_recipe"]))
+        american_recipe_input = QLabel(dict_lang["american_format"].format(self.bakerie, self.anta, dict_lang["american_recipe"]))
+        roman_recipe_input = QLabel(dict_lang["roman_format"].format(self.bakerie, self.anta, dict_lang["roman_recipe"]))
 
         neapolitan_recipe_input.setWordWrap(True)
         american_recipe_input.setWordWrap(True)
