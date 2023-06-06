@@ -6,7 +6,7 @@ import math
 back_color = "#5D7064"
 select_color = "#798b80"
 window_width = 600
-widow_height = 700
+window_height = 700
 
 przepis_neapol = """ <br>
 Składniki <br>

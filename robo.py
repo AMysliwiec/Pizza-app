@@ -130,7 +130,7 @@ class HelpWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet(f"background-color: {back_color};")
-        self.setFixedSize(window_width, widow_height)
+        self.setFixedSize(window_width, window_height)
         self.center()
 
         self.anta = get_font()[0][0]
@@ -192,7 +192,7 @@ class RecipesPopup(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet(f"background-color: {back_color};")
-        self.setFixedSize(window_width, widow_height)
+        self.setFixedSize(window_width, window_height)
         self.center()
 
         bakerie = get_font()[1][0]
@@ -286,7 +286,7 @@ class MainPopup(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet(f"background-color: {back_color};")
-        self.setFixedSize(window_width, widow_height)
+        self.setFixedSize(window_width, window_height)
         self.center()
 
         anta, bakerie = get_font()
