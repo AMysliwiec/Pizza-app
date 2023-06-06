@@ -183,6 +183,27 @@ class HelpWindow(QMainWindow):
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
+    def policz(self, pizza_type):
+
+        temp = int(self.sld_temp.value() * 5)
+        if pizza_type in ["r", "a"]:
+            tryb = self.toggle_button.text()
+            wynik = pizza(temp, 30, tryb, pizza_type)
+        elif pizza_type == "n":
+            d = self.sld_srednica.value()
+            tryb = self.cb.currentText()
+            wynik = pizza(temp, d, tryb, "n")
+        self.msg = QMessageBox()
+        self.msg.setWindowTitle("")
+        self.msg.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.msg.setStyleSheet(f"background-color: {back_color};")
+        self.msg.setText(f"Optymalny czas pieczenia pizzy to: \n                  {wynik}")
+        self.msg.setFont(QFont(self.anta, 15))
+        back_button = QPushButton("Wróć")
+        self.msg.addButton(back_button, QMessageBox.YesRole)
+        self.msg.setStyleSheet(msg_style)
+        self.msg.exec_()
+
 
 class RecipesPopup(QMainWindow):
     """
@@ -449,7 +470,7 @@ class MainNeapol(HelpWindow):
         pagelayout.addWidget(empty_label1, 8, 0, 1, 3)
 
         btn_licz = make_button("Sprawdź", self.bakerie, font_size=20)
-        btn_licz.clicked.connect(self.policz)
+        btn_licz.clicked.connect(lambda: self.policz("n"))
         pagelayout.addWidget(btn_licz, 9, 0, 1, 3, alignment=Qt.AlignCenter)
 
         empty_label3 = QLabel("")
@@ -473,23 +494,6 @@ class MainNeapol(HelpWindow):
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         central_widget.setLayout(pagelayout)
-
-    def policz(self):
-        """?"""
-        temp = int(self.sld_temp.value() * 5)
-        d = self.sld_srednica.value()
-        tryb = self.cb.currentText()
-        wynik = pizza(temp, d, tryb, "n")
-        self.msg = QMessageBox()
-        self.msg.setWindowTitle("")
-        self.msg.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        self.msg.setStyleSheet(f"background-color: {back_color};")
-        self.msg.setText(f"Optymalny czas pieczenia pizzy to: \n                  {wynik}")
-        self.msg.setFont(QFont(self.anta, 15))
-        back_button = QPushButton("Wróć")
-        self.msg.addButton(back_button, QMessageBox.YesRole)
-        self.msg.setStyleSheet(msg_style)
-        self.msg.exec_()
 
 
 class MainRzym(HelpWindow):
@@ -546,7 +550,7 @@ class MainRzym(HelpWindow):
         pagelayout.addWidget(self.empty_label1, 6, 0, 1, 3)
 
         btn_licz = make_button("Sprawdź", self.bakerie, font_size=20)
-        btn_licz.clicked.connect(self.policz)
+        btn_licz.clicked.connect(lambda: self.policz("r"))
         pagelayout.addWidget(btn_licz, 7, 1, alignment=Qt.AlignCenter)
 
         empty_label1 = QLabel("")
@@ -571,20 +575,6 @@ class MainRzym(HelpWindow):
         self.setCentralWidget(central_widget)
         central_widget.setLayout(pagelayout)
 
-    def policz(self):
-        tryb = self.toggle_button.text()
-        temp = int(self.sld_temp.value() * 5)
-        wynik = pizza(temp, 30, tryb, "r")
-        self.msg = QMessageBox()
-        self.msg.setWindowTitle("")
-        self.msg.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        self.msg.setStyleSheet(f"background-color: {back_color};")
-        self.msg.setText(f"Optymalny czas pieczenia pizzy to: \n                  {wynik}")
-        self.msg.setFont(QFont(self.anta, 15))
-        back_button = QPushButton("Wróć")
-        self.msg.addButton(back_button, QMessageBox.YesRole)
-        self.msg.setStyleSheet(msg_style)
-        self.msg.exec_()
 
 
 class MainAmeryka(HelpWindow):
@@ -640,7 +630,7 @@ class MainAmeryka(HelpWindow):
         pagelayout.addWidget(self.empty_label1, 6, 2, 1, 3)
 
         btn_licz = make_button("Sprawdź", self.bakerie, font_size=20)
-        btn_licz.clicked.connect(self.policz)
+        btn_licz.clicked.connect(lambda: self.policz("a"))
         pagelayout.addWidget(btn_licz, 7, 1, alignment=Qt.AlignCenter)
 
         self.empty_label2 = QLabel("")
@@ -665,20 +655,6 @@ class MainAmeryka(HelpWindow):
         self.setCentralWidget(central_widget)
         central_widget.setLayout(pagelayout)
 
-    def policz(self):
-        tryb = self.toggle_button.text()
-        temp = int(self.sld_temp.value() * 5)
-        wynik = pizza(temp, 30, tryb, "a")
-        self.msg = QMessageBox()
-        self.msg.setWindowTitle("")
-        self.msg.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        self.msg.setStyleSheet(f"background-color: {back_color};")
-        self.msg.setText(f"Optymalny czas pieczenia pizzy to: \n                  {wynik}")
-        self.msg.setFont(QFont(self.anta, 15))
-        back_button = QPushButton("Wróć")
-        self.msg.addButton(back_button, QMessageBox.YesRole)
-        self.msg.setStyleSheet(msg_style)
-        self.msg.exec_()
 
 
 class MainWindow(HelpWindow):
