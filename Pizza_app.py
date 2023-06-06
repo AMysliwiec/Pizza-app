@@ -12,6 +12,7 @@ from constant import *
 
 dict_lang = {}
 
+
 # https://stackoverflow.com/questions/52596386/slide-qstackedwidget-page slide pages
 class SlidingStackedWidget(QStackedWidget):
     """
@@ -97,13 +98,9 @@ class SlidingStackedWidget(QStackedWidget):
         self.widget(_next).show()
         self.widget(_next).raise_()
 
-        anim_group = QtCore.QParallelAnimationGroup(
-            self, finished=self.animationDoneSlot
-        )
+        anim_group = QtCore.QParallelAnimationGroup(self, finished=self.animationDoneSlot)
 
-        for index, start, end in zip(
-                (_now, _next), (pnow, pnext - offset), (pnow + offset, pnext)
-        ):
+        for index, start, end in zip((_now, _next), (pnow, pnext - offset), (pnow + offset, pnext)):
             animation = QtCore.QPropertyAnimation(
                 self.widget(index),
                 b"pos",
@@ -150,35 +147,49 @@ class HelpWindow(QMainWindow):
         self.move(qr.topLeft())
 
     def recipes_popup(self):
+        """
+        Display popup window with recipes.
+        """
         self.w = Recipes()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
     def choice_popup(self):
+        """
+        Display popup window with types of pizzas to choose.
+        """
         self.w = PizzaChoice()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
     def instructions_popup(self):
         """
-        Display popup window with app instructions.
+        Display popup window with app instruction.
         """
         self.w = Instructions()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
     def open_main(self):
+        """
+        Display popup window with main menu.
+        """
         self.w = MainWindow()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
-    def open_language(self):
+    def language_popup(self):
+        """
+        Display popup window with a language to choose.
+        """
         self.w = ChooseLanguage()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
     def open_choice(self):
-        """Open main window for certain pizza directly from the recipe."""
+        """
+        Open popup window for certain pizza directly from the recipe.
+        """
         if self.slidingStacked.currentIndex() == 0:
             self.w = Neapolitan()
             self.mw = qtmodern.windows.ModernWindow(self.w)
@@ -193,33 +204,46 @@ class HelpWindow(QMainWindow):
             self.mw.show()
 
     def change_toggle(self):
+        """
+        Change of mode between convection and up-down.
+        """
         if self.toggle_button.isChecked():
             self.toggle_button.setText(dict_lang['up_down_mode'])
         else:
             self.toggle_button.setText(dict_lang['convection'])
 
     def updatelabeltemp(self, value):
-        """Update label with oven temperature when user change the slider"""
+        """
+        Update label with oven temperature when user change the slider.
+        """
         self.lbl_slider_temp.setText(str(value * 5) + "°C")
 
     def updatelabelstr(self, value):
-        """Upate label with pizza diameter when user change the slider"""
+        """
+        Upate label with pizza diameter when user change the slider
+        """
         self.lbl_slider_diam.setText(str(value) + "cm")
 
     def estimate(self, pizza_type):
+        """
+        The main method to display the result for each type of pizza using QMessegeBox.
+        Function pizza() is in constant.py file. Calculations are presented in this function.
+        :param pizza_type: 'n' - neapolitan, 'a' - american, 'r' - roman
+        """
         temp = int(self.sld_temp.value() * 5)
         if pizza_type in ["r", "a"]:
-            tryb = self.toggle_button.text()
-            wynik = pizza(temp, 30, tryb, pizza_type)
+            mode = self.toggle_button.text()
+            time = pizza(temp, 30, mode, pizza_type)
         elif pizza_type == "n":
             d = self.sld_diameter.value()
-            tryb = self.cb.currentText()
-            wynik = pizza(temp, d, tryb, "n")
+            mode = self.cb.currentText()
+            time = pizza(temp, d, mode, "n")
+
         self.msg = QMessageBox()
         self.msg.setWindowTitle("")
         self.msg.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.msg.setStyleSheet(f"background-color: {back_color};")
-        self.msg.setText(f"{dict_lang['returned_time']} \n                  {wynik}")
+        self.msg.setText(f"{dict_lang['returned_time']} \n                  {time}")
         self.msg.setFont(QFont(self.anta, 15))
         back_button = QPushButton(dict_lang['go_back'])
         self.msg.addButton(back_button, QMessageBox.YesRole)
@@ -227,19 +251,25 @@ class HelpWindow(QMainWindow):
         self.msg.exec_()
 
     def neapolitan(self):
-        """Open window for neapolitan pizza with main functionality."""
+        """
+        Open window for neapolitan pizza with main functionality.
+        """
         self.w = Neapolitan()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
     def roman(self):
-        """Open window for rome pizza with main functionality."""
+        """
+        Open window for rome pizza with main functionality.
+        """
         self.w = Roman()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
     def american(self):
-        """Open window for american pizza with main functionality."""
+        """
+        Open window for american pizza with main functionality.
+        """
         self.w = American()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
@@ -255,9 +285,12 @@ class Recipes(HelpWindow):
 
         self.slidingStacked = SlidingStackedWidget()
 
-        neapolitan_recipe_input = QLabel(dict_lang["neapol_format"].format(self.bakerie, self.anta, dict_lang["neapolitan_recipe"]))
-        american_recipe_input = QLabel(dict_lang["american_format"].format(self.bakerie, self.anta, dict_lang["american_recipe"]))
-        roman_recipe_input = QLabel(dict_lang["roman_format"].format(self.bakerie, self.anta, dict_lang["roman_recipe"]))
+        neapolitan_recipe_input = QLabel(
+            dict_lang["neapol_format"].format(self.bakerie, self.anta, dict_lang["neapolitan_recipe"]))
+        american_recipe_input = QLabel(
+            dict_lang["american_format"].format(self.bakerie, self.anta, dict_lang["american_recipe"]))
+        roman_recipe_input = QLabel(
+            dict_lang["roman_format"].format(self.bakerie, self.anta, dict_lang["roman_recipe"]))
 
         neapolitan_recipe_input.setWordWrap(True)
         american_recipe_input.setWordWrap(True)
@@ -300,7 +333,7 @@ class Recipes(HelpWindow):
 
 class PizzaChoice(HelpWindow):
     """
-    Create pop up window with main app funcionality where user can first choose certain pizza.
+    Create pop up window with main app functionality where user can first choose certain pizza.
     """
 
     def __init__(self):
@@ -332,28 +365,18 @@ class PizzaChoice(HelpWindow):
 
 class Instructions(HelpWindow):
     """
-    Create window with app's instructions.
+    Create window with app's instruction.
     """
 
     def __init__(self):
         super().__init__()
         pagelayout = QVBoxLayout()
-        label_naglowek = make_label(dict_lang["instructions"], self.bakerie, 40)
-        pagelayout.addWidget(label_naglowek, alignment=Qt.AlignCenter)
 
-        empty_label1 = QLabel("")
-        empty_label1.setFont(QFont(self.bakerie, 10))
-        pagelayout.addWidget(empty_label1)
-
-        label = make_label(dict_lang["instructions_content"], self.anta, 12, False, False)
-        pagelayout.addWidget(label)
-
-        label2 = make_label(dict_lang["enjoy_your_meal"], self.bakerie, 20, True, False)
-        pagelayout.addWidget(label2)
-
-        empty_label2 = QLabel("")
-        empty_label2.setFont(QFont(self.bakerie, 10))
-        pagelayout.addWidget(empty_label2)
+        instruction_input = QLabel(instruction_format.format(self.bakerie, dict_lang["instructions"],
+                                                             self.anta, dict_lang["instructions_content"], self.bakerie,
+                                                             dict_lang["enjoy_your_meal"]))
+        instruction_input.setWordWrap(True)
+        pagelayout.addWidget(instruction_input)
 
         btn = make_button(dict_lang["main_menu"], self.bakerie, 0, 0, 20, expand=False)
         btn.clicked.connect(self.close)
@@ -366,7 +389,9 @@ class Instructions(HelpWindow):
 
 
 class Neapolitan(HelpWindow):
-    """Create window for neapolitan pizza with main functionality."""
+    """
+    Create window for neapolitan pizza with main functionality.
+    """
 
     def __init__(self):
         super().__init__()
@@ -376,23 +401,17 @@ class Neapolitan(HelpWindow):
         lbl_n = make_label(dict_lang["neapolitan"], self.bakerie, 30)
         pagelayout.addWidget(lbl_n, 0, 0, 1, 3, alignment=Qt.AlignCenter)
 
-        self.empty_label0 = QLabel("")
-        pagelayout.addWidget(self.empty_label0, 2, 0)
-
         lbl_mode = make_label(dict_lang["baking_mode"], self.anta, 15, False, False)
-        pagelayout.addWidget(lbl_mode, 3, 0)
+        pagelayout.addWidget(lbl_mode, 2, 0)
 
         self.cb = QComboBox()
         self.cb.addItems(dict_lang["oven_mode"])
         self.cb.setFont(QFont(self.anta, 12))
         self.cb.setStyleSheet(f"selection-background-color: {select_color};")
-        pagelayout.addWidget(self.cb, 3, 1, alignment=Qt.AlignCenter)
-
-        lbl_empty = QLabel("")
-        pagelayout.addWidget(lbl_empty, 4, 0, 1, 1)
+        pagelayout.addWidget(self.cb, 2, 1, alignment=Qt.AlignCenter)
 
         lbl_diameter = make_label(dict_lang["diameter"], self.anta, 15, False, False)
-        pagelayout.addWidget(lbl_diameter, 5, 0)
+        pagelayout.addWidget(lbl_diameter, 4, 0)
 
         self.sld_diameter = QSlider(Qt.Orientation.Horizontal, self)
         self.sld_diameter.setRange(20, 40)
@@ -400,20 +419,17 @@ class Neapolitan(HelpWindow):
         self.sld_diameter.setSliderPosition(30)
         self.sld_diameter.setStyleSheet(size_bar)
         self.sld_diameter.valueChanged.connect(self.updatelabelstr)
-        pagelayout.addWidget(self.sld_diameter, 5, 1)
+        pagelayout.addWidget(self.sld_diameter, 4, 1)
 
         self.lbl_slider_diam = QLabel('30cm', self)
         self.lbl_slider_diam.setAlignment(Qt.AlignmentFlag.AlignCenter |
                                           Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_diam.setMinimumWidth(80)
         self.lbl_slider_diam.setFont(QFont(self.anta, 10))
-        pagelayout.addWidget(self.lbl_slider_diam, 5, 2, alignment=Qt.AlignLeft)
-
-        lbl_empty2 = QLabel("")
-        pagelayout.addWidget(lbl_empty2, 6, 0, 1, 1)
+        pagelayout.addWidget(self.lbl_slider_diam, 4, 2, alignment=Qt.AlignLeft)
 
         lbl_temp = make_label(dict_lang["temp"], self.anta, 15, False, False)
-        pagelayout.addWidget(lbl_temp, 7, 0)
+        pagelayout.addWidget(lbl_temp, 6, 0)
 
         self.sld_temp = QSlider(Qt.Orientation.Horizontal, self)
         self.sld_temp.setRange(36, 56)
@@ -421,39 +437,35 @@ class Neapolitan(HelpWindow):
         self.sld_temp.setSliderPosition(44)
         self.sld_temp.setStyleSheet(temp_bar)
         self.sld_temp.valueChanged.connect(self.updatelabeltemp)
-        pagelayout.addWidget(self.sld_temp, 7, 1)
+        pagelayout.addWidget(self.sld_temp, 6, 1)
 
         self.lbl_slider_temp = QLabel('220°C', self)
         self.lbl_slider_temp.setAlignment(Qt.AlignmentFlag.AlignCenter |
                                           Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_temp.setMinimumWidth(80)
         self.lbl_slider_temp.setFont(QFont(self.anta, 10))
-        pagelayout.addWidget(self.lbl_slider_temp, 7, 2, alignment=Qt.AlignLeft)
-
-        empty_label1 = QLabel("")
-        pagelayout.addWidget(empty_label1, 8, 0, 1, 3)
+        pagelayout.addWidget(self.lbl_slider_temp, 6, 2, alignment=Qt.AlignLeft)
 
         btn_estimate = make_button(dict_lang["check"], self.bakerie, font_size=20)
         btn_estimate.clicked.connect(lambda: self.estimate("n"))
-        pagelayout.addWidget(btn_estimate, 9, 1, alignment=Qt.AlignCenter)
-
-        empty_label3 = QLabel("")
-        pagelayout.addWidget(empty_label3, 10, 0, 1, 3)
+        pagelayout.addWidget(btn_estimate, 8, 1, alignment=Qt.AlignCenter)
 
         btn_recipes = make_button(dict_lang["recipes"], self.bakerie)
         btn_recipes.clicked.connect(self.close)
         btn_recipes.clicked.connect(self.recipes_popup)
-        pagelayout.addWidget(btn_recipes, 11, 0, alignment=Qt.AlignCenter)
+        pagelayout.addWidget(btn_recipes, 10, 0, alignment=Qt.AlignCenter)
 
         btn_choice = make_button(dict_lang["pizza_choice"], self.bakerie)
         btn_choice.clicked.connect(self.choice_popup)
         btn_choice.clicked.connect(self.close)
-        pagelayout.addWidget(btn_choice, 11, 1, alignment=Qt.AlignCenter)
+        pagelayout.addWidget(btn_choice, 10, 1, alignment=Qt.AlignCenter)
 
         btn_menu = make_button(dict_lang["main_menu"], self.bakerie)
         btn_menu.clicked.connect(self.close)
         btn_menu.clicked.connect(self.open_main)
-        pagelayout.addWidget(btn_menu, 11, 2, alignment=Qt.AlignCenter)
+        pagelayout.addWidget(btn_menu, 10, 2, alignment=Qt.AlignCenter)
+
+        add_empty_labels([1, 3, 5, 7, 9], pagelayout)
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -461,7 +473,9 @@ class Neapolitan(HelpWindow):
 
 
 class Roman(HelpWindow):
-    """Create window for rome pizza with main functionality."""
+    """
+    Create window for rome pizza with main functionality.
+    """
 
     def __init__(self):
         super().__init__()
@@ -471,9 +485,6 @@ class Roman(HelpWindow):
         lbl_r = make_label(dict_lang["roman_pizza"], self.bakerie, 30)
         pagelayout.addWidget(lbl_r, 1, 0, 1, 3, alignment=Qt.AlignCenter)
 
-        self.empty_label0 = QLabel("")
-        pagelayout.addWidget(self.empty_label0, 2, 0)
-
         lbl_mode = make_label(dict_lang["baking_mode"], self.anta, 15, False, False)
         pagelayout.addWidget(lbl_mode, 3, 0)
 
@@ -482,9 +493,6 @@ class Roman(HelpWindow):
         self.toggle_button.setFont(QFont(self.anta, 12))
         self.toggle_button.clicked.connect(self.change_toggle)
         pagelayout.addWidget(self.toggle_button, 3, 1, alignment=Qt.AlignCenter)
-
-        lbl_empty = QLabel("")
-        pagelayout.addWidget(lbl_empty, 4, 0, 1, 1)
 
         lbl_temp = make_label(dict_lang["temp"], self.anta, 15, False, False)
         pagelayout.addWidget(lbl_temp, 5, 0)
@@ -505,15 +513,9 @@ class Roman(HelpWindow):
         self.lbl_slider_temp.setFont(QFont(self.anta, 10))
         pagelayout.addWidget(self.lbl_slider_temp, 5, 2, alignment=Qt.AlignLeft)
 
-        self.empty_label1 = QLabel("")
-        pagelayout.addWidget(self.empty_label1, 6, 0, 1, 3)
-
         btn_estimate = make_button(dict_lang["check"], self.bakerie, font_size=20)
         btn_estimate.clicked.connect(lambda: self.estimate("r"))
         pagelayout.addWidget(btn_estimate, 7, 1, alignment=Qt.AlignCenter)
-
-        empty_label1 = QLabel("")
-        pagelayout.addWidget(empty_label1, 8, 2, 1, 3)
 
         btn_recipes = make_button(dict_lang["recipes"], self.bakerie)
         btn_recipes.clicked.connect(self.close)
@@ -530,13 +532,17 @@ class Roman(HelpWindow):
         btn_menu.clicked.connect(self.open_main)
         pagelayout.addWidget(btn_menu, 9, 2, alignment=Qt.AlignCenter)
 
+        add_empty_labels([2, 4, 6, 8], pagelayout)
+
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         central_widget.setLayout(pagelayout)
 
 
 class American(HelpWindow):
-    """Create window for american pizza with main functionality."""
+    """
+    Create window for american pizza with main functionality.
+    """
 
     def __init__(self):
         super().__init__()
@@ -546,9 +552,6 @@ class American(HelpWindow):
         lbl_a = make_label(dict_lang["american_pizza"], self.bakerie, 30)
         pagelayout.addWidget(lbl_a, 1, 0, 1, 4, alignment=Qt.AlignCenter)
 
-        self.empty_label0 = QLabel("")
-        pagelayout.addWidget(self.empty_label0, 2, 0)
-
         lbl_mode = make_label(dict_lang["baking_mode"], self.anta, 15, False, False)
         pagelayout.addWidget(lbl_mode, 3, 0)
 
@@ -557,9 +560,6 @@ class American(HelpWindow):
         self.toggle_button.setFont(QFont(self.anta, 12))
         self.toggle_button.clicked.connect(self.change_toggle)
         pagelayout.addWidget(self.toggle_button, 3, 1, alignment=Qt.AlignCenter)
-
-        lbl_empty = QLabel("")
-        pagelayout.addWidget(lbl_empty, 4, 0, 1, 1)
 
         lbl_temp = make_label(dict_lang["temp"], self.anta, 15, False, False)
         pagelayout.addWidget(lbl_temp, 5, 0)
@@ -579,15 +579,9 @@ class American(HelpWindow):
         self.lbl_slider_temp.setFont(QFont(self.anta, 10))
         pagelayout.addWidget(self.lbl_slider_temp, 5, 2)
 
-        self.empty_label1 = QLabel("")
-        pagelayout.addWidget(self.empty_label1, 6, 2, 1, 3)
-
         btn_estimate = make_button(dict_lang["check"], self.bakerie, font_size=20)
         btn_estimate.clicked.connect(lambda: self.estimate("a"))
         pagelayout.addWidget(btn_estimate, 7, 1, alignment=Qt.AlignCenter)
-
-        self.empty_label2 = QLabel("")
-        pagelayout.addWidget(self.empty_label2, 8, 2, 1, 3)
 
         btn_recipes = make_button(dict_lang["recipes"], self.bakerie)
         btn_recipes.clicked.connect(self.close)
@@ -603,6 +597,8 @@ class American(HelpWindow):
         btn_menu.clicked.connect(self.close)
         btn_menu.clicked.connect(self.open_main)
         pagelayout.addWidget(btn_menu, 9, 2, alignment=Qt.AlignCenter)
+
+        add_empty_labels([2, 4, 6, 8], pagelayout)
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -637,7 +633,7 @@ class MainWindow(HelpWindow):
         pagelayout.addWidget(btn_how)
 
         btn_language = make_button(dict_lang['choose_language'], self.bakerie, 200, 0, 15)
-        btn_language.clicked.connect(self.open_language)
+        btn_language.clicked.connect(self.language_popup)
         btn_language.clicked.connect(self.close)
         pagelayout.addWidget(btn_language, alignment=Qt.AlignCenter)
 
@@ -647,6 +643,9 @@ class MainWindow(HelpWindow):
 
 
 class ChooseLanguage(HelpWindow):
+    """
+    Create window to change the language.
+    """
     global dict_lang
 
     def __init__(self):
@@ -654,13 +653,16 @@ class ChooseLanguage(HelpWindow):
 
         pagelayout = QVBoxLayout()
 
-        btn_polish = make_button("Polish", self.bakerie, 0, 0, 20)
+        #language_label = make_label("Wybierz Język", self.bakerie, 40)
+        #pagelayout.addWidget(language_label)
+
+        btn_polish = make_button("Polski", self.bakerie, 0, 0, 40)
         btn_polish.clicked.connect(self.pl)
         btn_polish.clicked.connect(self.open_main)
         btn_polish.clicked.connect(self.close)
         pagelayout.addWidget(btn_polish)
 
-        btn_english = make_button("English", self.bakerie, 0, 0, 20)
+        btn_english = make_button("English", self.bakerie, 0, 0, 40)
         btn_english.clicked.connect(self.en)
         btn_english.clicked.connect(self.open_main)
         btn_english.clicked.connect(self.close)
@@ -671,10 +673,12 @@ class ChooseLanguage(HelpWindow):
         widget.setLayout(pagelayout)
 
     def pl(self):
+        """ Change to Polish """
         global dict_lang
         dict_lang = pol_lang
 
     def en(self):
+        """ Change to English"""
         global dict_lang
         dict_lang = eng_lang
 
