@@ -2,6 +2,7 @@
 language = ''
 print(language)
 
+
 def set_language(lang):
     global language
     if lang == "english":
@@ -9,29 +10,6 @@ def set_language(lang):
     elif lang == 'polish':
         language = 'polish'
 
-up_down_mode = ""
-convection = ""
-returned_time = ""
-go_back = ""
-previous = ""
-next = ""
-choose = ""
-main_menu = ""
-choose_pizza_type = ""
-neapolitan = ""
-american = ""
-roman = ""
-instruction = ""
-baking_mode = ""
-diameter = ""
-temp = ""
-check = ""
-recipes = ""
-pizza_choice = ""
-roman_pizza = ""
-american_pizza = ""
-title = ""
-how_it_works = ""
 
 if language == 'polish':
     up_down_mode = "Góra_dół"
@@ -81,7 +59,6 @@ elif language == 'english':
     american_pizza = "American pizza"
     title = "Super Pizza App"
     how_it_works = "How it works?"
-
 
 
 print(language)
