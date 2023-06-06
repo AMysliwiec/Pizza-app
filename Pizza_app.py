@@ -160,7 +160,7 @@ class HelpWindow(QMainWindow):
 
     def updateLabeltemp(self, value):
         """Update label with oven temperature when user change the slider"""
-        self.lbl_slider_temp.setText(str(value) + "°C")
+        self.lbl_slider_temp.setText(str(value*5) + "°C")
 
     def updateLabelsr(self, value):
         """Upate label with pizza diameter when user change the slider"""
@@ -411,10 +411,11 @@ class MainNeapol(HelpWindow):
         self.sld_srednica.setRange(20, 40)
         self.sld_srednica.setPageStep(1)
         self.sld_srednica.setStyleSheet(size_bar)
+        self.sld_srednica.setSliderPosition(30)
         self.sld_srednica.valueChanged.connect(self.updateLabelsr)
         pagelayout.addWidget(self.sld_srednica, 5, 1)
 
-        self.lbl_slider_sr = QLabel('20cm', self)
+        self.lbl_slider_sr = QLabel('30cm', self)
         self.lbl_slider_sr.setAlignment(Qt.AlignmentFlag.AlignCenter |
                                         Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_sr.setMinimumWidth(80)
@@ -430,13 +431,14 @@ class MainNeapol(HelpWindow):
         pagelayout.addWidget(lbl_temp, 7, 0)
 
         self.sld_temp = QSlider(Qt.Orientation.Horizontal, self)
-        self.sld_temp.setRange(180, 280)
-        self.sld_temp.setPageStep(5)
+        self.sld_temp.setRange(36, 56)
+        self.sld_temp.setSingleStep(1)
+        self.sld_temp.setSliderPosition(44)
         self.sld_temp.setStyleSheet(temp_bar)
         self.sld_temp.valueChanged.connect(self.updateLabeltemp)
         pagelayout.addWidget(self.sld_temp, 7, 1)
 
-        self.lbl_slider_temp = QLabel('180°C', self)
+        self.lbl_slider_temp = QLabel('220°C', self)
         self.lbl_slider_temp.setAlignment(Qt.AlignmentFlag.AlignCenter |
                                           Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_temp.setMinimumWidth(80)
@@ -474,12 +476,13 @@ class MainNeapol(HelpWindow):
 
     def policz(self):
         """?"""
-        temp = self.sld_temp.value()
+        temp = int(self.sld_temp.value() * 5)
         d = self.sld_srednica.value()
         tryb = self.cb.currentText()
         wynik = pizza(temp, d, tryb, "n")
         self.msg = QMessageBox()
         self.msg.setWindowTitle("")
+        self.msg.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.msg.setStyleSheet(f"background-color: {back_color};")
         self.msg.setText(f"Optymalny czas pieczenia pizzy to: \n                  {wynik}")
         self.msg.setFont(QFont(self.anta, 15))
@@ -524,14 +527,15 @@ class MainRzym(HelpWindow):
         pagelayout.addWidget(lbl_temp, 5, 0)
 
         self.sld_temp = QSlider(Qt.Orientation.Horizontal, self)
-        self.sld_temp.setRange(180, 280)
-        self.sld_temp.setPageStep(5)
+        self.sld_temp.setRange(36, 56)
+        self.sld_temp.setSingleStep(1)
+        self.sld_temp.setSliderPosition(44)
         self.sld_temp.setStyleSheet(temp_bar)
         self.sld_temp.valueChanged.connect(self.updateLabeltemp)
         self.sld_temp.resize(self.sld_temp.sizeHint())
         pagelayout.addWidget(self.sld_temp, 5, 1)
 
-        self.lbl_slider_temp = QLabel('180°C', self)
+        self.lbl_slider_temp = QLabel('220°C', self)
         self.lbl_slider_temp.setAlignment(Qt.AlignmentFlag.AlignCenter |
                                           Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_temp.setMinimumWidth(80)
@@ -569,10 +573,11 @@ class MainRzym(HelpWindow):
 
     def policz(self):
         tryb = self.toggle_button.text()
-        temp = self.sld_temp.value()
+        temp = int(self.sld_temp.value() * 5)
         wynik = pizza(temp, 30, tryb, "r")
         self.msg = QMessageBox()
         self.msg.setWindowTitle("")
+        self.msg.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.msg.setStyleSheet(f"background-color: {back_color};")
         self.msg.setText(f"Optymalny czas pieczenia pizzy to: \n                  {wynik}")
         self.msg.setFont(QFont(self.anta, 15))
@@ -617,13 +622,14 @@ class MainAmeryka(HelpWindow):
         pagelayout.addWidget(lbl_temp, 5, 0)
 
         self.sld_temp = QSlider(Qt.Orientation.Horizontal, self)
-        self.sld_temp.setRange(180, 280)
-        self.sld_temp.setPageStep(5)
+        self.sld_temp.setRange(36, 56)
+        self.sld_temp.setSingleStep(1)
+        self.sld_temp.setSliderPosition(44)
         self.sld_temp.setStyleSheet(temp_bar)
         self.sld_temp.valueChanged.connect(self.updateLabeltemp)
         pagelayout.addWidget(self.sld_temp, 5, 1)
 
-        self.lbl_slider_temp = QLabel('180°C', self)
+        self.lbl_slider_temp = QLabel('220°C', self)
         self.lbl_slider_temp.setAlignment(Qt.AlignmentFlag.AlignCenter |
                                           Qt.AlignmentFlag.AlignVCenter)
         self.lbl_slider_temp.setMinimumWidth(80)
@@ -661,10 +667,11 @@ class MainAmeryka(HelpWindow):
 
     def policz(self):
         tryb = self.toggle_button.text()
-        temp = self.sld_temp.value()
+        temp = int(self.sld_temp.value() * 5)
         wynik = pizza(temp, 30, tryb, "a")
         self.msg = QMessageBox()
         self.msg.setWindowTitle("")
+        self.msg.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.msg.setStyleSheet(f"background-color: {back_color};")
         self.msg.setText(f"Optymalny czas pieczenia pizzy to: \n                  {wynik}")
         self.msg.setFont(QFont(self.anta, 15))

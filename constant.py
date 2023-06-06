@@ -126,9 +126,7 @@ QSlider::groove:vertical {
     margin: 24px 12px;
 }
 QSlider::sub-page:horizontal {
-background: qlineargradient(x1: 0, y1: 0,    x2: 0, y2: 1,
-    stop: 0 #FD0, stop: 1 #FD0);
-background: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 1,
+background: qlineargradient(x1: 0, y1: 0,    x2: 1, y2: 1,
     stop: 0 #FD0, stop: 1 #C00);
 border: 1px solid #777;
 height: 10px;
@@ -158,8 +156,7 @@ msg_style = """
         QMessageBox {
         background-color: #333333;
         color: white;
-        border: 2px solid;
-        border-radius: 10px;
+        border: none;
     }
     QMessageBox QPushButton {
         background-color: #555555;
