@@ -208,7 +208,8 @@ pol_lang = {
             "title":  "Super Pizzowa Aplikacja",
             "american_pizza":  "Pizza Amerykańska",
             "how_it_works": "Jak to działa?",
-            "oven_mode": ["Termoobieg", "Góra-dół", "Combo"]
+            "oven_mode": ["Termoobieg", "Góra-dół", "Combo"],
+            "choose_language": "Język"
 }
 
 eng_lang = {
@@ -236,7 +237,8 @@ eng_lang = {
             "title":  "Super Pizza App",
             "american_pizza": "American Pizza",
             "how_it_works": "How it works?",
-            "oven_mode": ["Convection", "Up-down", "Combo"]
+            "oven_mode": ["Convection", "Up-down", "Combo"],
+            "choose_language": "Language"
         }
 
 # ------------------------------------------- FUNKCJA -----------------------------------------------

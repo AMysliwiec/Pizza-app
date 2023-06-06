@@ -172,6 +172,11 @@ class HelpWindow(QMainWindow):
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
 
+    def open_language(self):
+        self.w = ChooseLanguage()
+        self.mw = qtmodern.windows.ModernWindow(self.w)
+        self.mw.show()
+
     def open_choice(self):
         """Open main window for certain pizza directly from the recipe."""
         if self.slidingStacked.currentIndex() == 0:
@@ -217,7 +222,7 @@ class HelpWindow(QMainWindow):
         self.msg.setWindowTitle("")
         self.msg.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.msg.setStyleSheet(f"background-color: {back_color};")
-        self.msg.setText(f"{dict_lang['retured_time']} \n                  {wynik}")
+        self.msg.setText(f"{dict_lang['returned_time']} \n                  {wynik}")
         self.msg.setFont(QFont(self.anta, 15))
         back_button = QPushButton(dict_lang['go_back'])
         self.msg.addButton(back_button, QMessageBox.YesRole)
@@ -633,6 +638,11 @@ class MainWindow(HelpWindow):
         btn_how.clicked.connect(self.instructions_popup)
         btn_how.clicked.connect(self.close)
         pagelayout.addWidget(btn_how)
+
+        btn_language = make_button(dict_lang['choose_language'], self.bakerie, 200, 0, 15)
+        btn_language.clicked.connect(self.open_language)
+        btn_language.clicked.connect(self.close)
+        pagelayout.addWidget(btn_language, alignment=Qt.AlignCenter)
 
         widget = QWidget()
         self.setCentralWidget(widget)
