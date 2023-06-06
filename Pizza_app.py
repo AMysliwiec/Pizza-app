@@ -358,6 +358,11 @@ class PizzaChoice(HelpWindow):
         btn_r.clicked.connect(self.close)
         pagelayout.addWidget(btn_r)
 
+        btn_language = make_button(dict_lang['go_back'], self.bakerie, 200, 0, 15)
+        btn_language.clicked.connect(self.open_main)
+        btn_language.clicked.connect(self.close)
+        pagelayout.addWidget(btn_language, alignment=Qt.AlignCenter)
+
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         central_widget.setLayout(pagelayout)
