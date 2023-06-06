@@ -1,5 +1,6 @@
+from PyQt5 import QtCore
 from PyQt5.QtGui import QFontDatabase, QFont
-from PyQt5.QtWidgets import QPushButton, QSizePolicy
+from PyQt5.QtWidgets import QPushButton, QSizePolicy, QLabel
 from sympy import symbols, solve
 import math
 
@@ -8,7 +9,7 @@ select_color = "#798b80"
 window_width = 600
 window_height = 700
 
-przepis_neapol = """ <br>
+neapolitan_recipe = """ <br>
 Składniki <br>
 ● 500g mąki pszennej typu 00 <br>
 ● 325g letniej wody <br>
@@ -21,7 +22,7 @@ co najmniej pół godziny. Po tym czasie podziel je na 3 części i uformuj z ni
 materiałową na następne pół godziny. Z gotowych kulek ciasta uformuj pizzę o bardzo cienkim spodzie. Brzegi pizzy mogą pozostać większe. 
 Dodaj ulubione dodatki i włóż pizzę do piekarnika."""
 
-przepis_ameryka = """ <br>
+american_recipe = """ <br>
 Składniki: <br>
 ● 450 g mąki pszennej typu 00 <br>
 ● 325 ml ciepłej wody <br>
@@ -37,7 +38,7 @@ pozostaw w ciepłym miejscu na około 1-2 godziny, aż podwoi swoją objętość
 blachę do pizzy i posmaruj ją olejem roślinnym.
 """
 
-przepis_rzym = """<br>
+roman_recipe = """<br>
 Składniki: <br>
 ● 500g mąki pszennej typu 00 <br>
 ● 325g letniej wody <br>
@@ -73,8 +74,6 @@ rzym_format = """<div style ="font-size:45px; text-align:center;"><span style ="
                 </div><div style="font-size:18px; text-align:left;"><span style="font-family: {};"{}</span</div>"""
 
 
-
-
 def get_font():
     bakerie_font = "Bakerie Rough Bold.otf"
     anta_font = "anta-regular.ttf"
@@ -86,16 +85,29 @@ def get_font():
     return anta, bakerie
 
 
-def make_button(nazwa, font, min_width=160, max_height=60, font_size=15):
-    btn = QPushButton(nazwa)
+def make_button(name, font, min_width=160, max_height=60, font_size=15, expand=True):
+    btn = QPushButton(name)
     if min_width != 0:
         btn.setMinimumWidth(min_width)
     if max_height != 0:
         btn.setMaximumHeight(max_height)
-    btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+    if expand:
+        btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
     btn.setFont(QFont(font, font_size))
 
     return btn
+
+
+def make_label(name, font, font_size, center=True, policy=True):
+    lbl = QLabel(name)
+    lbl.setWordWrap(True)
+    lbl.setFont(QFont(font, font_size))
+    if policy:
+        lbl.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+    if center:
+        lbl.setAlignment(QtCore.Qt.AlignCenter)
+
+    return lbl
 
 
 oven_mode = ["Termoobieg", "Góra-dół", "Combo"]
