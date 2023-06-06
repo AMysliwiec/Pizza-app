@@ -374,17 +374,21 @@ class InstructionsPopup(HelpWindow):
 
     def __init__(self):
         super().__init__()
-
-        label = QLabel("Tu bedą instrukcje jak używać apki")
-        label.setWordWrap(True)
         pagelayout = QVBoxLayout()
-        label.setFont(QFont(self.anta, 40))
-        label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        label.setAlignment(QtCore.Qt.AlignCenter)
+        label_naglowek = QLabel("Instrukcje")
+        label_naglowek.setFont(QFont(self.bakerie[0], 40))
+        pagelayout.addWidget(label_naglowek, alignment=Qt.AlignCenter)
+
+        label = QLabel(instructions)
+        label.setWordWrap(True)
+        label.setFont(QFont(self.anta, 15))
         pagelayout.addWidget(label)
 
+        empty_label = QLabel("")
+        empty_label.setFont(QFont(self.bakerie[0], 10))
+        pagelayout.addWidget(empty_label)
+
         btn = QPushButton("Menu główne")
-        btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         btn.setFont(QFont(self.bakerie[0], 20))
         btn.clicked.connect(self.close)
         btn.clicked.connect(self.open_main)
