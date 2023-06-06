@@ -335,14 +335,21 @@ class Instructions(HelpWindow):
         label_naglowek = make_label("Instrukcje", self.bakerie, 40)
         pagelayout.addWidget(label_naglowek, alignment=Qt.AlignCenter)
 
-        label = make_label(instructions, self.anta, 15, False, False)
+        empty_label1 = QLabel("")
+        empty_label1.setFont(QFont(self.bakerie, 10))
+        pagelayout.addWidget(empty_label1)
+
+        label = make_label(instructions, self.anta, 12, False, False)
         pagelayout.addWidget(label)
 
-        empty_label = QLabel("")
-        empty_label.setFont(QFont(self.bakerie, 10))
-        pagelayout.addWidget(empty_label)
+        label2 = make_label("Smacznego!", self.bakerie, 20, True, False)
+        pagelayout.addWidget(label2)
 
-        btn = make_button("Menu główne", self.bakerie, 0, 0, 20)
+        empty_label2 = QLabel("")
+        empty_label2.setFont(QFont(self.bakerie, 10))
+        pagelayout.addWidget(empty_label2)
+
+        btn = make_button("Menu główne", self.bakerie, 0, 0, 20, expand=False)
         btn.clicked.connect(self.close)
         btn.clicked.connect(self.open_main)
         pagelayout.addWidget(btn)

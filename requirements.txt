@@ -1,4 +1,4 @@
 PyQt5==5.15.9
 sympy==1.12
-matplotlib==3.5.0
+matplotlib==3.7.1
 qtmodern==0.2.0

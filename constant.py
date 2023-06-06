@@ -15,12 +15,12 @@ Składniki <br>
 ● 325g letniej wody <br>
 ● 10g świeżych drożdży <br>
 ● 5g soli <br> <br>
-Rozpuść drożdże w wodzie i pozostaw je na 10 minut. W dużej misce wymieszaj mąkę z solą a następnie wlej przygotowaną wcześniej wodę 
-z drożdżami. Połącz składniki drewnianą łyżką i rozpocznij wyrabianie ciasta. Jeśli masz taką możliwość możesz użyć robota planetarnego. 
-Wyrabiaj ciasto tak długo aż będzie ono elastyczne i gładkie. Tak  przygotowane ciasto pozostaw pod przykryciem do wyrośnięcia na 
-co najmniej pół godziny. Po tym czasie podziel je na 3 części i uformuj z nich kulki. Pozostaw je do wyrośnięcia pod czystą, zwilżoną ścierką 
-materiałową na następne pół godziny. Z gotowych kulek ciasta uformuj pizzę o bardzo cienkim spodzie. Brzegi pizzy mogą pozostać większe. 
-Dodaj ulubione dodatki i włóż pizzę do piekarnika."""
+Rozpuść drożdże w\u00A0wodzie i\u00A0pozostaw je na 10 minut. W\u00A0dużej misce wymieszaj mąkę z\u00A0solą a\u00A0następnie wlej przygotowaną wcześniej wodę 
+z\u00A0drożdżami. Połącz składniki drewnianą łyżką i\u00A0rozpocznij wyrabianie ciasta. Jeśli masz taką możliwość możesz użyć robota planetarnego. 
+Wyrabiaj ciasto tak długo aż będzie ono elastyczne i\u00A0gładkie. Tak przygotowane ciasto pozostaw pod przykryciem do wyrośnięcia na 
+co najmniej pół godziny. Po tym czasie podziel je na 3 części i\u00A0uformuj z\u00A0nich kulki. Pozostaw je do wyrośnięcia pod czystą, zwilżoną ścierką 
+materiałową na następne pół godziny. Z\u00A0gotowych kulek ciasta uformuj pizzę o\u00A0bardzo cienkim spodzie. Brzegi pizzy mogą pozostać większe. 
+Dodaj ulubione dodatki i\u00A0włóż pizzę do piekarnika."""
 
 american_recipe = """ <br>
 Składniki: <br>
@@ -30,12 +30,12 @@ Składniki: <br>
 ● 2 łyżeczki soli <br>
 ● 2 łyżeczki cukru <br>
 ● 7 g suchych drożdży instant <br> <br>
-W dużej misce wymieszaj mąkę, sól, cukier i drożdże. Do miski dodaj ciepłą wodę i olej
+W dużej misce wymieszaj mąkę, sól, cukier i\u00A0drożdże. Do miski dodaj ciepłą wodę i\u00A0olej
 roślinny. Mieszaj wszystkie składniki, aż powstanie elastyczne ciasto. Wyłóż je na lekko oprószoną
-mąką powierzchnię i zagniataj przez około 5-7 minut, aż będzie miękkie i elastyczne. Tak
-przygotowane ciasto umieść w dużej misce posmarowanej oliwą z oliwek, przykryj je ściereczką i
-pozostaw w ciepłym miejscu na około 1-2 godziny, aż podwoi swoją objętość. Przygotuj dużą okrągłą
-blachę do pizzy i posmaruj ją olejem roślinnym.
+mąką powierzchnię i\u00A0zagniataj przez około 5-7 minut, aż będzie miękkie i\u00A0elastyczne. Tak
+przygotowane ciasto umieść w\u00A0dużej misce posmarowanej oliwą z\u00A0oliwek, przykryj je ściereczką i\u00A0
+pozostaw w\u00A0ciepłym miejscu na około 1-2 godziny, aż podwoi swoją objętość. Przygotuj dużą okrągłą
+blachę do pizzy i\u00A0posmaruj ją olejem roślinnym.
 """
 
 roman_recipe = """<br>
@@ -46,23 +46,22 @@ Składniki: <br>
 ● 10g cukru <br>
 ● 5g soli <br>
 ● 2 łyżki oliwy z oliwek <br> <br>
-W dużej misce wymieszaj mąkę, sól i cukier. W drugiej misce rozpuść drożdże w letniej
-wodzie i pozostaw na kilka minut, aż zaczną się pienić. Dodaj rozpuszczone drożdże do miski z mąką i
-stopniowo mieszaj, aż składniki się połączą. Następnie dodaj oliwę z oliwek i kontynuuj mieszanie, aż
-powstanie elastyczne ciasto. Wyłóż ciasto na oprószoną mąką powierzchnię i zagniataj je przez około
-10 minut, aż będzie gładkie i elastyczne. Umieść ciasto w dużej misce posmarowanej oliwą z oliwek,
-przykryj je ściereczką i pozostaw w ciepłym miejscu na około 1-2 godziny, aż podwoi swoją objętość.
-Następnie na dużą, posmarowaną oliwą blachę wyłóż ciasto i rozciągnij je na równomierną grubość,
+W\u00A0dużej misce wymieszaj mąkę, sól i\u00A0cukier. W\u00A0drugiej misce rozpuść drożdże w\u00A0letniej
+wodzie i\u00A0pozostaw na kilka minut, aż zaczną się pienić. Dodaj rozpuszczone drożdże do miski z\u00A0mąką i\u00A0
+stopniowo mieszaj, aż składniki się połączą. Następnie dodaj oliwę z\u00A0oliwek i\u00A0kontynuuj mieszanie, aż
+powstanie elastyczne ciasto. Wyłóż ciasto na oprószoną mąką powierzchnię i\u00A0zagniataj je przez około
+10 minut, aż będzie gładkie i\u00A0elastyczne. Umieść ciasto w\u00A0dużej misce posmarowanej oliwą z\u00A0oliwek,
+przykryj je ściereczką i\u00A0pozostaw w\u00A0ciepłym miejscu na około 1-2 godziny, aż podwoi swoją objętość.
+Następnie na dużą, posmarowaną oliwą blachę wyłóż ciasto i\u00A0rozciągnij je na równomierną grubość,
 tworząc klasyczną pizzę rzymską.
 """
 
-instructions = """nkjfaaaaa aaaaaaaaaaaaaaaaa  aaaaaaaaaaaa aaaaaaaa aaaaaaaaaa aaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaaaaaaaaa
-aaaaaaaaaaa  aaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaa aaaaaaaaaaaaa aaaaaaaaaaaaaaaaa aaaaaaaaaaaa aaaaaaa aaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-aaaaaaaa aaaaaaaaaaa aaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaaaaaaaaaaa aaaaaaajfbdsf
-adaf s gnj jd jd gdjd gjs gdsg jbfjbsjfbsf fjkfghgb kjgnjdkb kjdnfjkn jkdngkjn ksdnjs nkjn jsgn sjgs jgsndjgkns jgsngkjsd 
-ngds n njn jdngnnjngjnfjgnj njnng fsdgjkb jhdfdbghb bjdbgjbhjbgjb kbdgjbvdk bkjbjfkjbd gkjsbdghsjb sbg sijg 
-b hjdbgv jbikfsnkjsfn s nsjfnsjkgnjvn sjkj bsjbdsf s  fjksdf  skjf s fsfskf sfsf sdfsf dskf sf"""
+instructions = """  Aplikacja ma na celu podanie użytkownikowi najbardziej optymalnego czasu pieczenia pizzy w\u00A0zależności od wprowadzonych parametrów.  \n
+    Do wyboru dostępne są pizza ameyrykańska, rzymska oraz neapolitańska. W\u00A0sekcji przepisy na każdą z\u00A0tych pizz podany jest sposób jej przyrządzania. \n
+    Do głównej funkcjonalności można przejść poprzez przycisk 'Wybór pizzy' z\u00A0menu głównego, a\u00A0także wybierając pożądany przepis. \n
+    Po wybraniu rodzaju pizzy należy ustawić również tryb i\u00A0temperaturę piekarnika, w\u00A0którym pizza będzie pieczona, a\u00A0w\u00A0przypadku
+pizzy neapolitańskiej również średnicę surowego ciasta. Następnie po kliknięciu przycisku 'Sprawdź' wyświetli się okno z\u00A0rekomendowanym czasem pieczenia.
+"""
 
 neapol_format = """<div style ="font-size:45px; text-align:center;"><span style ="font-family:{};">Pizza Neapolitańska
                 </span><br></div><div style="font-size:18px; text-align:left;"><span style="font-family: {};"{}</span
