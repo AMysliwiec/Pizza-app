@@ -62,12 +62,12 @@ Ingredients <br>
 ● 325g of lukewarm water  <br>
 ● 10g of fresh yeast  <br>
 ● 5g of salt <br> <br>
-Dissolve yeast in the water and let it sit for 10 minutes. In a large bowl, mix flour with salt, and then pour the 
-previously prepared yeast mixture. Combine the ingredients with a wooden spoon and start kneading the dough. If you have
- the opportunity, you can use a planetary robot. Knead the dough until it’s elastic and smooth. Leave the dough to rise 
- for at least half an hour. After this time, divide it into 3 parts and form into balls. Leave them to rise under a 
- clean, damp cloth for another half hour. From the dough balls, form a pizza with a very thin bottom. The edges of the 
- pizza can be left larger. Add your favourite toppings and put the pizza in the oven."""
+Dissolve yeast in the water and let it sit for 10 minutes. In a\u00A0large bowl, mix flour with salt, and then pour the 
+previously prepared yeast mixture. Combine the ingredients with a\u00A0wooden spoon and start kneading the dough. If you 
+have the opportunity, you can use a\u00A0planetary robot. Knead the dough until it’s elastic and smooth. Leave the dough 
+to rise for at least half an hour. After this time, divide it into 3 parts and form into balls. Leave them to rise under 
+a\u00A0 clean, damp cloth for another half hour. From the dough balls, form a\u00A0pizza with a\u00A0very thin bottom. 
+The edges of the pizza can be left larger. Add your favourite toppings and put the pizza in the oven."""
 
 american_recipe_eng = """ <br>
 Ingredients: <br>
@@ -77,11 +77,12 @@ Ingredients: <br>
 ● 2 teaspoons of salt  <br>
 ● 2 teaspoons of sugar  <br>
 ● 7g instant dry yeast <br> <br>
-In a large bowl, combine the flour, salt, sugar and yeast. Add warm water and vegetable oil to the bowl. Mix all 
-ingredients until an elastic dough forms. Put them on a lightly floured surface and knead for about 5-7 minutes until 
-soft and elastic. Put the dough in a large bowl greased with olive oil, cover it with a cloth and leave it in a warm 
-place for about 1-2 hours, until it doubles in size. Prepare a large round pizza sheet and grease it with vegetable oil.
- Put the dough on the baking sheet and spread it with your hands or a rolling pin so that the dough is approx 1 cm thick. 
+In a\u00A0large bowl, combine the flour, salt, sugar and yeast. Add warm water and vegetable oil to the bowl. Mix all 
+ingredients until an elastic dough forms. Put them on a\u00A0lightly floured surface and knead for about 5-7 minutes 
+until soft and elastic. Put the dough in a\u00A0large bowl greased with olive oil, cover it with a\u00A0cloth and leave
+it in a\u00A0warm place for about 1-2 hours, until it doubles in size. Prepare a\u00A0large round pizza sheet and grease 
+it with vegetable oil. Put the dough on the baking sheet and spread it with your hands or a\u00A0rolling pin so that 
+the dough is approx 1\u00A0cm thick. 
 """
 
 roman_recipe_eng = """<br>
@@ -92,12 +93,13 @@ Ingredients: <br>
 ● 10g of sugar <br>
 ● 5g of salt <br>
 ● 2 tablespoons of olive oil <br> <br>
-In a large bowl, mix flour, salt and sugar. In another bowl, dissolve yeast in lukewarm water and let it sit for a few 
-minutes until it starts to foam. Add the dissolved yeast to the bowl of flour and gradually mix until the ingredients 
-are combined. Then add the olive oil and continue mixing until an elastic dough forms. Put the dough on a floured 
-surface and knead it for about 10 minutes until it is smooth and elastic. Place the dough in a large bowl greased with 
-olive oil, cover with a cloth and leave in a warm place for about 1-2 hours until it doubles in size. Then, put the 
-dough on a large, oiled baking sheet and spread it to an even thickness, creating a classic Roman pizza.
+In a\u00A0large bowl, mix flour, salt and sugar. In another bowl, dissolve yeast in lukewarm water and let it sit for 
+a\u00A0few minutes until it starts to foam. Add the dissolved yeast to the bowl of flour and gradually mix until the 
+ingredients are combined. Then add the olive oil and continue mixing until an elastic dough forms. Put the dough 
+on a\u00A0floured surface and knead it for about 10 minutes until it is smooth and elastic. Place the dough in 
+a\u00A0large bowl greased with olive oil, cover with a\u00A0cloth and leave in a\u00A0warm place for about 1-2 hours 
+until it doubles in size. Then, put the dough on a\u00A0large, oiled baking sheet and spread it to an even thickness, 
+creating a\u00A0classic Roman pizza.
 """
 
 instructions_pl = """   Aplikacja ma na celu podanie użytkownikowi najbardziej 
