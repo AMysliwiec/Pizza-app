@@ -10,6 +10,7 @@ import sys
 from PyQt5.QtWidgets import QDesktopWidget
 from constant import *
 
+dict_lang = {}
 
 # https://stackoverflow.com/questions/52596386/slide-qstackedwidget-page slide pages
 class SlidingStackedWidget(QStackedWidget):
@@ -188,9 +189,9 @@ class HelpWindow(QMainWindow):
 
     def change_toggle(self):
         if self.toggle_button.isChecked():
-            self.toggle_button.setText("Góra-dół")
+            self.toggle_button.setText(dict_lang['up_down_mode'])
         else:
-            self.toggle_button.setText("Termoobieg")
+            self.toggle_button.setText(dict_lang['convection'])
 
     def updatelabeltemp(self, value):
         """Update label with oven temperature when user change the slider"""
@@ -213,9 +214,9 @@ class HelpWindow(QMainWindow):
         self.msg.setWindowTitle("")
         self.msg.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.msg.setStyleSheet(f"background-color: {back_color};")
-        self.msg.setText(f"Optymalny czas pieczenia pizzy to: \n                  {wynik}")
+        self.msg.setText(f"{dict_lang['retured_time']} \n                  {wynik}")
         self.msg.setFont(QFont(self.anta, 15))
-        back_button = QPushButton("Wróć")
+        back_button = QPushButton(dict_lang['go_back'])
         self.msg.addButton(back_button, QMessageBox.YesRole)
         self.msg.setStyleSheet(msg_style)
         self.msg.exec_()
@@ -260,10 +261,10 @@ class Recipes(HelpWindow):
         self.slidingStacked.addWidget(american_recipe_input)
         self.slidingStacked.addWidget(roman_recipe_input)
 
-        button_prev = make_button("Poprzednia", self.bakerie, 0, 0, 15, False)
+        button_prev = make_button(dict_lang["previous"], self.bakerie, 0, 0, 15, False)
         button_prev.clicked.connect(self.slidingStacked.slideInPrev)
 
-        button_next = make_button("Następna", self.bakerie, 0, 0, 15, False)
+        button_next = make_button(dict_lang["next"], self.bakerie, 0, 0, 15, False)
         button_next.clicked.connect(self.slidingStacked.slideInNext)
 
         hlay = QHBoxLayout()
@@ -277,14 +278,14 @@ class Recipes(HelpWindow):
         lay.addWidget(self.slidingStacked)
 
         sec_lay = QHBoxLayout()
-        button_main_func = make_button("Wybierz", self.bakerie, 150, 0, 15, False)
+        button_main_func = make_button(dict_lang["choose"], self.bakerie, 150, 0, 15, False)
         button_main_func.clicked.connect(self.close)
         button_main_func.clicked.connect(self.open_choice)
         sec_lay.addWidget(button_main_func)
         sec_lay.setAlignment(Qt.AlignCenter)
         lay.addLayout(sec_lay)
 
-        btn_main = make_button("Menu Główne", self.bakerie, 150, 0, 15, False)
+        btn_main = make_button(dict_lang["main_menu"], self.bakerie, 150, 0, 15, False)
         btn_main.clicked.connect(self.close)
         btn_main.clicked.connect(self.open_main)
         sec_lay.addWidget(btn_main)
@@ -301,20 +302,20 @@ class PizzaChoice(HelpWindow):
         super().__init__()
 
         pagelayout = QVBoxLayout()
-        label = make_label("Wybierz rodzaj pizzy", self.bakerie, 40)
+        label = make_label(dict_lang["choose_pizza_type"], self.bakerie, 40)
         pagelayout.addWidget(label)
 
-        btn_n = make_button("Neapolitańska", self.bakerie, 0, 0, font_size=20)
+        btn_n = make_button(dict_lang["neapolitan"], self.bakerie, 0, 0, font_size=20)
         btn_n.clicked.connect(self.neapolitan)
         btn_n.clicked.connect(self.close)
         pagelayout.addWidget(btn_n)
 
-        btn_a = make_button("Amerykańska", self.bakerie, 0, 0, font_size=20)
+        btn_a = make_button(dict_lang["american"], self.bakerie, 0, 0, font_size=20)
         btn_a.clicked.connect(self.american)
         btn_a.clicked.connect(self.close)
         pagelayout.addWidget(btn_a)
 
-        btn_r = make_button("Rzymska", self.bakerie, 0, 0, font_size=20)
+        btn_r = make_button(dict_lang["roman"], self.bakerie, 0, 0, font_size=20)
         btn_r.clicked.connect(self.roman)
         btn_r.clicked.connect(self.close)
         pagelayout.addWidget(btn_r)
@@ -332,7 +333,7 @@ class Instructions(HelpWindow):
     def __init__(self):
         super().__init__()
         pagelayout = QVBoxLayout()
-        label_naglowek = make_label("Instrukcje", self.bakerie, 40)
+        label_naglowek = make_label(dict_lang["instructions"], self.bakerie, 40)
         pagelayout.addWidget(label_naglowek, alignment=Qt.AlignCenter)
 
         empty_label1 = QLabel("")
@@ -349,7 +350,7 @@ class Instructions(HelpWindow):
         empty_label2.setFont(QFont(self.bakerie, 10))
         pagelayout.addWidget(empty_label2)
 
-        btn = make_button("Menu główne", self.bakerie, 0, 0, 20, expand=False)
+        btn = make_button(dict_lang["main_menu"], self.bakerie, 0, 0, 20, expand=False)
         btn.clicked.connect(self.close)
         btn.clicked.connect(self.open_main)
         pagelayout.addWidget(btn)
@@ -367,13 +368,13 @@ class Neapolitan(HelpWindow):
 
         pagelayout = QGridLayout()
 
-        lbl_n = make_label("Pizza Neapolitańśka", self.bakerie, 30)
+        lbl_n = make_label(dict_lang["neapolitan"], self.bakerie, 30)
         pagelayout.addWidget(lbl_n, 0, 0, 1, 3, alignment=Qt.AlignCenter)
 
         self.empty_label0 = QLabel("")
         pagelayout.addWidget(self.empty_label0, 2, 0)
 
-        lbl_mode = make_label("Tryb pieczenia", self.anta, 15, False, False)
+        lbl_mode = make_label(dict_lang["baking_mode"], self.anta, 15, False, False)
         pagelayout.addWidget(lbl_mode, 3, 0)
 
         self.cb = QComboBox()
@@ -385,7 +386,7 @@ class Neapolitan(HelpWindow):
         lbl_empty = QLabel("")
         pagelayout.addWidget(lbl_empty, 4, 0, 1, 1)
 
-        lbl_diameter = make_label("Średnica", self.anta, 15, False, False)
+        lbl_diameter = make_label(dict_lang["diameter"], self.anta, 15, False, False)
         pagelayout.addWidget(lbl_diameter, 5, 0)
 
         self.sld_diameter = QSlider(Qt.Orientation.Horizontal, self)
@@ -406,7 +407,7 @@ class Neapolitan(HelpWindow):
         lbl_empty2 = QLabel("")
         pagelayout.addWidget(lbl_empty2, 6, 0, 1, 1)
 
-        lbl_temp = make_label("Temperatura", self.anta, 15, False, False)
+        lbl_temp = make_label(dict_lang["temp"], self.anta, 15, False, False)
         pagelayout.addWidget(lbl_temp, 7, 0)
 
         self.sld_temp = QSlider(Qt.Orientation.Horizontal, self)
@@ -427,24 +428,24 @@ class Neapolitan(HelpWindow):
         empty_label1 = QLabel("")
         pagelayout.addWidget(empty_label1, 8, 0, 1, 3)
 
-        btn_estimate = make_button("Sprawdź", self.bakerie, font_size=20)
+        btn_estimate = make_button(dict_lang["check"], self.bakerie, font_size=20)
         btn_estimate.clicked.connect(lambda: self.estimate("n"))
         pagelayout.addWidget(btn_estimate, 9, 1, alignment=Qt.AlignCenter)
 
         empty_label3 = QLabel("")
         pagelayout.addWidget(empty_label3, 10, 0, 1, 3)
 
-        btn_recipes = make_button("Przepisy", self.bakerie)
+        btn_recipes = make_button(dict_lang["recipes"], self.bakerie)
         btn_recipes.clicked.connect(self.close)
         btn_recipes.clicked.connect(self.recipes_popup)
         pagelayout.addWidget(btn_recipes, 11, 0, alignment=Qt.AlignCenter)
 
-        btn_choice = make_button("Wybór Pizzy", self.bakerie)
+        btn_choice = make_button(dict_lang["pizza_choice"], self.bakerie)
         btn_choice.clicked.connect(self.choice_popup)
         btn_choice.clicked.connect(self.close)
         pagelayout.addWidget(btn_choice, 11, 1, alignment=Qt.AlignCenter)
 
-        btn_menu = make_button("Menu Główne", self.bakerie)
+        btn_menu = make_button(dict_lang["main_menu"], self.bakerie)
         btn_menu.clicked.connect(self.close)
         btn_menu.clicked.connect(self.open_main)
         pagelayout.addWidget(btn_menu, 11, 2, alignment=Qt.AlignCenter)
@@ -462,16 +463,16 @@ class Roman(HelpWindow):
 
         pagelayout = QGridLayout()
 
-        lbl_r = make_label("Pizza Rzymska", self.bakerie, 30)
+        lbl_r = make_label(dict_lang["roman_pizza"], self.bakerie, 30)
         pagelayout.addWidget(lbl_r, 1, 0, 1, 3, alignment=Qt.AlignCenter)
 
         self.empty_label0 = QLabel("")
         pagelayout.addWidget(self.empty_label0, 2, 0)
 
-        lbl_mode = make_label("Tryb pieczenia", self.anta, 15, False, False)
+        lbl_mode = make_label(dict_lang["baking_mode"], self.anta, 15, False, False)
         pagelayout.addWidget(lbl_mode, 3, 0)
 
-        self.toggle_button = QPushButton("Termoobieg", self)
+        self.toggle_button = QPushButton(dict_lang["convection"], self)
         self.toggle_button.setCheckable(True)
         self.toggle_button.setFont(QFont(self.anta, 12))
         self.toggle_button.clicked.connect(self.change_toggle)
@@ -480,7 +481,7 @@ class Roman(HelpWindow):
         lbl_empty = QLabel("")
         pagelayout.addWidget(lbl_empty, 4, 0, 1, 1)
 
-        lbl_temp = make_label("Maksymalna temperatura", self.anta, 15, False, False)
+        lbl_temp = make_label(dict_lang["temp"], self.anta, 15, False, False)
         pagelayout.addWidget(lbl_temp, 5, 0)
 
         self.sld_temp = QSlider(Qt.Orientation.Horizontal, self)
@@ -502,24 +503,24 @@ class Roman(HelpWindow):
         self.empty_label1 = QLabel("")
         pagelayout.addWidget(self.empty_label1, 6, 0, 1, 3)
 
-        btn_estimate = make_button("Sprawdź", self.bakerie, font_size=20)
+        btn_estimate = make_button(dict_lang["check"], self.bakerie, font_size=20)
         btn_estimate.clicked.connect(lambda: self.estimate("r"))
         pagelayout.addWidget(btn_estimate, 7, 1, alignment=Qt.AlignCenter)
 
         empty_label1 = QLabel("")
         pagelayout.addWidget(empty_label1, 8, 2, 1, 3)
 
-        btn_recipes = make_button("Przepisy", self.bakerie)
+        btn_recipes = make_button(dict_lang["recipes"], self.bakerie)
         btn_recipes.clicked.connect(self.close)
         btn_recipes.clicked.connect(self.recipes_popup)
         pagelayout.addWidget(btn_recipes, 9, 0, alignment=Qt.AlignCenter)
 
-        btn_choice = make_button("Wybór pizzy", self.bakerie)
+        btn_choice = make_button(dict_lang["pizza_choice"], self.bakerie)
         btn_choice.clicked.connect(self.choice_popup)
         btn_choice.clicked.connect(self.close)
         pagelayout.addWidget(btn_choice, 9, 1, alignment=Qt.AlignCenter)
 
-        btn_menu = make_button("Menu Główne", self.bakerie)
+        btn_menu = make_button(dict_lang["main_menu"], self.bakerie)
         btn_menu.clicked.connect(self.close)
         btn_menu.clicked.connect(self.open_main)
         pagelayout.addWidget(btn_menu, 9, 2, alignment=Qt.AlignCenter)
@@ -537,16 +538,16 @@ class American(HelpWindow):
 
         pagelayout = QGridLayout()
 
-        lbl_a = make_label("Pizza Amerykańska", self.bakerie, 30)
+        lbl_a = make_label(dict_lang["american_pizza"], self.bakerie, 30)
         pagelayout.addWidget(lbl_a, 1, 0, 1, 4, alignment=Qt.AlignCenter)
 
         self.empty_label0 = QLabel("")
         pagelayout.addWidget(self.empty_label0, 2, 0)
 
-        lbl_mode = make_label("Tryb pieczenia", self.anta, 15, False, False)
+        lbl_mode = make_label(dict_lang["baking_mode"], self.anta, 15, False, False)
         pagelayout.addWidget(lbl_mode, 3, 0)
 
-        self.toggle_button = QPushButton("Termoobieg", self)
+        self.toggle_button = QPushButton(dict_lang["convection"], self)
         self.toggle_button.setCheckable(True)
         self.toggle_button.setFont(QFont(self.anta, 12))
         self.toggle_button.clicked.connect(self.change_toggle)
@@ -555,7 +556,7 @@ class American(HelpWindow):
         lbl_empty = QLabel("")
         pagelayout.addWidget(lbl_empty, 4, 0, 1, 1)
 
-        lbl_temp = make_label("Maksymalna temperatura", self.anta, 15, False, False)
+        lbl_temp = make_label(dict_lang["temp"], self.anta, 15, False, False)
         pagelayout.addWidget(lbl_temp, 5, 0)
 
         self.sld_temp = QSlider(Qt.Orientation.Horizontal, self)
@@ -576,24 +577,24 @@ class American(HelpWindow):
         self.empty_label1 = QLabel("")
         pagelayout.addWidget(self.empty_label1, 6, 2, 1, 3)
 
-        btn_estimate = make_button("Sprawdź", self.bakerie, font_size=20)
+        btn_estimate = make_button(dict_lang["check"], self.bakerie, font_size=20)
         btn_estimate.clicked.connect(lambda: self.estimate("a"))
         pagelayout.addWidget(btn_estimate, 7, 1, alignment=Qt.AlignCenter)
 
         self.empty_label2 = QLabel("")
         pagelayout.addWidget(self.empty_label2, 8, 2, 1, 3)
 
-        btn_recipes = make_button("Przepisy", self.bakerie)
+        btn_recipes = make_button(dict_lang["recipes"], self.bakerie)
         btn_recipes.clicked.connect(self.close)
         btn_recipes.clicked.connect(self.recipes_popup)
         pagelayout.addWidget(btn_recipes, 9, 0, alignment=Qt.AlignCenter)
 
-        btn_choice = make_button("Wybór Pizzy", self.bakerie)
+        btn_choice = make_button(dict_lang["pizza_choice"], self.bakerie)
         btn_choice.clicked.connect(self.choice_popup)
         btn_choice.clicked.connect(self.close)
         pagelayout.addWidget(btn_choice, 9, 1, alignment=Qt.AlignCenter)
 
-        btn_menu = make_button("Menu Główne", self.bakerie)
+        btn_menu = make_button(dict_lang["main_menu"], self.bakerie)
         btn_menu.clicked.connect(self.close)
         btn_menu.clicked.connect(self.open_main)
         pagelayout.addWidget(btn_menu, 9, 2, alignment=Qt.AlignCenter)
@@ -612,20 +613,20 @@ class MainWindow(HelpWindow):
         super().__init__()
 
         pagelayout = QVBoxLayout()
-        label = make_label("Super Pizzowa Aplikacja", self.bakerie, 40)
+        label = make_label(dict_lang['title'], self.bakerie, 40)
         pagelayout.addWidget(label)
 
-        btn_recipe = make_button("Przepisy", self.bakerie, 0, 0, 20)
+        btn_recipe = make_button(dict_lang['recipes'], self.bakerie, 0, 0, 20)
         btn_recipe.clicked.connect(self.recipes_popup)
         btn_recipe.clicked.connect(self.close)
         pagelayout.addWidget(btn_recipe)
 
-        btn_choice = make_button("Wybór pizzy", self.bakerie, 0, 0, 20)
+        btn_choice = make_button(dict_lang['pizza_choice'], self.bakerie, 0, 0, 20)
         btn_choice.clicked.connect(self.choice_popup)
         btn_choice.clicked.connect(self.close)
         pagelayout.addWidget(btn_choice)
 
-        btn_how = make_button("Jak to działa?", self.bakerie, 0, 0, 20)
+        btn_how = make_button(dict_lang['how_it_works'], self.bakerie, 0, 0, 20)
         btn_how.clicked.connect(self.instructions_popup)
         btn_how.clicked.connect(self.close)
         pagelayout.addWidget(btn_how)
@@ -635,9 +636,96 @@ class MainWindow(HelpWindow):
         widget.setLayout(pagelayout)
 
 
+class ChooseLanguage(HelpWindow):
+    global dict_lang
+
+    def __init__(self):
+        super().__init__()
+
+        pagelayout = QVBoxLayout()
+
+        btn_polish = QPushButton('Polski')
+        btn_polish.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        btn_polish.setFont(QFont(self.bakerie, 20))
+        btn_polish.clicked.connect(self.pl)
+        btn_polish.clicked.connect(self.open_main)
+        btn_polish.clicked.connect(self.close)
+        pagelayout.addWidget(btn_polish)
+
+        btn_english = QPushButton('English')
+        btn_english.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        btn_english.setFont(QFont(self.bakerie, 20))
+        btn_english.clicked.connect(self.en)
+        btn_english.clicked.connect(self.open_main)
+        btn_english.clicked.connect(self.close)
+        pagelayout.addWidget(btn_english)
+
+        widget = QWidget()
+        self.setCentralWidget(widget)
+        widget.setLayout(pagelayout)
+
+    def pl(self):
+        global dict_lang
+        dict_lang = {
+            "up_down_mode":"Góra-dół",
+            "convection":"Termoobieg",
+            "returned_time":"Optymalny czas pieczenia pizzy to:",
+            "go_back": "Wróć",
+            "previous": "Poprzedni",
+            "next": "Następny",
+            "choose": "Wybierz",
+            "main_menu": "Menu Główne",
+            "choose_pizza_type" :"Wybierz rodzaj pizzy",
+            "neapolitan": "Neapolitańska",
+            "american": "Amerykańska",
+            "roman": "Rzymska",
+            "instructions": "Insrukcje",
+            "baking_mode": "Tryb pieczenia",
+            "diameter": "Średnica",
+            "temp": "Temperatura",
+            "check": "Sprawdź",
+            "recipes": "Przepisy",
+            "pizza_choice": "Wybór pizzy",
+            "roman_pizza" : "Pizza Rzymska",
+            "neapolitan_pizza" : "Pizza Neapolitańska",
+            "title":  "Super Pizzowa Aplikacja",
+            "american_pizza":  "Pizza Amerykańska",
+            "how_it_works": "Jak to działa?"
+}
+
+    def en(self):
+        global dict_lang
+        dict_lang = {
+            "up_down_mode": "Up-down",
+            "convection": "Convection",
+            "returned_time": "Optimal baking pizza time is:",
+            "go_back": "Back",
+            "previous": "Previous",
+            "next": "Next",
+            "choose":  "Choose",
+            "main_menu": "Main Menu",
+            "choose_pizza_type":  "Choose pizza type",
+            "neapolitan": "Neapolitan",
+            "american": "American",
+            "roman": "Roman",
+            "instructions": "Instructions",
+            "baking_mode":  "Baking mode",
+            "diameter":  "Diameter",
+            "temp": "Temeprature",
+            "check": "Check",
+            "recipes": "Recipes",
+            "pizza_choice": "Choice pizza type",
+            "roman_pizza": "Roman Pizza",
+            "neapolitan_pizza": "Neapolitan Pizza",
+            "title":  "Super Pizza App",
+            "american_pizza": "American Pizza",
+            "how_it_works": "How it works?"
+        }
+
+
 def main():
     App = QApplication(sys.argv)
-    window = MainWindow()
+    window = ChooseLanguage()
     qtmodern.styles.dark(App)
     mw = qtmodern.windows.ModernWindow(window)
     mw.show()
