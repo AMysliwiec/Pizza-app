@@ -100,17 +100,27 @@ olive oil, cover with a cloth and leave in a warm place for about 1-2 hours unti
 dough on a large, oiled baking sheet and spread it to an even thickness, creating a classic Roman pizza.
 """
 
-instructions_pl = """   Aplikacja ma na celu podanie użytkownikowi najbardziej optymalnego czasu pieczenia pizzy w\u00A0zależności od wprowadzonych parametrów.  \n
-    Do wyboru dostępne są pizza amerykańska, rzymska oraz neapolitańska. W\u00A0sekcji 'Przepisy' na każdą z\u00A0tych pizz podany jest sposób jej przyrządzania. \n
-    Do głównej funkcjonalności można przejść poprzez przycisk 'Wybór pizzy' z\u00A0menu głównego, a\u00A0także wybierając pożądany przepis. \n
-    Po wybraniu rodzaju pizzy należy ustawić również tryb i\u00A0temperaturę piekarnika, w\u00A0którym pizza będzie pieczona, a\u00A0w\u00A0przypadku pizzy neapolitańskiej również średnicę surowego ciasta. Następnie po kliknięciu przycisku 'Sprawdź' wyświetli się okno z\u00A0rekomendowanym czasem pieczenia.
+instructions_pl = """   Aplikacja ma na celu podanie użytkownikowi najbardziej 
+optymalnego czasu pieczenia pizzy w\u00A0zależności od wprowadzonych parametrów.  \n
+    Do wyboru dostępne są pizza amerykańska, rzymska oraz neapolitańska. W\u00A0sekcji 'Przepisy' na każdą z\u00A0tych 
+pizz podany jest sposób jej przyrządzania. \n
+    Do głównej funkcjonalności można przejść poprzez 
+przycisk 'Wybór pizzy' z\u00A0menu głównego, a\u00A0także wybierając pożądany przepis. \n
+    Po wybraniu rodzaju pizzy należy ustawić również tryb 
+i\u00A0temperaturę piekarnika, w\u00A0którym pizza będzie pieczona, 
+a\u00A0w\u00A0przypadku pizzy neapolitańskiej również średnicę 
+surowego ciasta. Następnie po kliknięciu przycisku 'Sprawdź' wyświetli się okno z\u00A0rekomendowanym czasem pieczenia.
 """
 
-instructions_en = """   The app's main goal is to return the most optimal baking time depending on various pizza parameters entered by the user. \n
-    Types of pizza that are available to choose from are Neapolitan, Roman and American. In section 'Recipes' there is a\u00A0tutorial on how to prepare each one of them. \n
-    Main functionality can be entered after pressing 'Choice of pizza' button from the main menu, but also after clicking on desired recipe. \n
-After selecting the desired type of pizza, the mode of the used oven and its temperature must also be set. In case of neapolitan pizza, there also has to be set the desired 
-diameter of the pizza. Then, after clicking the 'Check' button, a window with recommended baking time will appear.
+instructions_en = """   The app's main goal is to return the most optimal baking 
+time depending on various pizza parameters entered by the user. \n
+    Types of pizza that are available to choose from are Neapolitan, Roman and American. In section 'Recipes' there 
+is a\u00A0tutorial on how to prepare each one of them. \n
+    Main functionality can be entered after pressing 'Choice 
+of pizza' button from the main menu, but also after  clicking on desired recipe. \n
+    After selecting the desired type of pizza, the mode of the used oven and its temperature must also be set. In case of 
+neapolitan pizza, there also has to be set the desired diameter of the pizza. Then, after clicking the 'Check' 
+button, a window with recommended baking time will appear.
 """
 
 neapol_format_pl = """<div style ="font-size:45px; text-align:center;"><span style ="font-family:{};">Pizza Neapolitańska
