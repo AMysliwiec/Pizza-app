@@ -454,7 +454,7 @@ class MainNeapol(HelpWindow):
 
         btn_licz = make_button("Sprawdź", self.bakerie, font_size=20)
         btn_licz.clicked.connect(self.policz)
-        pagelayout.addWidget(btn_licz, 9, 0, 1, 3, alignment=Qt.AlignCenter)
+        pagelayout.addWidget(btn_licz, 9, 1, alignment=Qt.AlignCenter)
 
         empty_label3 = QLabel("")
         pagelayout.addWidget(empty_label3, 10, 0, 1, 3)

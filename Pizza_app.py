@@ -136,7 +136,6 @@ class HelpWindow(QMainWindow):
         self.anta = get_font()[0][0]
         self.bakerie = get_font()[1]
 
-
     def recipes_popup(self):
         self.w = RecipesPopup()
         self.mw = qtmodern.windows.ModernWindow(self.w)
@@ -184,7 +183,6 @@ class HelpWindow(QMainWindow):
         self.mw.show()
 
     def policz(self, pizza_type):
-
         temp = int(self.sld_temp.value() * 5)
         if pizza_type in ["r", "a"]:
             tryb = self.toggle_button.text()
@@ -475,7 +473,7 @@ class MainNeapol(HelpWindow):
 
         btn_licz = make_button("Sprawdź", self.bakerie, font_size=20)
         btn_licz.clicked.connect(lambda: self.policz("n"))
-        pagelayout.addWidget(btn_licz, 9, 0, 1, 3, alignment=Qt.AlignCenter)
+        pagelayout.addWidget(btn_licz, 9, 1, alignment=Qt.AlignCenter)
 
         empty_label3 = QLabel("")
         pagelayout.addWidget(empty_label3, 10, 0, 1, 3)
@@ -580,7 +578,6 @@ class MainRzym(HelpWindow):
         central_widget.setLayout(pagelayout)
 
 
-
 class MainAmeryka(HelpWindow):
     """Create window for american pizza with main functionality."""
 
@@ -658,7 +655,6 @@ class MainAmeryka(HelpWindow):
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         central_widget.setLayout(pagelayout)
-
 
 
 class MainWindow(HelpWindow):
