@@ -6,6 +6,9 @@
 This applicaton is a part of bigger study project about pizza baking optimalization and based on self experiments, physical laws and results of conducted survey. 
 Its main purpose is to return the most optimal baking time based on given information such as maximum oven temperature, diameter of dough, type of pizza or owned cooking mode. 
 
+![main menu](images/screen_main.png)
+![naepolitan](images/neapolitan.png)
+
 ### Technologies
 - **Python** - Programming language of whole project (version 3.9 or bigger recommended)
 - **PyQt5** - library for creating GUI
