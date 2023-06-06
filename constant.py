@@ -109,8 +109,6 @@ def make_label(name, font, font_size, center=True, policy=True):
     return lbl
 
 
-oven_mode = ["Termoobieg", "Góra-dół", "Combo"]
-
 eh = """
 /* QSlider --------------------------------------  */
 QSlider::groove:horizontal {
@@ -185,15 +183,70 @@ msg_style = """
     }
         """
 
+pol_lang = {
+            "up_down_mode": "Góra-dół",
+            "convection": "Termoobieg",
+            "returned_time": "Optymalny czas pieczenia pizzy to:",
+            "go_back": "Wróć",
+            "previous": "Poprzedni",
+            "next": "Następny",
+            "choose": "Wybierz",
+            "main_menu": "Menu Główne",
+            "choose_pizza_type": "Wybierz rodzaj pizzy",
+            "neapolitan": "Neapolitańska",
+            "american": "Amerykańska",
+            "roman": "Rzymska",
+            "instructions": "Insrukcje",
+            "baking_mode": "Tryb pieczenia",
+            "diameter": "Średnica",
+            "temp": "Temperatura",
+            "check": "Sprawdź",
+            "recipes": "Przepisy",
+            "pizza_choice": "Wybór pizzy",
+            "roman_pizza": "Pizza Rzymska",
+            "neapolitan_pizza": "Pizza Neapolitańska",
+            "title":  "Super Pizzowa Aplikacja",
+            "american_pizza":  "Pizza Amerykańska",
+            "how_it_works": "Jak to działa?",
+            "oven_mode": ["Termoobieg", "Góra-dół", "Combo"]
+}
+
+eng_lang = {
+            "up_down_mode": "Up-down",
+            "convection": "Convection",
+            "returned_time": "Optimal baking pizza time is:",
+            "go_back": "Back",
+            "previous": "Previous",
+            "next": "Next",
+            "choose":  "Choose",
+            "main_menu": "Main Menu",
+            "choose_pizza_type":  "Choose pizza type",
+            "neapolitan": "Neapolitan",
+            "american": "American",
+            "roman": "Roman",
+            "instructions": "Instructions",
+            "baking_mode":  "Baking mode",
+            "diameter":  "Diameter",
+            "temp": "Temeprature",
+            "check": "Check",
+            "recipes": "Recipes",
+            "pizza_choice": "Choice pizza type",
+            "roman_pizza": "Roman Pizza",
+            "neapolitan_pizza": "Neapolitan Pizza",
+            "title":  "Super Pizza App",
+            "american_pizza": "American Pizza",
+            "how_it_works": "How it works?",
+            "oven_mode": ["Convection", "Up-down", "Combo"]
+        }
 
 # ------------------------------------------- FUNKCJA -----------------------------------------------
 
-def pizza(T_1, d, tryb, pizza):
+def pizza(T_1, d, mode, pizza):
     """
-    T_1 - Temperatura
-    d - średnica pizzy
-    tryb
-    pizza- rodzaj
+    T_1 - Temperaturre
+    d - diameter
+    mode
+    pizza type
     """
 
     T_1 += 273
@@ -209,9 +262,9 @@ def pizza(T_1, d, tryb, pizza):
 
     if pizza == "n":
         tau = tauu / 1939
-        if tryb == "Termoobieg":
+        if mode == "Termoobieg" or mode == "Convection":
             tau = tau
-        elif tryb == "Combo":
+        elif mode == "Combo":
             tau *= 0.9
         else:
             tau *= 1.4264
@@ -222,12 +275,12 @@ def pizza(T_1, d, tryb, pizza):
         else:
             tau = tauu / 1666
 
-        if tryb == "Termoobieg":
+        if mode == "Termoobieg" or mode == "Convection":
             tau = tau
         else:
             tau *= 1.27
 
     frac, whole = math.modf(tau)
-    sekundy = round(frac * 60)
-    result = f"{int(whole)}min {sekundy}sek"
+    seconds = round(frac * 60)
+    result = f"{int(whole)}min {seconds}sec"
     return result

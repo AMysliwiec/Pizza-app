@@ -203,12 +203,15 @@ class HelpWindow(QMainWindow):
 
     def estimate(self, pizza_type):
         temp = int(self.sld_temp.value() * 5)
+        print(temp)
         if pizza_type in ["r", "a"]:
             tryb = self.toggle_button.text()
             wynik = pizza(temp, 30, tryb, pizza_type)
         elif pizza_type == "n":
             d = self.sld_diameter.value()
+            print(d)
             tryb = self.cb.currentText()
+            print(tryb)
             wynik = pizza(temp, d, tryb, "n")
         self.msg = QMessageBox()
         self.msg.setWindowTitle("")
@@ -378,7 +381,7 @@ class Neapolitan(HelpWindow):
         pagelayout.addWidget(lbl_mode, 3, 0)
 
         self.cb = QComboBox()
-        self.cb.addItems(oven_mode)
+        self.cb.addItems(dict_lang["oven_mode"])
         self.cb.setFont(QFont(self.anta, 12))
         self.cb.setStyleSheet(f"selection-background-color: {select_color};")
         pagelayout.addWidget(self.cb, 3, 1, alignment=Qt.AlignCenter)
@@ -644,17 +647,13 @@ class ChooseLanguage(HelpWindow):
 
         pagelayout = QVBoxLayout()
 
-        btn_polish = QPushButton('Polski')
-        btn_polish.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        btn_polish.setFont(QFont(self.bakerie, 20))
+        btn_polish = make_button("Polish", self.bakerie, 0, 0, 20)
         btn_polish.clicked.connect(self.pl)
         btn_polish.clicked.connect(self.open_main)
         btn_polish.clicked.connect(self.close)
         pagelayout.addWidget(btn_polish)
 
-        btn_english = QPushButton('English')
-        btn_english.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        btn_english.setFont(QFont(self.bakerie, 20))
+        btn_english = make_button("English", self.bakerie, 0, 0, 20)
         btn_english.clicked.connect(self.en)
         btn_english.clicked.connect(self.open_main)
         btn_english.clicked.connect(self.close)
@@ -666,61 +665,11 @@ class ChooseLanguage(HelpWindow):
 
     def pl(self):
         global dict_lang
-        dict_lang = {
-            "up_down_mode":"Góra-dół",
-            "convection":"Termoobieg",
-            "returned_time":"Optymalny czas pieczenia pizzy to:",
-            "go_back": "Wróć",
-            "previous": "Poprzedni",
-            "next": "Następny",
-            "choose": "Wybierz",
-            "main_menu": "Menu Główne",
-            "choose_pizza_type" :"Wybierz rodzaj pizzy",
-            "neapolitan": "Neapolitańska",
-            "american": "Amerykańska",
-            "roman": "Rzymska",
-            "instructions": "Insrukcje",
-            "baking_mode": "Tryb pieczenia",
-            "diameter": "Średnica",
-            "temp": "Temperatura",
-            "check": "Sprawdź",
-            "recipes": "Przepisy",
-            "pizza_choice": "Wybór pizzy",
-            "roman_pizza" : "Pizza Rzymska",
-            "neapolitan_pizza" : "Pizza Neapolitańska",
-            "title":  "Super Pizzowa Aplikacja",
-            "american_pizza":  "Pizza Amerykańska",
-            "how_it_works": "Jak to działa?"
-}
+        dict_lang = pol_lang
 
     def en(self):
         global dict_lang
-        dict_lang = {
-            "up_down_mode": "Up-down",
-            "convection": "Convection",
-            "returned_time": "Optimal baking pizza time is:",
-            "go_back": "Back",
-            "previous": "Previous",
-            "next": "Next",
-            "choose":  "Choose",
-            "main_menu": "Main Menu",
-            "choose_pizza_type":  "Choose pizza type",
-            "neapolitan": "Neapolitan",
-            "american": "American",
-            "roman": "Roman",
-            "instructions": "Instructions",
-            "baking_mode":  "Baking mode",
-            "diameter":  "Diameter",
-            "temp": "Temeprature",
-            "check": "Check",
-            "recipes": "Recipes",
-            "pizza_choice": "Choice pizza type",
-            "roman_pizza": "Roman Pizza",
-            "neapolitan_pizza": "Neapolitan Pizza",
-            "title":  "Super Pizza App",
-            "american_pizza": "American Pizza",
-            "how_it_works": "How it works?"
-        }
+        dict_lang = eng_lang
 
 
 def main():
