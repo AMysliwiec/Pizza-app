@@ -1,5 +1,4 @@
 from PyQt5.QtWidgets import *
-from PyQt5 import QtCore
 from PyQt5.QtWidgets import QApplication, QMessageBox, QMainWindow, QWidget, QGridLayout, QLabel
 from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtCore import Qt
@@ -22,7 +21,7 @@ class SlidingStackedWidget(QStackedWidget):
     def __init__(self, parent=None):
         super(SlidingStackedWidget, self).__init__(parent)
 
-        self.m_direction = QtCore.Qt.Horizontal
+        self.m_direction = Qt.Horizontal
         self.m_speed = 500
         self.m_animationtype = QtCore.QEasingCurve.OutCubic
         self.m_now = 0
@@ -78,7 +77,7 @@ class SlidingStackedWidget(QStackedWidget):
         offsetx, offsety = self.frameRect().width(), self.frameRect().height()
         self.widget(_next).setGeometry(self.frameRect())
 
-        if not self.m_direction == QtCore.Qt.Horizontal:
+        if not self.m_direction == Qt.Horizontal:
             if _now < _next:
                 offsetx, offsety = 0, -offsety
             else:
@@ -230,7 +229,7 @@ class HelpWindow(QMainWindow):
         Function pizza() is in constant.py file. Calculations are presented in this function.
         :param pizza_type: 'n' - neapolitan, 'a' - american, 'r' - roman
         """
-        temp = int(self.sld_temp.value() * 5)
+        temp, time = int(self.sld_temp.value() * 5), 1
         if pizza_type in ["r", "a"]:
             mode = self.toggle_button.text()
             time = pizza(temp, 30, mode, pizza_type)
@@ -241,7 +240,7 @@ class HelpWindow(QMainWindow):
 
         self.msg = QMessageBox()
         self.msg.setWindowTitle("")
-        self.msg.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.msg.setWindowFlags(Qt.FramelessWindowHint)
         self.msg.setStyleSheet(f"background-color: {back_color};")
         self.msg.setText(f"{dict_lang['returned_time']} \n                  {time}")
         self.msg.setFont(QFont(self.anta, 15))
@@ -273,6 +272,15 @@ class HelpWindow(QMainWindow):
         self.w = American()
         self.mw = qtmodern.windows.ModernWindow(self.w)
         self.mw.show()
+
+    def display_widgets(self, layout):
+        """
+        Shortcut for making central Widget, adding to the layout.
+        Useful only when there's one layout in class.
+        """
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+        central_widget.setLayout(layout)
 
 
 class Recipes(HelpWindow):
@@ -363,9 +371,7 @@ class PizzaChoice(HelpWindow):
         btn_language.clicked.connect(self.close)
         pagelayout.addWidget(btn_language, alignment=Qt.AlignCenter)
 
-        central_widget = QWidget()
-        self.setCentralWidget(central_widget)
-        central_widget.setLayout(pagelayout)
+        self.display_widgets(pagelayout)
 
 
 class Instructions(HelpWindow):
@@ -378,8 +384,8 @@ class Instructions(HelpWindow):
         pagelayout = QVBoxLayout()
 
         instruction_input = QLabel(instruction_format.format(self.bakerie, dict_lang["instructions"],
-                                                             self.anta, dict_lang["instructions_content"], self.bakerie,
-                                                             dict_lang["enjoy_your_meal"]))
+                                                             self.anta, dict_lang["instructions_content"],
+                                                             self.bakerie, dict_lang["enjoy_your_meal"]))
         instruction_input.setWordWrap(True)
         pagelayout.addWidget(instruction_input)
 
@@ -388,9 +394,7 @@ class Instructions(HelpWindow):
         btn.clicked.connect(self.open_main)
         pagelayout.addWidget(btn)
 
-        central_widget = QWidget()
-        self.setCentralWidget(central_widget)
-        central_widget.setLayout(pagelayout)
+        self.display_widgets(pagelayout)
 
 
 class Neapolitan(HelpWindow):
@@ -419,10 +423,7 @@ class Neapolitan(HelpWindow):
         pagelayout.addWidget(lbl_diameter, 4, 0)
 
         self.sld_diameter = QSlider(Qt.Orientation.Horizontal, self)
-        self.sld_diameter.setRange(20, 40)
-        self.sld_diameter.setPageStep(1)
-        self.sld_diameter.setSliderPosition(30)
-        self.sld_diameter.setStyleSheet(size_bar)
+        self.sld_diameter = set_slider(self.sld_diameter, 20, 40, 1, 30, size_bar)
         self.sld_diameter.valueChanged.connect(self.updatelabelstr)
         pagelayout.addWidget(self.sld_diameter, 4, 1)
 
@@ -437,10 +438,7 @@ class Neapolitan(HelpWindow):
         pagelayout.addWidget(lbl_temp, 6, 0)
 
         self.sld_temp = QSlider(Qt.Orientation.Horizontal, self)
-        self.sld_temp.setRange(36, 56)
-        self.sld_temp.setSingleStep(1)
-        self.sld_temp.setSliderPosition(44)
-        self.sld_temp.setStyleSheet(temp_bar)
+        self.sld_temp = set_slider(self.sld_temp, 36, 56, 1, 44, temp_bar)
         self.sld_temp.valueChanged.connect(self.updatelabeltemp)
         pagelayout.addWidget(self.sld_temp, 6, 1)
 
@@ -471,10 +469,7 @@ class Neapolitan(HelpWindow):
         pagelayout.addWidget(btn_menu, 10, 2, alignment=Qt.AlignCenter)
 
         add_empty_labels([1, 3, 5, 7, 9], pagelayout)
-
-        central_widget = QWidget()
-        self.setCentralWidget(central_widget)
-        central_widget.setLayout(pagelayout)
+        self.display_widgets(pagelayout)
 
 
 class Roman(HelpWindow):
@@ -503,10 +498,7 @@ class Roman(HelpWindow):
         pagelayout.addWidget(lbl_temp, 5, 0)
 
         self.sld_temp = QSlider(Qt.Orientation.Horizontal, self)
-        self.sld_temp.setRange(36, 56)
-        self.sld_temp.setSingleStep(1)
-        self.sld_temp.setSliderPosition(44)
-        self.sld_temp.setStyleSheet(temp_bar)
+        self.sld_temp = set_slider(self.sld_temp, 36, 56, 1, 44, temp_bar)
         self.sld_temp.valueChanged.connect(self.updatelabeltemp)
         self.sld_temp.resize(self.sld_temp.sizeHint())
         pagelayout.addWidget(self.sld_temp, 5, 1)
@@ -538,10 +530,7 @@ class Roman(HelpWindow):
         pagelayout.addWidget(btn_menu, 9, 2, alignment=Qt.AlignCenter)
 
         add_empty_labels([2, 4, 6, 8], pagelayout)
-
-        central_widget = QWidget()
-        self.setCentralWidget(central_widget)
-        central_widget.setLayout(pagelayout)
+        self.display_widgets(pagelayout)
 
 
 class American(HelpWindow):
@@ -570,10 +559,7 @@ class American(HelpWindow):
         pagelayout.addWidget(lbl_temp, 5, 0)
 
         self.sld_temp = QSlider(Qt.Orientation.Horizontal, self)
-        self.sld_temp.setRange(36, 56)
-        self.sld_temp.setSingleStep(1)
-        self.sld_temp.setSliderPosition(44)
-        self.sld_temp.setStyleSheet(temp_bar)
+        self.sld_temp = set_slider(self.sld_temp, 36, 56, 1, 44, temp_bar)
         self.sld_temp.valueChanged.connect(self.updatelabeltemp)
         pagelayout.addWidget(self.sld_temp, 5, 1)
 
@@ -604,10 +590,7 @@ class American(HelpWindow):
         pagelayout.addWidget(btn_menu, 9, 2, alignment=Qt.AlignCenter)
 
         add_empty_labels([2, 4, 6, 8], pagelayout)
-
-        central_widget = QWidget()
-        self.setCentralWidget(central_widget)
-        central_widget.setLayout(pagelayout)
+        self.display_widgets(pagelayout)
 
 
 class MainWindow(HelpWindow):
@@ -641,10 +624,7 @@ class MainWindow(HelpWindow):
         btn_language.clicked.connect(self.language_popup)
         btn_language.clicked.connect(self.close)
         pagelayout.addWidget(btn_language, alignment=Qt.AlignCenter)
-
-        widget = QWidget()
-        self.setCentralWidget(widget)
-        widget.setLayout(pagelayout)
+        self.display_widgets(pagelayout)
 
 
 class ChooseLanguage(HelpWindow):
@@ -672,10 +652,7 @@ class ChooseLanguage(HelpWindow):
         btn_english.clicked.connect(self.open_main)
         btn_english.clicked.connect(self.close)
         pagelayout.addWidget(btn_english)
-
-        widget = QWidget()
-        self.setCentralWidget(widget)
-        widget.setLayout(pagelayout)
+        self.display_widgets(pagelayout)
 
     def pl(self):
         """ Change to Polish """

@@ -52,6 +52,14 @@ def add_empty_labels(rows, layout):
         layout.addWidget(empty_label, row, 0)
 
 
+def set_slider(slider, min_range, max_range, page_step, pos, style):
+    slider.setRange(min_range, max_range)
+    slider.setPageStep(page_step)
+    slider.setSliderPosition(pos)
+    slider.setStyleSheet(style)
+
+    return slider
+
 # ------------------------------------------- FUNCTION OF PIZZA -----------------------------------------------
 
 def pizza(T_1, d, mode, pizza):
