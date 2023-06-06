@@ -208,15 +208,12 @@ class HelpWindow(QMainWindow):
 
     def estimate(self, pizza_type):
         temp = int(self.sld_temp.value() * 5)
-        print(temp)
         if pizza_type in ["r", "a"]:
             tryb = self.toggle_button.text()
             wynik = pizza(temp, 30, tryb, pizza_type)
         elif pizza_type == "n":
             d = self.sld_diameter.value()
-            print(d)
             tryb = self.cb.currentText()
-            print(tryb)
             wynik = pizza(temp, d, tryb, "n")
         self.msg = QMessageBox()
         self.msg.setWindowTitle("")
@@ -348,10 +345,10 @@ class Instructions(HelpWindow):
         empty_label1.setFont(QFont(self.bakerie, 10))
         pagelayout.addWidget(empty_label1)
 
-        label = make_label(instructions, self.anta, 12, False, False)
+        label = make_label(dict_lang["instructions_content"], self.anta, 12, False, False)
         pagelayout.addWidget(label)
 
-        label2 = make_label("Smacznego!", self.bakerie, 20, True, False)
+        label2 = make_label(dict_lang["enjoy_your_meal"], self.bakerie, 20, True, False)
         pagelayout.addWidget(label2)
 
         empty_label2 = QLabel("")
@@ -400,8 +397,8 @@ class Neapolitan(HelpWindow):
         self.sld_diameter = QSlider(Qt.Orientation.Horizontal, self)
         self.sld_diameter.setRange(20, 40)
         self.sld_diameter.setPageStep(1)
-        self.sld_diameter.setStyleSheet(size_bar)
         self.sld_diameter.setSliderPosition(30)
+        self.sld_diameter.setStyleSheet(size_bar)
         self.sld_diameter.valueChanged.connect(self.updatelabelstr)
         pagelayout.addWidget(self.sld_diameter, 5, 1)
 
