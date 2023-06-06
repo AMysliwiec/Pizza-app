@@ -55,6 +55,14 @@ Następnie na dużą, posmarowaną oliwą blachę wyłóż ciasto i rozciągnij 
 tworząc klasyczną pizzę rzymską.
 """
 
+instructions = """nkjfaaaaa aaaaaaaaaaaaaaaaa  aaaaaaaaaaaa aaaaaaaa aaaaaaaaaa aaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaaaaaaaaa
+aaaaaaaaaaa  aaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaa aaaaaaaaaaaaa aaaaaaaaaaaaaaaaa aaaaaaaaaaaa aaaaaaa aaaaaaaaaaaaa aaaaaaaaaaaaaaaa
+aaaaaaaa aaaaaaaaaaa aaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaaaaaaaaaaa aaaaaaajfbdsf
+adaf s gnj jd jd gdjd gjs gdsg jbfjbsjfbsf fjkfghgb kjgnjdkb kjdnfjkn jkdngkjn ksdnjs nkjn jsgn sjgs jgsndjgkns jgsngkjsd 
+ngds n njn jdngnnjngjnfjgnj njnng fsdgjkb jhdfdbghb bjdbgjbhjbgjb kbdgjbvdk bkjbjfkjbd gkjsbdghsjb sbg sijg 
+b hjdbgv jbikfsnkjsfn s nsjfnsjkgnjvn sjkj bsjbdsf s  fjksdf  skjf s fsfskf sfsf sdfsf dskf sf"""
+
 neapol_format = """<div style ="font-size:45px; text-align:center;"><span style ="font-family:{};">Pizza Neapolitańska
                 </span><br></div><div style="font-size:18px; text-align:left;"><span style="font-family: {};"{}</span
                 </div>"""
@@ -63,6 +71,8 @@ ameryka_format = """<div style ="font-size:45px; text-align:center;"><span style
                 </div>"""
 rzym_format = """<div style ="font-size:45px; text-align:center;"><span style ="font-family:{};">Pizza Rzymska </span> 
                 </div><div style="font-size:18px; text-align:left;"><span style="font-family: {};"{}</span</div>"""
+
+
 
 
 def get_font():
