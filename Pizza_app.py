@@ -654,15 +654,15 @@ class ChooseLanguage(HelpWindow):
         pagelayout.addWidget(btn_english)
         self.display_widgets(pagelayout)
 
-    def pl(self):
+    @staticmethod
+    def pl():
         """ Change to Polish """
-        global dict_lang
-        dict_lang = pol_lang
+        dict_lang.update(pol_lang)
 
-    def en(self):
+    @staticmethod
+    def en():
         """ Change to English"""
-        global dict_lang
-        dict_lang = eng_lang
+        dict_lang.update(eng_lang)
 
 
 def main():
